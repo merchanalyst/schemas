@@ -1,4 +1,3 @@
----- datamarts.lineitems (TABLE)
 COLUMN_NAME    | DATA_TYPE    | PK  | NULLABLE | DEFAULT | AUTOINCREMENT | COMPUTED | REMARKS | POSITION
 ---------------+--------------+-----+----------+---------+---------------+----------+---------+---------
 combinedliid   | varchar(90)  | YES | NO       |         | NO            | NO       |         |        1
