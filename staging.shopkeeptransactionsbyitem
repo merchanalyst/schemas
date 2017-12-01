@@ -1,0 +1,27 @@
+---- staging.shopkeeptransactionsbyitem (TABLE)
+COLUMN_NAME        | DATA_TYPE    | PK | NULLABLE | DEFAULT | AUTOINCREMENT | COMPUTED | REMARKS | POSITION
+-------------------+--------------+----+----------+---------+---------------+----------+---------+---------
+id                 | bigint       | NO | YES      |         | NO            | NO       |         |        1
+"store number"     | varchar(10)  | NO | YES      |         | NO            | NO       |         |        2
+"transaction id"   | varchar(50)  | NO | YES      |         | NO            | NO       |         |        3
+"transaction type" | varchar(256) | NO | YES      |         | NO            | NO       |         |        4
+"store code"       | varchar(50)  | NO | YES      |         | NO            | NO       |         |        5
+"item description" | varchar(256) | NO | YES      |         | NO            | NO       |         |        6
+category           | varchar(50)  | NO | YES      |         | NO            | NO       |         |        7
+department         | varchar(50)  | NO | YES      |         | NO            | NO       |         |        8
+supplier           | varchar(50)  | NO | YES      |         | NO            | NO       |         |        9
+"supplier code"    | varchar(50)  | NO | YES      |         | NO            | NO       |         |       10
+cost               | float4       | NO | YES      |         | NO            | NO       |         |       11
+price              | float4       | NO | YES      |         | NO            | NO       |         |       12
+quantity           | integer      | NO | YES      |         | NO            | NO       |         |       13
+modifiers          | float4       | NO | YES      |         | NO            | NO       |         |       14
+subtotal           | float4       | NO | YES      |         | NO            | NO       |         |       15
+tax                | float4       | NO | YES      |         | NO            | NO       |         |       16
+discount           | float4       | NO | YES      |         | NO            | NO       |         |       17
+total              | float4       | NO | YES      |         | NO            | NO       |         |       18
+cashier            | varchar(50)  | NO | YES      |         | NO            | NO       |         |       19
+time               | timestamp    | NO | YES      |         | NO            | NO       |         |       20
+register           | varchar(50)  | NO | YES      |         | NO            | NO       |         |       21
+filename           | varchar(256) | NO | YES      |         | NO            | NO       |         |       22
+"customer email"   | varchar(256) | NO | YES      |         | NO            | NO       |         |       23
+"customer name"    | varchar(256) | NO | YES      |         | NO            | NO       |         |       24
