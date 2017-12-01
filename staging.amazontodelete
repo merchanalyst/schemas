@@ -1,0 +1,4 @@
+---- staging.amazontodelete (TABLE)
+COLUMN_NAME       | DATA_TYPE   | PK | NULLABLE | DEFAULT | AUTOINCREMENT | COMPUTED | REMARKS | POSITION
+------------------+-------------+----+----------+---------+---------------+----------+---------+---------
+"amazon-order-id" | varchar(64) | NO | YES      |         | NO            | NO       |         |        1
