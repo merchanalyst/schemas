@@ -1,0 +1,8 @@
+---- staging.internallineitems (TABLE)
+COLUMN_NAME  | DATA_TYPE   | PK | NULLABLE | DEFAULT | AUTOINCREMENT | COMPUTED | REMARKS | POSITION
+-------------+-------------+----+----------+---------+---------------+----------+---------+---------
+internalliid | varchar(12) | NO | YES      |         | NO            | NO       |         |        1
+internaloid  | varchar(12) | NO | YES      |         | NO            | NO       |         |        2
+sku          | varchar(64) | NO | YES      |         | NO            | NO       |         |        3
+quantity     | integer     | NO | YES      |         | NO            | NO       |         |        4
+unitprice    | float4      | NO | YES      |         | NO            | NO       |         |        5
