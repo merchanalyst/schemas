@@ -1,0 +1,44 @@
+---- combinedorders (TABLE)
+COLUMN_NAME         | DATA_TYPE     | PK  | NULLABLE | DEFAULT | AUTOINCREMENT | COMPUTED | REMARKS | POSITION
+--------------------+---------------+-----+----------+---------+---------------+----------+---------+---------
+combinedoid         | varchar(90)   | YES | NO       |         | NO            | NO       |         |        1
+internaloid         | varchar(10)   | NO  | YES      |         | NO            | NO       |         |        2
+externaloid         | varchar(50)   | NO  | YES      |         | NO            | NO       |         |        3
+externaloidsource   | varchar(30)   | NO  | YES      |         | NO            | NO       |         |        4
+internalparentoid   | varchar(10)   | NO  | YES      |         | NO            | NO       |         |        5
+orderdate           | timestamp     | NO  | YES      |         | NO            | NO       |         |        6
+channel             | varchar(20)   | NO  | YES      |         | NO            | NO       |         |        7
+subchannel          | varchar(20)   | NO  | YES      |         | NO            | NO       |         |        8
+ordertype           | varchar(50)   | NO  | YES      |         | NO            | NO       |         |        9
+ordersubtype        | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       10
+retailer            | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       11
+vendornumber        | varchar(4)    | NO  | YES      |         | NO            | NO       |         |       12
+storenumber         | varchar(4)    | NO  | YES      |         | NO            | NO       |         |       13
+lineitemtotal       | numeric(12,2) | NO  | YES      |         | NO            | NO       |         |       14
+taxtotal            | numeric(12,2) | NO  | YES      |         | NO            | NO       |         |       15
+discounttotal       | numeric(12,2) | NO  | YES      |         | NO            | NO       |         |       16
+shippingtotal       | numeric(12,2) | NO  | YES      |         | NO            | NO       |         |       17
+feetotal            | numeric(12,2) | NO  | YES      |         | NO            | NO       |         |       18
+shippingtype        | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       19
+shippingaddresstype | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       20
+shippingfirstname   | varchar(100)  | NO  | YES      |         | NO            | NO       |         |       21
+shippinglastname    | varchar(100)  | NO  | YES      |         | NO            | NO       |         |       22
+shippingcompany     | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       23
+shippingaddress     | varchar(200)  | NO  | YES      |         | NO            | NO       |         |       24
+shippingaddress2    | varchar(200)  | NO  | YES      |         | NO            | NO       |         |       25
+shippingcity        | varchar(100)  | NO  | YES      |         | NO            | NO       |         |       26
+shippingstate       | varchar(100)  | NO  | YES      |         | NO            | NO       |         |       27
+shippingzipcode     | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       28
+shippingcountry     | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       29
+shippingphone       | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       30
+shippingfax         | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       31
+cashier             | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       32
+register            | varchar(20)   | NO  | YES      |         | NO            | NO       |         |       33
+email               | varchar(100)  | NO  | YES      |         | NO            | NO       |         |       34
+paymentmethod       | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       35
+cardtype            | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       36
+lat                 | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       37
+lon                 | varchar(50)   | NO  | YES      |         | NO            | NO       |         |       38
+dma                 | varchar(100)  | NO  | YES      |         | NO            | NO       |         |       39
+county              | varchar(100)  | NO  | YES      |         | NO            | NO       |         |       40
+cbsa                | varchar(100)  | NO  | YES      |         | NO            | NO       |         |       41
