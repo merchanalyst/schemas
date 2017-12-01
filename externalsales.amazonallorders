@@ -1,0 +1,34 @@
+---- externalsales.amazonallorders (TABLE)
+COLUMN_NAME               | DATA_TYPE    | PK | NULLABLE | DEFAULT | AUTOINCREMENT | COMPUTED | REMARKS | POSITION
+--------------------------+--------------+----+----------+---------+---------------+----------+---------+---------
+id                        | bigint       | NO | YES      |         | NO            | NO       |         |        1
+"amazon-order-id"         | varchar(254) | NO | YES      |         | NO            | NO       |         |        2
+"merchant-order-id"       | varchar(254) | NO | YES      |         | NO            | NO       |         |        3
+"purchase-date"           | varchar(25)  | NO | YES      |         | NO            | NO       |         |        4
+"last-updated-date"       | varchar(254) | NO | YES      |         | NO            | NO       |         |        5
+"order-status"            | varchar(254) | NO | YES      |         | NO            | NO       |         |        6
+"fulfillment-channel"     | varchar(254) | NO | YES      |         | NO            | NO       |         |        7
+"sales-channel"           | varchar(254) | NO | YES      |         | NO            | NO       |         |        8
+"order-channel"           | varchar(254) | NO | YES      |         | NO            | NO       |         |        9
+url                       | varchar(512) | NO | YES      |         | NO            | NO       |         |       10
+"ship-service-level"      | varchar(254) | NO | YES      |         | NO            | NO       |         |       11
+"product-name"            | varchar(254) | NO | YES      |         | NO            | NO       |         |       12
+sku                       | varchar(254) | NO | YES      |         | NO            | NO       |         |       13
+asin                      | varchar(254) | NO | YES      |         | NO            | NO       |         |       14
+"item-status"             | varchar(254) | NO | YES      |         | NO            | NO       |         |       15
+quantity                  | integer      | NO | YES      |         | NO            | NO       |         |       16
+currency                  | varchar(254) | NO | YES      |         | NO            | NO       |         |       17
+"item-price"              | float4       | NO | YES      |         | NO            | NO       |         |       18
+"item-tax"                | float4       | NO | YES      |         | NO            | NO       |         |       19
+"shipping-price"          | float4       | NO | YES      |         | NO            | NO       |         |       20
+"shipping-tax"            | float4       | NO | YES      |         | NO            | NO       |         |       21
+"gift-wrap-price"         | float4       | NO | YES      |         | NO            | NO       |         |       22
+"gift-wrap-tax"           | float4       | NO | YES      |         | NO            | NO       |         |       23
+"item-promotion-discount" | float4       | NO | YES      |         | NO            | NO       |         |       24
+"ship-promotion-discount" | float4       | NO | YES      |         | NO            | NO       |         |       25
+"ship-city"               | varchar(254) | NO | YES      |         | NO            | NO       |         |       26
+"ship-state"              | varchar(254) | NO | YES      |         | NO            | NO       |         |       27
+"ship-postal-code"        | varchar(254) | NO | YES      |         | NO            | NO       |         |       28
+"ship-country"            | varchar(254) | NO | YES      |         | NO            | NO       |         |       29
+"promotion-ids"           | varchar(254) | NO | YES      |         | NO            | NO       |         |       30
+filename                  | varchar(512) | NO | YES      |         | NO            | NO       |         |       31
