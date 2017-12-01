@@ -1,0 +1,7 @@
+---- internalkeys.classificationgiftsets (TABLE)
+COLUMN_NAME | DATA_TYPE    | PK | NULLABLE | DEFAULT | AUTOINCREMENT | COMPUTED | REMARKS | POSITION
+------------+--------------+----+----------+---------+---------------+----------+---------+---------
+sku         | varchar(255) | NO | YES      |         | NO            | NO       |         |        1
+newcategory | varchar(255) | NO | YES      |         | NO            | NO       |         |        2
+newtype     | varchar(255) | NO | YES      |         | NO            | NO       |         |        3
+newsubtype  | varchar(255) | NO | YES      |         | NO            | NO       |         |        4
