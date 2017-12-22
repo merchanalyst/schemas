@@ -1,0 +1,6 @@
+---- ngsinventory (TABLE)
+COLUMN_NAME    | DATA_TYPE    | PK | NULLABLE | DEFAULT | AUTOINCREMENT | COMPUTED | REMARKS | POSITION
+---------------+--------------+----+----------+---------+---------------+----------+---------+---------
+sku            | varchar(100) | NO | NO       |         | NO            | NO       |         |        1
+newgisticstock | integer      | NO | YES      |         | NO            | NO       |         |        2
+datetime       | timestamp    | NO | YES      |         | NO            | NO       |         |        3
