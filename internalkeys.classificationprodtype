@@ -1,8 +1,0 @@
----- internalkeys.classificationprodtype (TABLE)
-COLUMN_NAME | DATA_TYPE    | PK | NULLABLE | DEFAULT | AUTOINCREMENT | COMPUTED | REMARKS | POSITION
-------------+--------------+----+----------+---------+---------------+----------+---------+---------
-category    | varchar(255) | NO | YES      |         | NO            | NO       |         |        1
-subcategory | varchar(255) | NO | YES      |         | NO            | NO       |         |        2
-newcategory | varchar(255) | NO | YES      |         | NO            | NO       |         |        3
-newtype     | varchar(255) | NO | YES      |         | NO            | NO       |         |        4
-newsubtype  | varchar(255) | NO | YES      |         | NO            | NO       |         |        5
