@@ -1,0 +1,162 @@
+CREATE TABLE internalkeys.amazonskutranslation
+(
+	"fba-sku" VARCHAR(255) ENCODE lzo,
+	asin VARCHAR(50) ENCODE lzo,
+	style VARCHAR(255) ENCODE lzo,
+	"ttb-sku" VARCHAR(50) ENCODE lzo,
+	"ttb-upc" VARCHAR(50),
+	size VARCHAR(50),
+	type VARCHAR(50)
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE internalkeys.classificationcollateral
+(
+	sku VARCHAR(255),
+	prodname VARCHAR(255),
+	newcategory VARCHAR(255),
+	newtype VARCHAR(255),
+	newsubtype INTEGER
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE internalkeys.classificationgiftsets
+(
+	sku VARCHAR(255),
+	newcategory VARCHAR(255),
+	newtype VARCHAR(255),
+	newsubtype VARCHAR(255)
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE internalkeys.classificationliquidretailers
+(
+	shippingcompany VARCHAR(255),
+	shippingfirstname VARCHAR(255),
+	shippinglastname VARCHAR(255),
+	strategicretailername VARCHAR(255),
+	vendornumber VARCHAR(255)
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE internalkeys.classificationordertype
+(
+	ordertype VARCHAR(255),
+	ordersubtype VARCHAR(255),
+	channel VARCHAR(255),
+	subchannel VARCHAR(255),
+	retailer VARCHAR(255),
+	storenumber VARCHAR(19),
+	newordertype VARCHAR(255),
+	newordersubtype VARCHAR(255)
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE internalkeys.classificationprodtransfer
+(
+	shippingcompany VARCHAR(255),
+	shippingaddress VARCHAR(255),
+	shippingaddress2 VARCHAR(255),
+	shippingcity VARCHAR(255),
+	shippingstate VARCHAR(255),
+	channel VARCHAR(255),
+	subchannel VARCHAR(255),
+	retailer VARCHAR(255),
+	storenumber VARCHAR(255),
+	ordertype VARCHAR(255),
+	ordersubtype VARCHAR(255)
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE internalkeys.classificationprodtype
+(
+	category VARCHAR(255),
+	subcategory VARCHAR(255),
+	newcategory VARCHAR(255),
+	newtype VARCHAR(255),
+	newsubtype VARCHAR(255)
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE internalkeys.classificationstrategicretailers
+(
+	shippingcompany VARCHAR(255),
+	shippingfirstname VARCHAR(255),
+	shippinglastname VARCHAR(255),
+	channel VARCHAR(255),
+	subchannel VARCHAR(255),
+	ordertype VARCHAR(255),
+	ordersubtype VARCHAR(255),
+	strategicretailername VARCHAR(255),
+	vendornumber VARCHAR(255)
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE internalkeys.colorfamilies
+(
+	colorid INTEGER,
+	colorname VARCHAR(255),
+	colorcode VARCHAR(255),
+	primarycolor VARCHAR(255),
+	colorfamily VARCHAR(255)
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE internalkeys.retailcalendar
+(
+	date DATE,
+	week VARCHAR(255),
+	endofweek DATE,
+	month VARCHAR(100),
+	"454day" INTEGER,
+	"454week" INTEGER,
+	"454month" INTEGER,
+	"454year" INTEGER,
+	"454quarter" VARCHAR(100),
+	retailday365 INTEGER
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE internalkeys.stores
+(
+	banner VARCHAR(64),
+	number VARCHAR(64),
+	name VARCHAR(255),
+	adminuser VARCHAR(255),
+	physicaladdress VARCHAR(256),
+	physicaladdress2 VARCHAR(100),
+	physicalcity VARCHAR(256),
+	physicalstate VARCHAR(256),
+	physicalzipcode VARCHAR(11),
+	physicalcountry VARCHAR(256),
+	physicalphone VARCHAR(25),
+	physicalfax VARCHAR(25),
+	physicallat VARCHAR(50),
+	physicallon VARCHAR(50),
+	mailingaddress VARCHAR(256),
+	mailingaddress2 VARCHAR(256),
+	mailingcity VARCHAR(256),
+	mailingstate VARCHAR(256),
+	mailingzipcode INTEGER,
+	mailingcountry VARCHAR(256),
+	mailinglat VARCHAR(50),
+	mailinglon VARCHAR(50),
+	mailingphone VARCHAR(25),
+	mailingfax VARCHAR(25),
+	dma VARCHAR(64),
+	county VARCHAR(100),
+	cbsa VARCHAR(100)
+)
+DISTSTYLE EVEN;
+
+
