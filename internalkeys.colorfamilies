@@ -1,8 +1,0 @@
----- internalkeys.colorfamilies (TABLE)
-COLUMN_NAME  | DATA_TYPE    | PK | NULLABLE | DEFAULT | AUTOINCREMENT | COMPUTED | REMARKS | POSITION
--------------+--------------+----+----------+---------+---------------+----------+---------+---------
-colorid      | integer      | NO | YES      |         | NO            | NO       |         |        1
-colorname    | varchar(255) | NO | YES      |         | NO            | NO       |         |        2
-colorcode    | varchar(255) | NO | YES      |         | NO            | NO       |         |        3
-primarycolor | varchar(255) | NO | YES      |         | NO            | NO       |         |        4
-colorfamily  | varchar(255) | NO | YES      |         | NO            | NO       |         |        5
