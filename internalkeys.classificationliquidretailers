@@ -1,8 +1,0 @@
----- internalkeys.classificationliquidretailers (TABLE)
-COLUMN_NAME           | DATA_TYPE    | PK | NULLABLE | DEFAULT | AUTOINCREMENT | COMPUTED | REMARKS | POSITION
-----------------------+--------------+----+----------+---------+---------------+----------+---------+---------
-shippingcompany       | varchar(255) | NO | YES      |         | NO            | NO       |         |        1
-shippingfirstname     | varchar(255) | NO | YES      |         | NO            | NO       |         |        2
-shippinglastname      | varchar(255) | NO | YES      |         | NO            | NO       |         |        3
-strategicretailername | varchar(255) | NO | YES      |         | NO            | NO       |         |        4
-vendornumber          | varchar(255) | NO | YES      |         | NO            | NO       |         |        5
