@@ -1,5 +1,0 @@
----- externalsales.vendcustomeremailscombined (TABLE)
-COLUMN_NAME      | DATA_TYPE    | PK | NULLABLE | DEFAULT | AUTOINCREMENT | COMPUTED | REMARKS | POSITION
------------------+--------------+----+----------+---------+---------------+----------+---------+---------
-externaloid      | varchar(50)  | NO | YES      |         | NO            | NO       |         |        1
-"customer email" | varchar(256) | NO | YES      |         | NO            | NO       |         |        2
