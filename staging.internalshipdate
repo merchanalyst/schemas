@@ -1,5 +1,0 @@
----- staging.internalshipdate (TABLE)
-COLUMN_NAME  | DATA_TYPE   | PK | NULLABLE | DEFAULT | AUTOINCREMENT | COMPUTED | REMARKS | POSITION
--------------+-------------+----+----------+---------+---------------+----------+---------+---------
-internaloid  | varchar(50) | NO | YES      |         | NO            | NO       |         |        1
-shipdatetime | timestamp   | NO | YES      |         | NO            | NO       |         |        2
