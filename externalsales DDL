@@ -1,0 +1,112 @@
+CREATE TABLE externalsales.amazonallorders
+(
+	id BIGINT ENCODE lzo,
+	"amazon-order-id" VARCHAR(254) ENCODE lzo,
+	"merchant-order-id" VARCHAR(254) ENCODE lzo,
+	"purchase-date" VARCHAR(25) ENCODE lzo,
+	"last-updated-date" VARCHAR(254) ENCODE lzo,
+	"order-status" VARCHAR(254) ENCODE lzo,
+	"fulfillment-channel" VARCHAR(254) ENCODE lzo,
+	"sales-channel" VARCHAR(254) ENCODE lzo,
+	"order-channel" VARCHAR(254) ENCODE lzo,
+	url VARCHAR(512) ENCODE lzo,
+	"ship-service-level" VARCHAR(254) ENCODE lzo,
+	"product-name" VARCHAR(254) ENCODE lzo,
+	sku VARCHAR(254) ENCODE lzo,
+	asin VARCHAR(254) ENCODE lzo,
+	"item-status" VARCHAR(254) ENCODE lzo,
+	quantity INTEGER ENCODE lzo,
+	currency VARCHAR(254) ENCODE lzo,
+	"item-price" REAL ENCODE none,
+	"item-tax" REAL ENCODE none,
+	"shipping-price" REAL ENCODE none,
+	"shipping-tax" REAL ENCODE none,
+	"gift-wrap-price" REAL ENCODE none,
+	"gift-wrap-tax" REAL ENCODE none,
+	"item-promotion-discount" REAL ENCODE none,
+	"ship-promotion-discount" REAL ENCODE none,
+	"ship-city" VARCHAR(254) ENCODE lzo,
+	"ship-state" VARCHAR(254) ENCODE lzo,
+	"ship-postal-code" VARCHAR(254) ENCODE lzo,
+	"ship-country" VARCHAR(254) ENCODE lzo,
+	"promotion-ids" VARCHAR(254) ENCODE lzo,
+	filename VARCHAR(512) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE externalsales.amazonpayments
+(
+	id BIGINT ENCODE lzo,
+	"date/time" TIMESTAMP ENCODE lzo,
+	"settlement id" VARCHAR(256) ENCODE lzo,
+	type VARCHAR(256) ENCODE lzo,
+	"order id" VARCHAR(256) ENCODE lzo,
+	sku VARCHAR(256) ENCODE lzo,
+	description VARCHAR(256) ENCODE lzo,
+	quantity INTEGER ENCODE lzo,
+	marketplace VARCHAR(256) ENCODE lzo,
+	fulfillment VARCHAR(256) ENCODE lzo,
+	"order city" VARCHAR(256) ENCODE lzo,
+	"order state" VARCHAR(256) ENCODE lzo,
+	"order postal" VARCHAR(256) ENCODE lzo,
+	"product sales" REAL ENCODE none,
+	"shipping credits" REAL ENCODE none,
+	"gift wrap credits" REAL ENCODE none,
+	"promotional rebates" REAL ENCODE none,
+	"sales tax collected" REAL ENCODE none,
+	"selling fees" REAL ENCODE none,
+	"fba fees" REAL ENCODE none,
+	"other transaction fees" REAL ENCODE none,
+	other REAL ENCODE none,
+	total REAL ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE externalsales.shopkeeptransactionsbyitem
+(
+	id BIGINT ENCODE lzo,
+	"store number" VARCHAR(10) ENCODE lzo,
+	"transaction id" VARCHAR(50) ENCODE lzo,
+	"transaction type" VARCHAR(256) ENCODE lzo,
+	"store code" VARCHAR(50) ENCODE lzo,
+	"item description" VARCHAR(256) ENCODE lzo,
+	category VARCHAR(50) ENCODE lzo,
+	department VARCHAR(50) ENCODE lzo,
+	supplier VARCHAR(50) ENCODE lzo,
+	"supplier code" VARCHAR(50) ENCODE lzo,
+	cost REAL ENCODE none,
+	price REAL ENCODE none,
+	quantity INTEGER ENCODE lzo,
+	modifiers REAL ENCODE none,
+	subtotal REAL ENCODE none,
+	tax REAL ENCODE none,
+	discount REAL ENCODE none,
+	total REAL ENCODE none,
+	cashier VARCHAR(50) ENCODE lzo,
+	time TIMESTAMP ENCODE lzo,
+	register VARCHAR(50) ENCODE lzo,
+	filename VARCHAR(256) ENCODE lzo,
+	"customer email" VARCHAR(256) ENCODE lzo,
+	"customer name" VARCHAR(256) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE externalsales.vendcustomeremails
+(
+	"customer name" VARCHAR(256) ENCODE lzo,
+	"customer email" VARCHAR(256) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE externalsales.vendcustomeremailscombined
+(
+	externaloid VARCHAR(50) ENCODE lzo,
+	"customer email" VARCHAR(256) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
