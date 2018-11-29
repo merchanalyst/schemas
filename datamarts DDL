@@ -1,0 +1,121 @@
+CREATE TABLE datamarts.lineitems
+(
+	combinedliid VARCHAR(90) NOT NULL ENCODE lzo,
+	combinedoid VARCHAR(90) ENCODE lzo,
+	sku VARCHAR(30) ENCODE lzo,
+	quantity INTEGER ENCODE lzo,
+	unitprice NUMERIC(6, 2) ENCODE lzo,
+	unitcogs NUMERIC(6, 2) ENCODE lzo,
+	lastupdatedate TIMESTAMP ENCODE lzo,
+	shipped BOOLEAN ENCODE none,
+	shipdatetime TIMESTAMP ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+ALTER TABLE datamarts.lineitems
+ADD CONSTRAINT lineitems_pkey
+PRIMARY KEY (combinedliid);
+
+
+
+CREATE TABLE datamarts.orders
+(
+	combinedoid VARCHAR(90) NOT NULL ENCODE lzo,
+	orderdatetime TIMESTAMP ENCODE lzo,
+	orderdate DATE ENCODE lzo,
+	internalparentoid VARCHAR(10) ENCODE lzo,
+	parentorderdate TIMESTAMP ENCODE lzo,
+	channel VARCHAR(20) ENCODE lzo,
+	subchannel VARCHAR(20) ENCODE lzo,
+	ordertype VARCHAR(50) ENCODE lzo,
+	ordersubtype VARCHAR(50) ENCODE lzo,
+	retailer VARCHAR(50) ENCODE lzo,
+	vendornumber VARCHAR(4) ENCODE lzo,
+	storenumber VARCHAR(4) ENCODE lzo,
+	lineitemtotal NUMERIC(12, 2) ENCODE lzo,
+	taxtotal NUMERIC(12, 2) ENCODE lzo,
+	discounttotal NUMERIC(12, 2) ENCODE lzo,
+	shippingtotal NUMERIC(12, 2) ENCODE lzo,
+	feetotal NUMERIC(12, 2) ENCODE lzo,
+	shippingtype VARCHAR(50) ENCODE lzo,
+	shippingaddresstype VARCHAR(50) ENCODE lzo,
+	shippingcity VARCHAR(100) ENCODE lzo,
+	shippingstate VARCHAR(100) ENCODE lzo,
+	shippingzipcode VARCHAR(50) ENCODE lzo,
+	shippingcountry VARCHAR(50) ENCODE lzo,
+	cashier VARCHAR(50) ENCODE lzo,
+	register VARCHAR(20) ENCODE lzo,
+	email VARCHAR(100) ENCODE lzo,
+	paymentmethod VARCHAR(50) ENCODE lzo,
+	cardtype VARCHAR(50) ENCODE lzo,
+	lat VARCHAR(50) ENCODE lzo,
+	lon VARCHAR(50) ENCODE lzo,
+	dma VARCHAR(100) ENCODE lzo,
+	county VARCHAR(100) ENCODE lzo,
+	cbsa VARCHAR(100) ENCODE lzo,
+	ordersegmentation VARCHAR(20) ENCODE lzo,
+	combinedcity VARCHAR(100) ENCODE lzo,
+	combinedstate VARCHAR(100) ENCODE lzo,
+	combinedzipcode VARCHAR(50) ENCODE lzo,
+	combinedcountry VARCHAR(50) ENCODE lzo,
+	cartsize INTEGER ENCODE lzo,
+	customerordercount INTEGER ENCODE lzo,
+	shipdate DATE ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+ALTER TABLE datamarts.orders
+ADD CONSTRAINT orders_pkey
+PRIMARY KEY (combinedoid);
+
+
+
+CREATE TABLE datamarts.products
+(
+	sku VARCHAR(100) NOT NULL ENCODE lzo,
+	mastersku VARCHAR(100) ENCODE lzo,
+	amazonasin VARCHAR(100) ENCODE lzo,
+	amazonsku VARCHAR(100) ENCODE lzo,
+	upccode VARCHAR(19) ENCODE lzo,
+	barcode VARCHAR(15) ENCODE lzo,
+	category VARCHAR(50) ENCODE lzo,
+	type VARCHAR(50) ENCODE lzo,
+	subtype VARCHAR(50) ENCODE lzo,
+	variantdescription VARCHAR(512) ENCODE lzo,
+	design VARCHAR(100) ENCODE lzo,
+	pattern VARCHAR(100) ENCODE lzo,
+	material VARCHAR(100) ENCODE lzo,
+	primarycolor VARCHAR(100) ENCODE lzo,
+	secondarycolors VARCHAR(500) ENCODE lzo,
+	width NUMERIC(6, 2) ENCODE lzo,
+	length NUMERIC(6, 2) ENCODE lzo,
+	collection VARCHAR(256) ENCODE lzo,
+	seasoncode VARCHAR(10) ENCODE lzo,
+	releasedate DATE ENCODE lzo,
+	price NUMERIC(6, 2) ENCODE lzo,
+	newgisticsstock INTEGER ENCODE lzo,
+	newgisticsstockchange TIMESTAMP ENCODE lzo,
+	onttb BOOLEAN ENCODE none,
+	isactive BOOLEAN ENCODE none,
+	datemodified TIMESTAMP ENCODE lzo,
+	highlevelcolor VARCHAR(100) ENCODE lzo,
+	colorcode VARCHAR(100) ENCODE lzo,
+	colorfamily VARCHAR(100) ENCODE lzo,
+	dateadded TIMESTAMP ENCODE lzo,
+	fabriccare VARCHAR(100) ENCODE lzo,
+	fit VARCHAR(100) ENCODE lzo,
+	occasion VARCHAR(200) ENCODE lzo,
+	wearwith VARCHAR(200) ENCODE lzo,
+	scale VARCHAR(200) ENCODE lzo,
+	collarstyle VARCHAR(100) ENCODE lzo,
+	cuffstyle VARCHAR(100) ENCODE lzo,
+	bowtiestyle VARCHAR(200) ENCODE lzo,
+	shirtlength VARCHAR(100) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+ALTER TABLE datamarts.products
+ADD CONSTRAINT products_pkey
+PRIMARY KEY (sku);
+
+
