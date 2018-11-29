@@ -1,0 +1,406 @@
+CREATE TABLE zendesk.activities
+(
+	id VARCHAR(512) NOT NULL ENCODE lzo DISTKEY,
+	received_at TIMESTAMP ENCODE delta32k,
+	uuid BIGINT IDENTITY ENCODE lzo,
+	uuid_ts TIMESTAMP DEFAULT ('now'::text)::timestamp without time zone ENCODE delta32k,
+	actor_id VARCHAR(512) ENCODE lzo,
+	created_at TIMESTAMP ENCODE delta32k,
+	object_id VARCHAR(512) ENCODE lzo,
+	target_id VARCHAR(512) ENCODE lzo,
+	title VARCHAR(512) ENCODE lzo,
+	updated_at TIMESTAMP ENCODE delta32k,
+	url VARCHAR(512) ENCODE lzo,
+	user_id VARCHAR(512) ENCODE lzo,
+	verb VARCHAR(512) ENCODE lzo
+)
+SORTKEY
+(
+	received_at
+);
+
+ALTER TABLE zendesk.activities
+ADD CONSTRAINT activities_pkey
+PRIMARY KEY (id);
+
+
+
+CREATE TABLE zendesk.attachments
+(
+	id VARCHAR(512) NOT NULL ENCODE lzo DISTKEY,
+	received_at TIMESTAMP ENCODE delta32k,
+	uuid BIGINT IDENTITY ENCODE lzo,
+	uuid_ts TIMESTAMP DEFAULT ('now'::text)::timestamp without time zone ENCODE delta32k,
+	content_type VARCHAR(512) ENCODE lzo,
+	content_url VARCHAR(512) ENCODE lzo,
+	file_name VARCHAR(512) ENCODE lzo,
+	ineline BOOLEAN ENCODE runlength,
+	size BIGINT ENCODE mostly32
+)
+SORTKEY
+(
+	received_at
+);
+
+ALTER TABLE zendesk.attachments
+ADD CONSTRAINT attachments_pkey
+PRIMARY KEY (id);
+
+
+
+CREATE TABLE zendesk.groups
+(
+	id VARCHAR(512) NOT NULL ENCODE lzo DISTKEY,
+	received_at TIMESTAMP ENCODE delta32k,
+	uuid BIGINT IDENTITY ENCODE lzo,
+	uuid_ts TIMESTAMP DEFAULT ('now'::text)::timestamp without time zone ENCODE delta32k,
+	created_at TIMESTAMP ENCODE delta32k,
+	deleted BOOLEAN ENCODE runlength,
+	name VARCHAR(512) ENCODE lzo,
+	updated_at TIMESTAMP ENCODE delta32k,
+	url VARCHAR(512) ENCODE lzo
+)
+SORTKEY
+(
+	received_at
+);
+
+ALTER TABLE zendesk.groups
+ADD CONSTRAINT groups_pkey
+PRIMARY KEY (id);
+
+
+
+CREATE TABLE zendesk.organizations
+(
+	id VARCHAR(512) NOT NULL ENCODE lzo DISTKEY,
+	received_at TIMESTAMP ENCODE delta32k,
+	uuid BIGINT IDENTITY ENCODE lzo,
+	uuid_ts TIMESTAMP DEFAULT ('now'::text)::timestamp without time zone ENCODE delta32k,
+	created_at TIMESTAMP ENCODE delta32k,
+	domain_names VARCHAR(512) ENCODE lzo,
+	name VARCHAR(512) ENCODE lzo,
+	shared_comments BOOLEAN ENCODE runlength,
+	shared_tickets BOOLEAN ENCODE runlength,
+	updated_at TIMESTAMP ENCODE delta32k,
+	url VARCHAR(512) ENCODE lzo
+)
+SORTKEY
+(
+	received_at
+);
+
+ALTER TABLE zendesk.organizations
+ADD CONSTRAINT organizations_pkey
+PRIMARY KEY (id);
+
+
+
+CREATE TABLE zendesk.ticket_events
+(
+	id VARCHAR(512) NOT NULL ENCODE lzo DISTKEY,
+	received_at TIMESTAMP ENCODE delta32k,
+	uuid BIGINT IDENTITY ENCODE lzo,
+	uuid_ts TIMESTAMP DEFAULT ('now'::text)::timestamp without time zone ENCODE delta32k,
+	__segment_object_id VARCHAR(512) ENCODE lzo,
+	_received_at TIMESTAMP ENCODE delta32k,
+	added_tags VARCHAR(512) ENCODE lzo,
+	assignee_id BIGINT ENCODE mostly32,
+	brand_id VARCHAR(512) ENCODE lzo,
+	comment_present BOOLEAN ENCODE runlength,
+	comment_public BOOLEAN ENCODE runlength,
+	context_client VARCHAR(512) ENCODE lzo,
+	context_latitude DOUBLE PRECISION ENCODE runlength,
+	context_location VARCHAR(512) ENCODE lzo,
+	context_longitude DOUBLE PRECISION ENCODE runlength,
+	custom_ticket_field_id VARCHAR(512) ENCODE lzo,
+	custom_ticket_field_new_value VARCHAR(512) ENCODE lzo,
+	event_type VARCHAR(512) ENCODE lzo,
+	group_id BIGINT ENCODE mostly32,
+	is_public VARCHAR(512) ENCODE lzo,
+	locale_id VARCHAR(512) ENCODE lzo,
+	organization_id VARCHAR(512) ENCODE lzo,
+	previous_value VARCHAR(512) ENCODE lzo,
+	priority VARCHAR(512) ENCODE lzo,
+	rel VARCHAR(512) ENCODE lzo,
+	removed_tags VARCHAR(512) ENCODE lzo,
+	requester_id BIGINT ENCODE mostly32,
+	segment_object_id VARCHAR(512) ENCODE lzo,
+	sla_policy VARCHAR(512) ENCODE lzo,
+	status VARCHAR(512) ENCODE lzo,
+	subject VARCHAR(512) ENCODE lzo,
+	tags VARCHAR(512) ENCODE lzo,
+	ticket_event_id BIGINT ENCODE mostly32,
+	ticket_event_via VARCHAR(512) ENCODE lzo,
+	ticket_form_id VARCHAR(512) ENCODE lzo,
+	ticket_id VARCHAR(512) ENCODE lzo,
+	timestamp TIMESTAMP ENCODE delta32k,
+	type VARCHAR(512) ENCODE lzo,
+	updater_id VARCHAR(512) ENCODE lzo,
+	via VARCHAR(512) ENCODE lzo,
+	via_reference_id BIGINT ENCODE mostly32,
+	x VARCHAR(512) ENCODE lzo,
+	revision_id BIGINT ENCODE mostly32
+)
+SORTKEY
+(
+	received_at
+);
+
+ALTER TABLE zendesk.ticket_events
+ADD CONSTRAINT ticket_events_pkey
+PRIMARY KEY (id);
+
+
+
+CREATE TABLE zendesk.ticket_fields
+(
+	id VARCHAR(512) NOT NULL ENCODE lzo DISTKEY,
+	received_at TIMESTAMP ENCODE delta32k,
+	uuid BIGINT IDENTITY ENCODE lzo,
+	uuid_ts TIMESTAMP DEFAULT ('now'::text)::timestamp without time zone ENCODE delta32k,
+	active BOOLEAN ENCODE runlength,
+	collapsed_for_agents BOOLEAN ENCODE runlength,
+	created_at TIMESTAMP ENCODE delta32k,
+	description VARCHAR(512) ENCODE lzo,
+	editable_in_portal BOOLEAN ENCODE runlength,
+	position BIGINT ENCODE mostly32,
+	raw_description VARCHAR(512) ENCODE lzo,
+	raw_title VARCHAR(512) ENCODE lzo,
+	raw_title_in_portal VARCHAR(512) ENCODE lzo,
+	regexp_for_validation VARCHAR(512) ENCODE lzo,
+	removable BOOLEAN ENCODE runlength,
+	required BOOLEAN ENCODE runlength,
+	required_in_portal BOOLEAN ENCODE runlength,
+	segment_object_id VARCHAR(512) ENCODE lzo,
+	slug VARCHAR(512) ENCODE lzo,
+	_tag VARCHAR(512) ENCODE lzo,
+	title VARCHAR(512) ENCODE lzo,
+	title_in_portal VARCHAR(512) ENCODE lzo,
+	type VARCHAR(512) ENCODE lzo,
+	updated_at TIMESTAMP ENCODE delta32k,
+	url VARCHAR(512) ENCODE lzo,
+	visible_in_portal BOOLEAN ENCODE runlength
+)
+SORTKEY
+(
+	received_at
+);
+
+ALTER TABLE zendesk.ticket_fields
+ADD CONSTRAINT ticket_fields_pkey
+PRIMARY KEY (id);
+
+
+
+CREATE TABLE zendesk.ticket_metrics
+(
+	id VARCHAR(512) NOT NULL ENCODE lzo DISTKEY,
+	received_at TIMESTAMP ENCODE delta32k,
+	uuid BIGINT IDENTITY ENCODE lzo,
+	uuid_ts TIMESTAMP DEFAULT ('now'::text)::timestamp without time zone ENCODE delta32k,
+	__segment_object_id VARCHAR(512) ENCODE lzo,
+	_received_at TIMESTAMP ENCODE delta32k,
+	agent_wait_time_in_minutes_business BIGINT ENCODE mostly32,
+	agent_wait_time_in_minutes_calendar BIGINT ENCODE mostly32,
+	assigned_at TIMESTAMP ENCODE delta32k,
+	assignee_stations BIGINT ENCODE mostly32,
+	assignee_updated_at TIMESTAMP ENCODE delta32k,
+	created_at TIMESTAMP ENCODE delta32k,
+	first_resolution_time_in_minutes_business BIGINT ENCODE mostly32,
+	first_resolution_time_in_minutes_calendar BIGINT ENCODE mostly32,
+	full_resolution_time_in_minutes_business BIGINT ENCODE mostly32,
+	full_resolution_time_in_minutes_calendar BIGINT ENCODE mostly32,
+	group_stations BIGINT ENCODE mostly32,
+	initially_assigned_at TIMESTAMP ENCODE delta32k,
+	latest_comment_added_at TIMESTAMP ENCODE delta32k,
+	on_hold_time_in_minutes_business BIGINT ENCODE mostly32,
+	on_hold_time_in_minutes_calendar BIGINT ENCODE mostly32,
+	reopens BIGINT ENCODE mostly32,
+	replies BIGINT ENCODE mostly32,
+	reply_time_in_minutes_business BIGINT ENCODE mostly32,
+	reply_time_in_minutes_calendar BIGINT ENCODE mostly32,
+	requester_updated_at TIMESTAMP ENCODE delta32k,
+	requester_wait_time_in_minutes_business BIGINT ENCODE mostly32,
+	requester_wait_time_in_minutes_calendar BIGINT ENCODE mostly32,
+	segment_object_id VARCHAR(512) ENCODE lzo,
+	solved_at TIMESTAMP ENCODE delta32k,
+	status_updated_at TIMESTAMP ENCODE delta32k,
+	ticket_id VARCHAR(512) ENCODE lzo,
+	updated_at TIMESTAMP ENCODE delta32k
+)
+SORTKEY
+(
+	received_at
+);
+
+ALTER TABLE zendesk.ticket_metrics
+ADD CONSTRAINT ticket_metrics_pkey
+PRIMARY KEY (id);
+
+
+
+CREATE TABLE zendesk.tickets
+(
+	id VARCHAR(512) NOT NULL ENCODE lzo DISTKEY,
+	received_at TIMESTAMP ENCODE delta32k,
+	uuid BIGINT IDENTITY ENCODE lzo,
+	uuid_ts TIMESTAMP DEFAULT ('now'::text)::timestamp without time zone ENCODE delta32k,
+	__segment_object_id VARCHAR(512) ENCODE lzo,
+	_received_at TIMESTAMP ENCODE delta32k,
+	amazon_purchase BOOLEAN ENCODE runlength,
+	assignee_id BIGINT ENCODE mostly32,
+	bow_tie_inquiry VARCHAR(512) ENCODE lzo,
+	can_t_find_item_reason VARCHAR(512) ENCODE lzo,
+	check_out_error_reasons VARCHAR(512) ENCODE lzo,
+	collaborator_ids VARCHAR(512) ENCODE lzo,
+	color VARCHAR(512) ENCODE lzo,
+	color_description VARCHAR(512) ENCODE lzo,
+	color_product_matching_details VARCHAR(512) ENCODE lzo,
+	created_at TIMESTAMP ENCODE delta32k,
+	custom_promo_status VARCHAR(512) ENCODE lzo,
+	damaged_reason VARCHAR(512) ENCODE lzo,
+	damaged_status VARCHAR(512) ENCODE lzo,
+	description VARCHAR(512) ENCODE lzo,
+	discount_status VARCHAR(512) ENCODE lzo,
+	embroidery_engraving VARCHAR(512) ENCODE lzo,
+	eta_reason VARCHAR(512) ENCODE lzo,
+	exchange BOOLEAN ENCODE runlength,
+	existing_promo_status VARCHAR(512) ENCODE lzo,
+	fabric_inquiry_details VARCHAR(512) ENCODE lzo,
+	general_inquiry_details VARCHAR(512) ENCODE lzo,
+	general_inquiry_reason VARCHAR(512) ENCODE lzo,
+	gift_return BOOLEAN ENCODE runlength,
+	gift_return_2 BOOLEAN ENCODE runlength,
+	group_id BIGINT ENCODE mostly32,
+	incorrect_item_sent_reason VARCHAR(512) ENCODE lzo,
+	initial_contact_reason VARCHAR(512) ENCODE lzo,
+	international BOOLEAN ENCODE runlength,
+	inventory_reason VARCHAR(512) ENCODE lzo,
+	issue_with_check_out_reason VARCHAR(512) ENCODE lzo,
+	item_received BOOLEAN ENCODE runlength,
+	item_selection_reason VARCHAR(512) ENCODE lzo,
+	item_suggestion VARCHAR(512) ENCODE lzo,
+	lost_in_transit_reason VARCHAR(512) ENCODE lzo,
+	lost_in_transit_status VARCHAR(512) ENCODE lzo,
+	modification_reason VARCHAR(512) ENCODE lzo,
+	modification_status VARCHAR(512) ENCODE lzo,
+	navigation_reason VARCHAR(512) ENCODE lzo,
+	navigation_status VARCHAR(512) ENCODE lzo,
+	occasion_specific_details VARCHAR(512) ENCODE lzo,
+	order_id VARCHAR(512) ENCODE lzo,
+	order_status VARCHAR(512) ENCODE lzo,
+	order_type VARCHAR(512) ENCODE lzo,
+	organization_id BIGINT ENCODE mostly32,
+	other_accessories VARCHAR(512) ENCODE lzo,
+	outside_of_delivery_status VARCHAR(512) ENCODE lzo,
+	placing_order_inquiry_type VARCHAR(512) ENCODE lzo,
+	priority VARCHAR(512) ENCODE lzo,
+	product_question_topic VARCHAR(512) ENCODE lzo,
+	promo_reason VARCHAR(512) ENCODE lzo,
+	recipient VARCHAR(512) ENCODE lzo,
+	requester_id BIGINT ENCODE mostly32,
+	return BOOLEAN ENCODE runlength,
+	return_exchange_inquiry_reason VARCHAR(512) ENCODE lzo,
+	segment_object_id VARCHAR(512) ENCODE lzo,
+	shipping_method_reason VARCHAR(512) ENCODE lzo,
+	shirt_contact_reason VARCHAR(512) ENCODE lzo,
+	shirt_details VARCHAR(512) ENCODE lzo,
+	shirt_exchange BOOLEAN ENCODE runlength,
+	shore_tel_answered_by_extension VARCHAR(512) ENCODE lzo,
+	shore_tel_call_duration_secs VARCHAR(512) ENCODE lzo,
+	shore_tel_call_id VARCHAR(512) ENCODE lzo,
+	shore_tel_caller VARCHAR(512) ENCODE lzo,
+	shore_tel_workgroup VARCHAR(512) ENCODE lzo,
+	shore_tel_workgroup_extension VARCHAR(512) ENCODE lzo,
+	sizing_inquiry_type VARCHAR(512) ENCODE lzo,
+	sku_number VARCHAR(512) ENCODE lzo,
+	status VARCHAR(512) ENCODE lzo,
+	store_question_location VARCHAR(512) ENCODE lzo,
+	style_boxes VARCHAR(512) ENCODE lzo,
+	styling_merchandising_inquiry_type VARCHAR(512) ENCODE lzo,
+	subject VARCHAR(512) ENCODE lzo,
+	submitter_id BIGINT ENCODE mostly32,
+	tags VARCHAR(512) ENCODE lzo,
+	tie_length VARCHAR(512) ENCODE lzo,
+	tie_of_the_month_exchange_status VARCHAR(512) ENCODE lzo,
+	tie_of_the_month_reason VARCHAR(512) ENCODE lzo,
+	tie_of_the_month_shipping_status VARCHAR(512) ENCODE lzo,
+	tie_width_size VARCHAR(512) ENCODE lzo,
+	transferred_reason VARCHAR(512) ENCODE lzo,
+	type VARCHAR(512) ENCODE lzo,
+	uneven_exchange BOOLEAN ENCODE runlength,
+	updated_at TIMESTAMP ENCODE delta32k,
+	url VARCHAR(512) ENCODE lzo,
+	waive_plc BOOLEAN ENCODE runlength,
+	wedding_inquiries VARCHAR(512) ENCODE lzo,
+	within_delivery_window_details VARCHAR(512) ENCODE lzo,
+	wrong_address_reason VARCHAR(512) ENCODE lzo,
+	wrong_address_status VARCHAR(512) ENCODE lzo,
+	time_spent_last_update_sec VARCHAR(512) ENCODE lzo,
+	total_time_spent_sec VARCHAR(512) ENCODE lzo,
+	store_location VARCHAR(512) ENCODE lzo,
+	store_inventory_check_if_y_include_sku VARCHAR(512) ENCODE lzo,
+	pants_contact_reason VARCHAR(512) ENCODE lzo,
+	pants_details VARCHAR(512) ENCODE lzo,
+	brand_id BIGINT ENCODE mostly32
+)
+SORTKEY
+(
+	received_at
+);
+
+ALTER TABLE zendesk.tickets
+ADD CONSTRAINT tickets_pkey
+PRIMARY KEY (id);
+
+
+
+CREATE TABLE zendesk.users
+(
+	id VARCHAR(512) NOT NULL ENCODE lzo DISTKEY,
+	received_at TIMESTAMP ENCODE delta32k,
+	uuid BIGINT IDENTITY ENCODE lzo,
+	uuid_ts TIMESTAMP DEFAULT ('now'::text)::timestamp without time zone ENCODE delta32k,
+	__segment_object_id VARCHAR(512) ENCODE lzo,
+	_received_at TIMESTAMP ENCODE delta32k,
+	active BOOLEAN ENCODE runlength,
+	alias VARCHAR(512) ENCODE lzo,
+	chat_only BOOLEAN ENCODE runlength,
+	created_at TIMESTAMP ENCODE delta32k,
+	custom_role_id BIGINT ENCODE mostly32,
+	email VARCHAR(512) ENCODE lzo,
+	last_login_at TIMESTAMP ENCODE delta32k,
+	locale VARCHAR(512) ENCODE lzo,
+	locale_id BIGINT ENCODE mostly32,
+	moderator BOOLEAN ENCODE runlength,
+	name VARCHAR(512) ENCODE lzo,
+	only_private_comments BOOLEAN ENCODE runlength,
+	organization_id BIGINT ENCODE mostly32,
+	phone VARCHAR(512) ENCODE lzo,
+	restricted_agent BOOLEAN ENCODE runlength,
+	role VARCHAR(512) ENCODE lzo,
+	segment_object_id VARCHAR(512) ENCODE lzo,
+	shared BOOLEAN ENCODE runlength,
+	shared_agent BOOLEAN ENCODE runlength,
+	signature VARCHAR(512) ENCODE lzo,
+	suspended BOOLEAN ENCODE runlength,
+	tags VARCHAR(512) ENCODE lzo,
+	ticket_restriction VARCHAR(512) ENCODE lzo,
+	two_factor_auth_enabled BOOLEAN ENCODE runlength,
+	updated_at TIMESTAMP ENCODE delta32k,
+	url BIGINT ENCODE mostly32,
+	user_fields_phone_number BIGINT ENCODE mostly32,
+	verified BOOLEAN ENCODE runlength
+)
+SORTKEY
+(
+	received_at
+);
+
+ALTER TABLE zendesk.users
+ADD CONSTRAINT users_pkey
+PRIMARY KEY (id);
+
+
+
