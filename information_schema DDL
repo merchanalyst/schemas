@@ -1,0 +1,69 @@
+CREATE TABLE information_schema.sql_features
+(
+	feature_id VARCHAR(1) ENCODE none,
+	feature_name VARCHAR(1) ENCODE none,
+	sub_feature_id VARCHAR(1) ENCODE none,
+	sub_feature_name VARCHAR(1) ENCODE none,
+	is_supported VARCHAR(1) ENCODE none,
+	is_verified_by VARCHAR(1) ENCODE none,
+	comments VARCHAR(1) ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE information_schema.sql_implementation_info
+(
+	implementation_info_id VARCHAR(1) ENCODE none,
+	implementation_info_name VARCHAR(1) ENCODE none,
+	integer_value INTEGER ENCODE none,
+	character_value VARCHAR(1) ENCODE none,
+	comments VARCHAR(1) ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE information_schema.sql_languages
+(
+	sql_language_source VARCHAR(1) ENCODE none,
+	sql_language_year VARCHAR(1) ENCODE none,
+	sql_language_conformance VARCHAR(1) ENCODE none,
+	sql_language_integrity VARCHAR(1) ENCODE none,
+	sql_language_implementation VARCHAR(1) ENCODE none,
+	sql_language_binding_style VARCHAR(1) ENCODE none,
+	sql_language_programming_language VARCHAR(1) ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE information_schema.sql_packages
+(
+	feature_id VARCHAR(1) ENCODE none,
+	feature_name VARCHAR(1) ENCODE none,
+	is_supported VARCHAR(1) ENCODE none,
+	is_verified_by VARCHAR(1) ENCODE none,
+	comments VARCHAR(1) ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE information_schema.sql_sizing
+(
+	sizing_id INTEGER ENCODE none,
+	sizing_name VARCHAR(1) ENCODE none,
+	supported_value INTEGER ENCODE none,
+	comments VARCHAR(1) ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE information_schema.sql_sizing_profiles
+(
+	sizing_id INTEGER ENCODE none,
+	sizing_name VARCHAR(1) ENCODE none,
+	profile_id VARCHAR(1) ENCODE none,
+	required_value INTEGER ENCODE none,
+	comments VARCHAR(1) ENCODE none
+)
+DISTSTYLE EVEN;
+
+
