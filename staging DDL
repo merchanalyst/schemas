@@ -1,0 +1,498 @@
+CREATE TABLE staging.amazonallorders
+(
+	id BIGINT ENCODE lzo,
+	"amazon-order-id" VARCHAR(254) ENCODE lzo,
+	"merchant-order-id" VARCHAR(254) ENCODE lzo,
+	"purchase-date" VARCHAR(25) ENCODE lzo,
+	"last-updated-date" VARCHAR(254) ENCODE lzo,
+	"order-status" VARCHAR(254) ENCODE lzo,
+	"fulfillment-channel" VARCHAR(254) ENCODE lzo,
+	"sales-channel" VARCHAR(254) ENCODE lzo,
+	"order-channel" VARCHAR(254) ENCODE lzo,
+	url VARCHAR(512) ENCODE lzo,
+	"ship-service-level" VARCHAR(254) ENCODE lzo,
+	"product-name" VARCHAR(254) ENCODE lzo,
+	sku VARCHAR(254) ENCODE lzo,
+	asin VARCHAR(254) ENCODE lzo,
+	"item-status" VARCHAR(254) ENCODE lzo,
+	quantity INTEGER ENCODE lzo,
+	currency VARCHAR(254) ENCODE lzo,
+	"item-price" REAL ENCODE bytedict,
+	"item-tax" REAL ENCODE runlength,
+	"shipping-price" REAL ENCODE bytedict,
+	"shipping-tax" REAL ENCODE runlength,
+	"gift-wrap-price" REAL ENCODE runlength,
+	"gift-wrap-tax" REAL ENCODE runlength,
+	"item-promotion-discount" REAL ENCODE runlength,
+	"ship-promotion-discount" REAL ENCODE runlength,
+	"ship-city" VARCHAR(254) ENCODE lzo,
+	"ship-state" VARCHAR(254) ENCODE lzo,
+	"ship-postal-code" VARCHAR(254) ENCODE lzo,
+	"ship-country" VARCHAR(254) ENCODE lzo,
+	"promotion-ids" VARCHAR(254) ENCODE lzo,
+	filename VARCHAR(512) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE staging.amazonpayments
+(
+	id BIGINT ENCODE lzo,
+	"date/time" TIMESTAMP ENCODE lzo,
+	"settlement id" VARCHAR(256) ENCODE lzo,
+	type VARCHAR(256) ENCODE lzo,
+	"order id" VARCHAR(256) ENCODE lzo,
+	sku VARCHAR(256) ENCODE lzo,
+	description VARCHAR(256) ENCODE lzo,
+	quantity INTEGER ENCODE lzo,
+	marketplace VARCHAR(256) ENCODE lzo,
+	fulfillment VARCHAR(256) ENCODE lzo,
+	"order city" VARCHAR(256) ENCODE text32k,
+	"order state" VARCHAR(256) ENCODE lzo,
+	"order postal" VARCHAR(256) ENCODE lzo,
+	"product sales" REAL ENCODE bytedict,
+	"shipping credits" REAL ENCODE bytedict,
+	"gift wrap credits" REAL ENCODE runlength,
+	"promotional rebates" REAL ENCODE runlength,
+	"sales tax collected" REAL ENCODE runlength,
+	"selling fees" REAL ENCODE bytedict,
+	"fba fees" REAL ENCODE runlength,
+	"other transaction fees" REAL ENCODE runlength,
+	other REAL ENCODE runlength,
+	total REAL ENCODE bytedict
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE staging.amazontodelete
+(
+	"amazon-order-id" VARCHAR(64) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE staging.combinedorderlineitems
+(
+	combinedliid VARCHAR(50) ENCODE lzo,
+	internalliid VARCHAR(50) ENCODE lzo,
+	externalliid VARCHAR(50) ENCODE lzo,
+	externalliidsource VARCHAR(255) ENCODE lzo,
+	combinedoid VARCHAR(50) ENCODE lzo,
+	internaloid VARCHAR(50) ENCODE lzo,
+	externaloid VARCHAR(50) ENCODE lzo,
+	externaloidsource VARCHAR(50) ENCODE lzo,
+	sku VARCHAR(255) ENCODE lzo,
+	quantity INTEGER ENCODE lzo,
+	unitprice REAL ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE staging.combinedorders
+(
+	combinedoid VARCHAR(90) NOT NULL ENCODE lzo,
+	internaloid VARCHAR(10) ENCODE lzo,
+	externaloid VARCHAR(50) ENCODE lzo,
+	externaloidsource VARCHAR(30) ENCODE lzo,
+	internalparentoid VARCHAR(10) ENCODE lzo,
+	orderdate TIMESTAMP ENCODE lzo,
+	channel VARCHAR(20) ENCODE lzo,
+	subchannel VARCHAR(20) ENCODE lzo,
+	ordertype VARCHAR(50) ENCODE lzo,
+	ordersubtype VARCHAR(50) ENCODE lzo,
+	retailer VARCHAR(50) ENCODE lzo,
+	vendornumber VARCHAR(4) ENCODE lzo,
+	storenumber VARCHAR(4) ENCODE lzo,
+	lineitemtotal NUMERIC(12, 2) ENCODE lzo,
+	taxtotal NUMERIC(12, 2) ENCODE lzo,
+	discounttotal NUMERIC(12, 2) ENCODE lzo,
+	shippingtotal NUMERIC(12, 2) ENCODE lzo,
+	feetotal NUMERIC(12, 2) ENCODE lzo,
+	shippingtype VARCHAR(50) ENCODE lzo,
+	shippingaddresstype VARCHAR(50) ENCODE lzo,
+	shippingfirstname VARCHAR(100) ENCODE lzo,
+	shippinglastname VARCHAR(100) ENCODE lzo,
+	shippingcompany VARCHAR(50) ENCODE lzo,
+	shippingaddress VARCHAR(200) ENCODE lzo,
+	shippingaddress2 VARCHAR(200) ENCODE lzo,
+	shippingcity VARCHAR(100) ENCODE lzo,
+	shippingstate VARCHAR(100) ENCODE lzo,
+	shippingzipcode VARCHAR(50) ENCODE lzo,
+	shippingcountry VARCHAR(50) ENCODE lzo,
+	shippingphone VARCHAR(50) ENCODE lzo,
+	shippingfax VARCHAR(50) ENCODE lzo,
+	cashier VARCHAR(50) ENCODE lzo,
+	register VARCHAR(20) ENCODE lzo,
+	email VARCHAR(100) ENCODE lzo,
+	paymentmethod VARCHAR(50) ENCODE lzo,
+	cardtype VARCHAR(50) ENCODE lzo,
+	lat VARCHAR(50) ENCODE lzo,
+	lon VARCHAR(50) ENCODE lzo,
+	dma VARCHAR(100) ENCODE lzo,
+	county VARCHAR(100) ENCODE lzo,
+	cbsa VARCHAR(100) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+ALTER TABLE staging.combinedorders
+ADD CONSTRAINT combinedorders_pkey
+PRIMARY KEY (combinedoid);
+
+
+
+CREATE TABLE staging.discountchanges
+(
+	combinedoid VARCHAR(90) ENCODE lzo,
+	discounttotal NUMERIC(12, 2) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE staging.geoupdate
+(
+	combinedoid VARCHAR(90) ENCODE lzo,
+	dma VARCHAR(100) ENCODE lzo,
+	county VARCHAR(100) ENCODE text255,
+	cbsa VARCHAR(100) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE staging.internalborders
+(
+	id INTEGER ENCODE lzo,
+	parentorderid INTEGER ENCODE lzo,
+	amazonorderid VARCHAR(100) ENCODE lzo,
+	bigshotorderid INTEGER ENCODE lzo,
+	ordertype VARCHAR(12) ENCODE lzo,
+	ordersubtype VARCHAR(200) ENCODE lzo,
+	custid VARCHAR(50) ENCODE lzo,
+	orderdate TIMESTAMP ENCODE lzo,
+	secureid VARCHAR(50) ENCODE lzo,
+	shippingtype VARCHAR(50) ENCODE lzo,
+	shippingaddresstype VARCHAR(50) ENCODE lzo,
+	shipping REAL ENCODE none,
+	tax REAL ENCODE none,
+	shippingfirstname VARCHAR(100) ENCODE lzo,
+	shippinglastname VARCHAR(100) ENCODE lzo,
+	shippingcompany VARCHAR(50) ENCODE lzo,
+	shippingaddress VARCHAR(100) ENCODE lzo,
+	shippingaddress2 VARCHAR(100) ENCODE lzo,
+	shippingcity VARCHAR(100) ENCODE lzo,
+	shippingstate VARCHAR(50) ENCODE lzo,
+	shippingzipcode VARCHAR(50) ENCODE lzo,
+	shippingcountry VARCHAR(50) ENCODE lzo,
+	shippingphone VARCHAR(50) ENCODE lzo,
+	shippingfax VARCHAR(50) ENCODE lzo,
+	billingfirstname VARCHAR(100) ENCODE lzo,
+	billinglastname VARCHAR(100) ENCODE lzo,
+	billingcompany VARCHAR(50) ENCODE lzo,
+	billingaddress VARCHAR(100) ENCODE lzo,
+	billingaddress2 VARCHAR(100) ENCODE lzo,
+	billingcity VARCHAR(100) ENCODE lzo,
+	billingstate VARCHAR(50) ENCODE lzo,
+	billingzipcode VARCHAR(50) ENCODE lzo,
+	billingcountry VARCHAR(50) ENCODE lzo,
+	billingphone VARCHAR(50) ENCODE lzo,
+	billingfax VARCHAR(50) ENCODE lzo,
+	email VARCHAR(100) ENCODE lzo,
+	cardtype VARCHAR(50) ENCODE lzo,
+	cardnumber VARCHAR(50) ENCODE lzo,
+	cvccvv VARCHAR(50) ENCODE lzo,
+	cardexpiration VARCHAR(50) ENCODE lzo,
+	approved BOOLEAN ENCODE none,
+	discount REAL ENCODE none,
+	discountcode VARCHAR(50) ENCODE lzo,
+	statusid INTEGER ENCODE lzo,
+	avsresponse VARCHAR(2) ENCODE lzo,
+	discount2 REAL ENCODE none,
+	discountcode2 VARCHAR(50) ENCODE lzo,
+	discount3 REAL ENCODE none,
+	discountcode3 VARCHAR(50) ENCODE lzo,
+	ngshipmentid VARCHAR(50) ENCODE lzo,
+	refund REAL ENCODE none,
+	labelfee REAL ENCODE none,
+	paymentmethod VARCHAR(255) ENCODE lzo,
+	transactionid VARCHAR(50) ENCODE lzo,
+	externalid VARCHAR(50) ENCODE lzo,
+	lat VARCHAR(50) ENCODE lzo,
+	lon VARCHAR(50) ENCODE lzo,
+	dma VARCHAR(64) ENCODE lzo,
+	county VARCHAR(100) ENCODE lzo,
+	cbsa VARCHAR(100) ENCODE lzo,
+	adminuser VARCHAR(100) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE staging.internalfbttborders
+(
+	id VARCHAR(50) ENCODE lzo,
+	parentorderid VARCHAR(50) ENCODE lzo,
+	amazonorderid VARCHAR(50) ENCODE lzo,
+	bigshotorderid VARCHAR(50) ENCODE lzo,
+	ordertype VARCHAR(12) ENCODE lzo,
+	ordersubtype VARCHAR(200) ENCODE lzo,
+	custid VARCHAR(50) ENCODE lzo,
+	orderdate TIMESTAMP ENCODE lzo,
+	secureid VARCHAR(50) ENCODE lzo,
+	shippingtype VARCHAR(50) ENCODE lzo,
+	shippingaddresstype VARCHAR(50) ENCODE lzo,
+	shipping REAL ENCODE none,
+	tax REAL ENCODE none,
+	shippingfirstname VARCHAR(100) ENCODE lzo,
+	shippinglastname VARCHAR(100) ENCODE lzo,
+	shippingcompany VARCHAR(100) ENCODE lzo,
+	shippingaddress VARCHAR(100) ENCODE lzo,
+	shippingaddress2 VARCHAR(100) ENCODE lzo,
+	shippingcity VARCHAR(100) ENCODE lzo,
+	shippingstate VARCHAR(50) ENCODE lzo,
+	shippingzipcode VARCHAR(50) ENCODE lzo,
+	shippingcountry VARCHAR(50) ENCODE lzo,
+	shippingphone VARCHAR(50) ENCODE lzo,
+	shippingfax VARCHAR(50) ENCODE lzo,
+	billingfirstname VARCHAR(100) ENCODE lzo,
+	billinglastname VARCHAR(100) ENCODE lzo,
+	billingcompany VARCHAR(50) ENCODE lzo,
+	billingaddress VARCHAR(100) ENCODE lzo,
+	billingaddress2 VARCHAR(100) ENCODE lzo,
+	billingcity VARCHAR(100) ENCODE lzo,
+	billingstate VARCHAR(50) ENCODE lzo,
+	billingzipcode VARCHAR(50) ENCODE lzo,
+	billingcountry VARCHAR(50) ENCODE lzo,
+	billingphone VARCHAR(50) ENCODE lzo,
+	billingfax VARCHAR(50) ENCODE lzo,
+	email VARCHAR(255) ENCODE lzo,
+	cardtype VARCHAR(50) ENCODE lzo,
+	cardnumber VARCHAR(50) ENCODE lzo,
+	cvccvv VARCHAR(50) ENCODE lzo,
+	cardexpiration VARCHAR(50) ENCODE lzo,
+	approved BOOLEAN ENCODE none,
+	discount REAL ENCODE none,
+	discountcode VARCHAR(50) ENCODE lzo,
+	statusid INTEGER ENCODE lzo,
+	avsresponse VARCHAR(2) ENCODE lzo,
+	discount2 REAL ENCODE none,
+	discountcode2 VARCHAR(50) ENCODE lzo,
+	discount3 REAL ENCODE none,
+	discountcode3 VARCHAR(50) ENCODE lzo,
+	ngshipmentid VARCHAR(16) ENCODE lzo,
+	refund REAL ENCODE none,
+	labelfee REAL ENCODE none,
+	paymentmethod VARCHAR(50) ENCODE lzo,
+	transactionid VARCHAR(50) ENCODE lzo,
+	externalid VARCHAR(50) ENCODE lzo,
+	lat VARCHAR(50) ENCODE lzo,
+	lon VARCHAR(50) ENCODE lzo,
+	dma VARCHAR(64) ENCODE lzo,
+	county VARCHAR(100) ENCODE lzo,
+	cbsa VARCHAR(100) ENCODE lzo,
+	adminuser VARCHAR(100) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE staging.internalfbttborderstaging
+(
+	id VARCHAR(50) ENCODE lzo,
+	parentorderid VARCHAR(50),
+	amazonorderid VARCHAR(50) ENCODE lzo,
+	bigshotorderid VARCHAR(50),
+	ordertype VARCHAR(12) ENCODE lzo,
+	ordersubtype VARCHAR(200),
+	custid VARCHAR(50) ENCODE lzo,
+	orderdate TIMESTAMP ENCODE lzo,
+	secureid VARCHAR(50) ENCODE lzo,
+	shippingtype VARCHAR(50) ENCODE lzo,
+	shippingaddresstype VARCHAR(50) ENCODE lzo,
+	shipping REAL ENCODE bytedict,
+	tax REAL ENCODE runlength,
+	shippingfirstname VARCHAR(100),
+	shippinglastname VARCHAR(100) ENCODE lzo,
+	shippingcompany VARCHAR(100),
+	shippingaddress VARCHAR(100) ENCODE lzo,
+	shippingaddress2 VARCHAR(100) ENCODE lzo,
+	shippingcity VARCHAR(100) ENCODE text32k,
+	shippingstate VARCHAR(50) ENCODE lzo,
+	shippingzipcode VARCHAR(50) ENCODE lzo,
+	shippingcountry VARCHAR(50) ENCODE lzo,
+	shippingphone VARCHAR(50) ENCODE lzo,
+	shippingfax VARCHAR(50),
+	billingfirstname VARCHAR(100),
+	billinglastname VARCHAR(100),
+	billingcompany VARCHAR(50),
+	billingaddress VARCHAR(100),
+	billingaddress2 VARCHAR(100),
+	billingcity VARCHAR(100),
+	billingstate VARCHAR(50),
+	billingzipcode VARCHAR(50),
+	billingcountry VARCHAR(50),
+	billingphone VARCHAR(50),
+	billingfax VARCHAR(50),
+	email VARCHAR(255) ENCODE lzo,
+	cardtype VARCHAR(50),
+	cardnumber VARCHAR(50),
+	cvccvv VARCHAR(50),
+	cardexpiration VARCHAR(50),
+	approved BOOLEAN,
+	discount REAL ENCODE runlength,
+	discountcode VARCHAR(50),
+	statusid INTEGER ENCODE lzo,
+	avsresponse VARCHAR(2),
+	discount2 REAL,
+	discountcode2 VARCHAR(50),
+	discount3 REAL,
+	discountcode3 VARCHAR(50),
+	ngshipmentid VARCHAR(16) ENCODE lzo,
+	refund REAL,
+	labelfee REAL,
+	paymentmethod VARCHAR(50),
+	transactionid VARCHAR(50),
+	externalid VARCHAR(50),
+	lat VARCHAR(50) ENCODE lzo,
+	lon VARCHAR(50) ENCODE lzo,
+	dma VARCHAR(64),
+	county VARCHAR(100),
+	cbsa VARCHAR(100),
+	adminuser VARCHAR(100)
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE staging.internallineitems
+(
+	internalliid VARCHAR(12) ENCODE lzo,
+	internaloid VARCHAR(12) ENCODE lzo,
+	sku VARCHAR(64) ENCODE lzo,
+	quantity INTEGER ENCODE lzo,
+	unitprice REAL ENCODE runlength
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE staging.internalorders
+(
+	id BIGINT ENCODE delta,
+	parentorderid BIGINT ENCODE lzo,
+	amazonorderid BIGINT ENCODE lzo,
+	bigshotorderid BIGINT ENCODE lzo,
+	ordertype VARCHAR(100) ENCODE lzo,
+	ordersubtype VARCHAR(255) ENCODE lzo,
+	custid VARCHAR(65) ENCODE lzo,
+	orderdate TIMESTAMP ENCODE lzo,
+	secureid VARCHAR(50) ENCODE lzo,
+	shippingtype VARCHAR(50) ENCODE lzo,
+	shippingaddresstype VARCHAR(50) ENCODE lzo,
+	shipping REAL ENCODE bytedict,
+	tax REAL ENCODE runlength,
+	shippingfirstname VARCHAR(255) ENCODE text32k,
+	shippinglastname VARCHAR(255) ENCODE lzo,
+	shippingcompany VARCHAR(255) ENCODE lzo,
+	shippingaddress VARCHAR(255) ENCODE lzo,
+	shippingaddress2 VARCHAR(255) ENCODE lzo,
+	shippingcity VARCHAR(255) ENCODE text32k,
+	shippingstate VARCHAR(255) ENCODE lzo,
+	shippingzipcode VARCHAR(50) ENCODE lzo,
+	shippingcountry VARCHAR(255) ENCODE lzo,
+	shippingphone VARCHAR(50) ENCODE lzo,
+	shippingfax VARCHAR(50) ENCODE lzo,
+	billingfirstname VARCHAR(255) ENCODE lzo,
+	billinglastname VARCHAR(255) ENCODE lzo,
+	billingcompany VARCHAR(255) ENCODE lzo,
+	billingaddress VARCHAR(255) ENCODE lzo,
+	billingaddress2 VARCHAR(255) ENCODE lzo,
+	billingcity VARCHAR(100) ENCODE text32k,
+	billingstate VARCHAR(50) ENCODE lzo,
+	billingzipcode VARCHAR(50) ENCODE lzo,
+	billingcountry VARCHAR(255) ENCODE lzo,
+	billingphone VARCHAR(50) ENCODE lzo,
+	billingfax VARCHAR(50) ENCODE lzo,
+	email VARCHAR(255) ENCODE lzo,
+	cardtype VARCHAR(50) ENCODE lzo,
+	cardnumber VARCHAR(50) ENCODE lzo,
+	cvccvv VARCHAR(25) ENCODE lzo,
+	cardexpiration VARCHAR(25) ENCODE lzo,
+	approved VARCHAR(10) ENCODE lzo,
+	discount REAL ENCODE runlength,
+	discountcode VARCHAR(255) ENCODE lzo,
+	statusid INTEGER ENCODE lzo,
+	avsresponse VARCHAR(10) ENCODE lzo,
+	discount2 REAL ENCODE runlength,
+	discountcode2 VARCHAR(255) ENCODE lzo,
+	discount3 REAL ENCODE runlength,
+	discountcode3 VARCHAR(255) ENCODE lzo,
+	ngshipmentid VARCHAR(25) ENCODE lzo,
+	refund REAL ENCODE runlength,
+	labelfee REAL ENCODE runlength,
+	paymentmethod VARCHAR(50) ENCODE lzo,
+	transactionid VARCHAR(150) ENCODE lzo,
+	externalid VARCHAR(255) ENCODE lzo,
+	lat VARCHAR(255) ENCODE lzo,
+	lon VARCHAR(255) ENCODE lzo,
+	dma VARCHAR(255) ENCODE lzo,
+	county VARCHAR(255) ENCODE lzo,
+	cbsa VARCHAR(255) ENCODE lzo,
+	adminuser VARCHAR(255) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE staging.internalshipdate
+(
+	internaloid VARCHAR(10) NOT NULL ENCODE lzo,
+	shipdatetime TIMESTAMP ENCODE lzo
+)
+DISTSTYLE EVEN
+SORTKEY
+(
+	internaloid
+);
+
+
+CREATE TABLE staging.lineitemtotalupdate
+(
+	combinedoid VARCHAR(90) ENCODE lzo,
+	lineitemtotal NUMERIC(12, 2) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE staging.ngsinventory
+(
+	sku VARCHAR(100) NOT NULL ENCODE lzo,
+	newgisticstock INTEGER ENCODE lzo,
+	datetime TIMESTAMP ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE staging.shopkeeptransactionsbyitem
+(
+	id BIGINT ENCODE delta,
+	"store number" VARCHAR(10) ENCODE lzo,
+	"transaction id" VARCHAR(50) ENCODE lzo,
+	"transaction type" VARCHAR(256) ENCODE lzo,
+	"store code" VARCHAR(50) ENCODE lzo,
+	"item description" VARCHAR(256) ENCODE lzo,
+	category VARCHAR(50) ENCODE lzo,
+	department VARCHAR(50) ENCODE text255,
+	supplier VARCHAR(50) ENCODE lzo,
+	"supplier code" VARCHAR(50) ENCODE lzo,
+	cost REAL ENCODE runlength,
+	price REAL ENCODE bytedict,
+	quantity INTEGER ENCODE lzo,
+	modifiers REAL ENCODE runlength,
+	subtotal REAL ENCODE bytedict,
+	tax REAL ENCODE bytedict,
+	discount REAL ENCODE runlength,
+	total REAL ENCODE bytedict,
+	cashier VARCHAR(50) ENCODE lzo,
+	time TIMESTAMP ENCODE lzo,
+	register VARCHAR(50) ENCODE lzo,
+	filename VARCHAR(256) ENCODE lzo,
+	"customer email" VARCHAR(256) ENCODE lzo,
+	"customer name" VARCHAR(256) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
