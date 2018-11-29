@@ -1,0 +1,5879 @@
+CREATE TABLE pg_catalog.pg_aggregate
+(
+	aggfnoid regproc NOT NULL,
+	aggtransfn regproc NOT NULL,
+	aggfinalfn regproc NOT NULL,
+	aggtranstype oid NOT NULL,
+	agginitval text
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_am
+(
+	amname name NOT NULL,
+	amowner INTEGER NOT NULL,
+	amstrategies SMALLINT NOT NULL,
+	amsupport SMALLINT NOT NULL,
+	amorderstrategy SMALLINT NOT NULL,
+	amcanunique BOOLEAN NOT NULL,
+	amcanmulticol BOOLEAN NOT NULL,
+	amindexnulls BOOLEAN NOT NULL,
+	amconcurrent BOOLEAN NOT NULL,
+	amgettuple regproc NOT NULL,
+	aminsert regproc NOT NULL,
+	ambeginscan regproc NOT NULL,
+	amrescan regproc NOT NULL,
+	amendscan regproc NOT NULL,
+	ammarkpos regproc NOT NULL,
+	amrestrpos regproc NOT NULL,
+	ambuild regproc NOT NULL,
+	ambulkdelete regproc NOT NULL,
+	amvacuumcleanup regproc NOT NULL,
+	amcostestimate regproc NOT NULL
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_amop
+(
+	amopclaid oid NOT NULL,
+	amopsubtype oid NOT NULL,
+	amopstrategy SMALLINT NOT NULL,
+	amopreqcheck BOOLEAN NOT NULL,
+	amopopr oid NOT NULL
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_amproc
+(
+	amopclaid oid NOT NULL,
+	amprocsubtype oid NOT NULL,
+	amprocnum SMALLINT NOT NULL,
+	amproc regproc NOT NULL
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_attrdef
+(
+	adrelid oid NOT NULL,
+	adnum SMALLINT NOT NULL,
+	adbin text,
+	adsrc text
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_attribute
+(
+	attrelid oid NOT NULL,
+	attname name NOT NULL,
+	atttypid oid NOT NULL,
+	attstattarget INTEGER NOT NULL,
+	attlen SMALLINT NOT NULL,
+	attnum SMALLINT NOT NULL,
+	attndims INTEGER NOT NULL,
+	attcacheoff INTEGER NOT NULL,
+	atttypmod INTEGER NOT NULL,
+	attbyval BOOLEAN NOT NULL,
+	attstorage CHAR(1) NOT NULL,
+	attalign CHAR(1) NOT NULL,
+	attnotnull BOOLEAN NOT NULL,
+	atthasdef BOOLEAN NOT NULL,
+	attisdropped BOOLEAN NOT NULL,
+	attislocal BOOLEAN NOT NULL,
+	attinhcount INTEGER NOT NULL,
+	attisdistkey BOOLEAN NOT NULL,
+	attispreloaded BOOLEAN NOT NULL,
+	attsortkeyord INTEGER NOT NULL,
+	attencodingtype SMALLINT NOT NULL,
+	attencrypttype SMALLINT NOT NULL
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_bar_ddllog
+(
+	bar_ddllog_dboid oid NOT NULL,
+	bar_ddllog_xid xid NOT NULL,
+	bar_ddllog_txt text,
+	bar_ddllog_cmd SMALLINT,
+	bar_ddllog_lng SMALLINT,
+	bar_ddllog_oids text,
+	bar_ddllog_names text,
+	bar_ddllog_path text
+)
+DISTSTYLE EVEN;
+
+COMMENT ON TABLE pg_catalog.pg_bar_ddllog IS 'hh:mm:ss, ANSI SQL time';
+
+CREATE TABLE pg_catalog.pg_bar_repos
+(
+	bar_repos_name name NOT NULL,
+	bar_repos_leader_path text,
+	bar_repos_data_paths text[]
+)
+DISTSTYLE EVEN;
+
+COMMENT ON TABLE pg_catalog.pg_bar_repos IS 'convert encoding name to encoding id';
+
+CREATE TABLE pg_catalog.pg_bar_state
+(
+	bar_state_dboid oid NOT NULL,
+	bar_state_backup_name text,
+	bar_state_restore_xid xid,
+	bar_state_restore_suspension BOOLEAN
+)
+DISTSTYLE EVEN;
+
+COMMENT ON TABLE pg_catalog.pg_bar_state IS 'r-tree(internal)';
+
+CREATE TABLE pg_catalog.pg_cast
+(
+	castsource oid NOT NULL,
+	casttarget oid NOT NULL,
+	castfunc oid NOT NULL,
+	castcontext CHAR(1) NOT NULL
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_class
+(
+	relname name NOT NULL,
+	relnamespace oid NOT NULL,
+	reltype oid NOT NULL,
+	relowner INTEGER NOT NULL,
+	relam oid NOT NULL,
+	relfilenode oid NOT NULL,
+	reltablespace oid NOT NULL,
+	relpages INTEGER NOT NULL,
+	reltuples REAL NOT NULL,
+	reltoastrelid oid NOT NULL,
+	reltoastidxid oid NOT NULL,
+	relhasindex BOOLEAN NOT NULL,
+	relisshared BOOLEAN NOT NULL,
+	relkind CHAR(1) NOT NULL,
+	relnatts SMALLINT NOT NULL,
+	relexternid oid NOT NULL,
+	relisreplicated BOOLEAN NOT NULL,
+	relispinned BOOLEAN NOT NULL,
+	reldiststyle SMALLINT NOT NULL,
+	relprojbaseid oid NOT NULL,
+	relchecks SMALLINT NOT NULL,
+	reltriggers SMALLINT NOT NULL,
+	relukeys SMALLINT NOT NULL,
+	relfkeys SMALLINT NOT NULL,
+	relrefs SMALLINT NOT NULL,
+	relhasoids BOOLEAN NOT NULL,
+	relhaspkey BOOLEAN NOT NULL,
+	relhasrules BOOLEAN NOT NULL,
+	relhassubclass BOOLEAN NOT NULL,
+	relacl aclitem[]
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_class_extended
+(
+	reloid oid NOT NULL ENCODE none,
+	colnum SMALLINT NOT NULL ENCODE lzo,
+	value text ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_conf
+(
+	key name NOT NULL ENCODE none,
+	value text ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_constraint
+(
+	conname name NOT NULL,
+	connamespace oid NOT NULL,
+	contype CHAR(1) NOT NULL,
+	condeferrable BOOLEAN NOT NULL,
+	condeferred BOOLEAN NOT NULL,
+	conrelid oid NOT NULL,
+	contypid oid NOT NULL,
+	confrelid oid NOT NULL,
+	confupdtype CHAR(1) NOT NULL,
+	confdeltype CHAR(1) NOT NULL,
+	confmatchtype CHAR(1) NOT NULL,
+	conkey smallint[],
+	confkey smallint[],
+	conbin text,
+	consrc text
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_conversion
+(
+	conname name NOT NULL,
+	connamespace oid NOT NULL,
+	conowner INTEGER NOT NULL,
+	conforencoding INTEGER NOT NULL,
+	contoencoding INTEGER NOT NULL,
+	conproc regproc NOT NULL,
+	condefault BOOLEAN NOT NULL
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_database
+(
+	datname name NOT NULL,
+	datdba INTEGER NOT NULL,
+	encoding INTEGER NOT NULL,
+	datistemplate BOOLEAN NOT NULL,
+	datallowconn BOOLEAN NOT NULL,
+	datlastsysoid oid NOT NULL,
+	datvacuumxid xid NOT NULL,
+	datfrozenxid xid NOT NULL,
+	dattablespace oid NOT NULL,
+	datconfig text[],
+	datacl aclitem[]
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_database_extended
+(
+	dbid oid NOT NULL ENCODE none,
+	colnum SMALLINT NOT NULL ENCODE lzo,
+	value text ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_default_acl
+(
+	defacluser INTEGER NOT NULL ENCODE lzo,
+	defaclnamespace oid NOT NULL ENCODE none,
+	defaclobjtype CHAR(1) NOT NULL ENCODE none,
+	defaclacl aclitem[] ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_depend
+(
+	classid oid NOT NULL,
+	objid oid NOT NULL,
+	objsubid INTEGER NOT NULL,
+	refclassid oid NOT NULL,
+	refobjid oid NOT NULL,
+	refobjsubid INTEGER NOT NULL,
+	deptype CHAR(1) NOT NULL
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_description
+(
+	objoid oid NOT NULL,
+	classoid oid NOT NULL,
+	objsubid INTEGER NOT NULL,
+	description text
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_external_schema
+(
+	esoid oid NOT NULL ENCODE none,
+	eskind SMALLINT NOT NULL ENCODE lzo,
+	esdbname text ENCODE lzo,
+	esoptions text ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_group
+(
+	groname name NOT NULL,
+	grosysid INTEGER NOT NULL,
+	grolist integer[]
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_group_extended
+(
+	grosysid INTEGER NOT NULL ENCODE lzo,
+	colnum SMALLINT NOT NULL ENCODE lzo,
+	value text ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_highwatermark
+(
+	hwmrelid oid ENCODE none,
+	hwmcolnum INTEGER ENCODE lzo,
+	hwm INTEGER ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_index
+(
+	indexrelid oid NOT NULL,
+	indrelid oid NOT NULL,
+	indkey int2vector NOT NULL,
+	indclass oidvector NOT NULL,
+	indnatts SMALLINT NOT NULL,
+	indisunique BOOLEAN NOT NULL,
+	indisprimary BOOLEAN NOT NULL,
+	indisclustered BOOLEAN NOT NULL,
+	indexprs text,
+	indpred text
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_inherits
+(
+	inhrelid oid NOT NULL,
+	inhparent oid NOT NULL,
+	inhseqno INTEGER NOT NULL
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_language
+(
+	lanname name NOT NULL,
+	lanispl BOOLEAN NOT NULL,
+	lanpltrusted BOOLEAN NOT NULL,
+	lanplcallfoid oid NOT NULL,
+	lanvalidator oid NOT NULL,
+	lanacl aclitem[]
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_largeobject
+(
+	loid oid NOT NULL,
+	pageno INTEGER NOT NULL,
+	data bytea
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_library
+(
+	name name NOT NULL ENCODE none,
+	language_oid oid NOT NULL ENCODE none,
+	file_store_id INTEGER NOT NULL ENCODE lzo,
+	owner INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_listener
+(
+	relname name NOT NULL,
+	listenerpid INTEGER NOT NULL,
+	notification INTEGER NOT NULL
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_namespace
+(
+	nspname name NOT NULL,
+	nspowner INTEGER NOT NULL,
+	nspacl aclitem[]
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_opclass
+(
+	opcamid oid NOT NULL,
+	opcname name NOT NULL,
+	opcnamespace oid NOT NULL,
+	opcowner INTEGER NOT NULL,
+	opcintype oid NOT NULL,
+	opcdefault BOOLEAN NOT NULL,
+	opckeytype oid NOT NULL
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_operator
+(
+	oprname name NOT NULL,
+	oprnamespace oid NOT NULL,
+	oprowner INTEGER NOT NULL,
+	oprkind CHAR(1) NOT NULL,
+	oprcanhash BOOLEAN NOT NULL,
+	oprleft oid NOT NULL,
+	oprright oid NOT NULL,
+	oprresult oid NOT NULL,
+	oprcom oid NOT NULL,
+	oprnegate oid NOT NULL,
+	oprlsortop oid NOT NULL,
+	oprrsortop oid NOT NULL,
+	oprltcmpop oid NOT NULL,
+	oprgtcmpop oid NOT NULL,
+	oprcode regproc NOT NULL,
+	oprrest regproc NOT NULL,
+	oprjoin regproc NOT NULL
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_proc
+(
+	proname name NOT NULL,
+	pronamespace oid NOT NULL,
+	proowner INTEGER NOT NULL,
+	prolang oid NOT NULL,
+	proisagg BOOLEAN NOT NULL,
+	prosecdef BOOLEAN NOT NULL,
+	proisstrict BOOLEAN NOT NULL,
+	proretset BOOLEAN NOT NULL,
+	provolatile CHAR(1) NOT NULL,
+	pronargs SMALLINT NOT NULL,
+	prorettype oid NOT NULL,
+	proargtypes oidvector NOT NULL,
+	proargnames text[],
+	prosrc text,
+	probin bytea,
+	proacl aclitem[]
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_resize
+(
+	statexml VARCHAR(8192) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_rewrite
+(
+	rulename name NOT NULL,
+	ev_class oid NOT NULL,
+	ev_attr SMALLINT NOT NULL,
+	ev_type CHAR(1) NOT NULL,
+	is_instead BOOLEAN NOT NULL,
+	ev_qual text,
+	ev_action text
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_shadow
+(
+	usename name NOT NULL,
+	usesysid INTEGER NOT NULL,
+	usecreatedb BOOLEAN NOT NULL,
+	usesuper BOOLEAN NOT NULL,
+	usecatupd BOOLEAN NOT NULL,
+	passwd text,
+	valuntil abstime,
+	useconfig text[]
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_shadow_extended
+(
+	sysid INTEGER NOT NULL ENCODE lzo,
+	colnum SMALLINT NOT NULL ENCODE lzo,
+	value text ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_shdepend
+(
+	dbid oid NOT NULL ENCODE none,
+	classid oid NOT NULL ENCODE none,
+	objid oid NOT NULL ENCODE none,
+	objsubid INTEGER NOT NULL ENCODE lzo,
+	refclassid oid NOT NULL ENCODE none,
+	refobjid oid NOT NULL ENCODE none,
+	deptype CHAR(1) NOT NULL ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_statistic
+(
+	starelid oid NOT NULL,
+	staattnum SMALLINT NOT NULL,
+	stanullfrac REAL NOT NULL,
+	stawidth INTEGER NOT NULL,
+	stadistinct REAL NOT NULL,
+	stakind1 SMALLINT NOT NULL,
+	stakind2 SMALLINT NOT NULL,
+	stakind3 SMALLINT NOT NULL,
+	stakind4 SMALLINT NOT NULL,
+	staop1 oid NOT NULL,
+	staop2 oid NOT NULL,
+	staop3 oid NOT NULL,
+	staop4 oid NOT NULL,
+	stanumbers1 real[],
+	stanumbers2 real[],
+	stanumbers3 real[],
+	stanumbers4 real[],
+	stavalues1 anyarray,
+	stavalues2 anyarray,
+	stavalues3 anyarray,
+	stavalues4 anyarray
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_statistic_indicator
+(
+	stairelid oid NOT NULL ENCODE none,
+	stairows REAL NOT NULL ENCODE none,
+	staiins REAL NOT NULL ENCODE none,
+	staidels REAL NOT NULL ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_statistic_multicol
+(
+	stamcname name NOT NULL,
+	stamcrelid oid NOT NULL,
+	stamcdistinct REAL NOT NULL,
+	stamcattnum smallint[]
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_tablespace
+(
+	spcname name NOT NULL,
+	spcowner INTEGER NOT NULL,
+	spclocation text NOT NULL,
+	spcacl aclitem[]
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_test
+(
+	tesbool BOOLEAN ENCODE none,
+	tesenum CHAR(1) ENCODE none,
+	tesfloat4 REAL ENCODE none,
+	tesint2 SMALLINT ENCODE lzo,
+	tesint4 INTEGER ENCODE lzo,
+	tesint8 BIGINT ENCODE lzo,
+	tesname name ENCODE none,
+	tesoid oid ENCODE none,
+	tesregproc regproc ENCODE none,
+	testext VARCHAR(256) ENCODE lzo,
+	tesvarchar VARCHAR(256) ENCODE lzo,
+	tesxid xid ENCODE none,
+	teschar CHAR(13) ENCODE lzo,
+	tesdate DATE ENCODE lzo,
+	tesfloat8 DOUBLE PRECISION ENCODE none,
+	tesinterval interval ENCODE none,
+	tesnumeric NUMERIC(5, 2) ENCODE lzo,
+	testid tid ENCODE none,
+	testimestamp TIMESTAMP ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_trigger
+(
+	tgrelid oid NOT NULL,
+	tgname name NOT NULL,
+	tgfoid oid NOT NULL,
+	tgtype SMALLINT NOT NULL,
+	tgenabled BOOLEAN NOT NULL,
+	tgisconstraint BOOLEAN NOT NULL,
+	tgconstrname name NOT NULL,
+	tgconstrrelid oid NOT NULL,
+	tgdeferrable BOOLEAN NOT NULL,
+	tginitdeferred BOOLEAN NOT NULL,
+	tgnargs SMALLINT NOT NULL,
+	tgattr int2vector NOT NULL,
+	tgargs bytea
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_type
+(
+	typname name NOT NULL,
+	typnamespace oid NOT NULL,
+	typowner INTEGER NOT NULL,
+	typlen SMALLINT NOT NULL,
+	typbyval BOOLEAN NOT NULL,
+	typtype CHAR(1) NOT NULL,
+	typisdefined BOOLEAN NOT NULL,
+	typdelim CHAR(1) NOT NULL,
+	typrelid oid NOT NULL,
+	typelem oid NOT NULL,
+	typinput regproc NOT NULL,
+	typoutput regproc NOT NULL,
+	typreceive regproc NOT NULL,
+	typsend regproc NOT NULL,
+	typanalyze regproc NOT NULL,
+	typalign CHAR(1) NOT NULL,
+	typstorage CHAR(1) NOT NULL,
+	typnotnull BOOLEAN NOT NULL,
+	typbasetype oid NOT NULL,
+	typtypmod INTEGER NOT NULL,
+	typndims INTEGER NOT NULL,
+	typdefaultbin text,
+	typdefault text
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.pg_udf
+(
+	udfid oid NOT NULL,
+	nargs SMALLINT NOT NULL,
+	argtypmods oidvector NOT NULL,
+	rettypmod INTEGER NOT NULL,
+	version INTEGER NOT NULL,
+	funcname text
+)
+DISTSTYLE EVEN;
+
+COMMENT ON TABLE pg_catalog.pg_udf IS 'convert text to interval';
+
+CREATE TABLE pg_catalog.stb_aggr
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	slots INTEGER NOT NULL ENCODE lzo,
+	occupied INTEGER NOT NULL ENCODE lzo,
+	maxlength INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo,
+	type CHAR(6) NOT NULL ENCODE lzo,
+	resizes INTEGER NOT NULL ENCODE lzo,
+	flushable INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_bcast
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	packets INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_compile_info
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	locus INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	path CHAR(255) NOT NULL ENCODE lzo,
+	compile INTEGER NOT NULL ENCODE lzo,
+	complevel INTEGER NOT NULL ENCODE lzo,
+	cachehit INTEGER NOT NULL ENCODE lzo,
+	tokwaittime BIGINT NOT NULL ENCODE lzo,
+	compilestarttime TIMESTAMP NOT NULL ENCODE lzo,
+	compileendtime TIMESTAMP NOT NULL ENCODE lzo,
+	compilelocktime BIGINT NOT NULL ENCODE lzo,
+	compilememory BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_delete
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_dist
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	packets INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_hash
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	slots INTEGER NOT NULL ENCODE lzo,
+	occupied INTEGER NOT NULL ENCODE lzo,
+	maxlength INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo,
+	num_parts INTEGER NOT NULL ENCODE lzo,
+	est_rows BIGINT NOT NULL ENCODE lzo,
+	num_blocks_permitted INTEGER NOT NULL ENCODE lzo,
+	resizes INTEGER NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_hashjoin
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	num_parts INTEGER NOT NULL ENCODE lzo,
+	join_type INTEGER NOT NULL ENCODE lzo,
+	hash_looped CHAR(1) NOT NULL ENCODE lzo,
+	switched_parts CHAR(1) NOT NULL ENCODE lzo,
+	used_prefetching CHAR(1) NOT NULL ENCODE lzo,
+	hash_segment INTEGER NOT NULL ENCODE lzo,
+	hash_step INTEGER NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_insert
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_limit
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	hit_limit CHAR(1) NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_merge
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_mergejoin
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_nestloop
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_parse
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_project
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_return
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	packets INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_s3client
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	http_method CHAR(64) NOT NULL ENCODE lzo,
+	bucket CHAR(64) NOT NULL ENCODE lzo,
+	key CHAR(256) NOT NULL ENCODE lzo,
+	transfer_size BIGINT NOT NULL ENCODE lzo,
+	data_size BIGINT NOT NULL ENCODE lzo,
+	start_time BIGINT NOT NULL ENCODE lzo,
+	end_time BIGINT NOT NULL ENCODE lzo,
+	transfer_time BIGINT NOT NULL ENCODE lzo,
+	compression_time BIGINT NOT NULL ENCODE lzo,
+	connect_time BIGINT NOT NULL ENCODE lzo,
+	app_connect_time BIGINT NOT NULL ENCODE lzo,
+	retries INTEGER NOT NULL ENCODE lzo,
+	request_id CHAR(32) NOT NULL ENCODE lzo,
+	extended_request_id CHAR(128) NOT NULL ENCODE lzo,
+	ip_address CHAR(64) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_s3client_error
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	sliceid INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	http_method CHAR(64) NOT NULL ENCODE lzo,
+	bucket CHAR(64) NOT NULL ENCODE lzo,
+	key CHAR(256) NOT NULL ENCODE lzo,
+	error CHAR(1024) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_s3query
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	uuid CHAR(36) NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	external_table_name CHAR(136) NOT NULL ENCODE lzo,
+	is_partitioned CHAR(1) NOT NULL ENCODE lzo,
+	is_rrscan CHAR(1) NOT NULL ENCODE lzo,
+	s3_scanned_rows BIGINT NOT NULL ENCODE lzo,
+	s3_scanned_bytes BIGINT NOT NULL ENCODE lzo,
+	s3query_returned_rows BIGINT NOT NULL ENCODE lzo,
+	s3query_returned_bytes BIGINT NOT NULL ENCODE lzo,
+	files INTEGER NOT NULL ENCODE lzo,
+	total_retries INTEGER NOT NULL ENCODE lzo,
+	max_retries INTEGER NOT NULL ENCODE lzo,
+	max_request_duration INTEGER NOT NULL ENCODE lzo,
+	avg_request_duration INTEGER NOT NULL ENCODE lzo,
+	max_request_parallelism INTEGER NOT NULL ENCODE lzo,
+	max_allowed_parallelism INTEGER NOT NULL ENCODE lzo,
+	avg_request_parallelism DOUBLE PRECISION NOT NULL ENCODE none,
+	splits INTEGER NOT NULL ENCODE lzo,
+	total_split_size BIGINT NOT NULL ENCODE lzo,
+	max_split_size BIGINT NOT NULL ENCODE lzo,
+	request_fingerprint BIGINT NOT NULL ENCODE lzo,
+	file_format CHAR(16) NOT NULL ENCODE lzo,
+	cache_hits INTEGER NOT NULL ENCODE lzo,
+	is_copy INTEGER NOT NULL ENCODE lzo,
+	is_nested CHAR(1) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_save
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_scan
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	fetches BIGINT NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	is_rrscan CHAR(1) NOT NULL ENCODE lzo,
+	is_delayed_scan CHAR(1) NOT NULL ENCODE lzo,
+	rows_pre_filter BIGINT NOT NULL ENCODE lzo,
+	rows_pre_user_filter BIGINT NOT NULL ENCODE lzo,
+	perm_table_name CHAR(136) NOT NULL ENCODE lzo,
+	is_rlf_scan CHAR(1) NOT NULL ENCODE lzo,
+	is_rlf_scan_reason INTEGER NOT NULL ENCODE lzo,
+	num_em_blocks INTEGER NOT NULL ENCODE lzo,
+	checksum INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_sort
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_stream_segs
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	stream INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_unique
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	type CHAR(6) NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	slots INTEGER NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo,
+	max_buffers_used BIGINT NOT NULL ENCODE lzo,
+	resizes INTEGER NOT NULL ENCODE lzo,
+	occupied INTEGER NOT NULL ENCODE lzo,
+	flushable INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_unload_log
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	path CHAR(1280) NOT NULL ENCODE lzo,
+	start_time TIMESTAMP NOT NULL ENCODE lzo,
+	end_time TIMESTAMP NOT NULL ENCODE lzo,
+	line_count BIGINT NOT NULL ENCODE lzo,
+	transfer_size BIGINT NOT NULL ENCODE lzo,
+	file_format CHAR(10) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stb_window
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_aggr
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	slots INTEGER NOT NULL ENCODE lzo,
+	occupied INTEGER NOT NULL ENCODE lzo,
+	maxlength INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo,
+	type CHAR(6) NOT NULL ENCODE lzo,
+	resizes INTEGER NOT NULL ENCODE lzo,
+	flushable INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_aggr_distinct
+(
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	slots INTEGER NOT NULL ENCODE lzo,
+	occupied INTEGER NOT NULL ENCODE lzo,
+	maxlength INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	resizes INTEGER NOT NULL ENCODE lzo,
+	flushable INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_alert_event_log
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	event CHAR(1024) NOT NULL ENCODE lzo,
+	solution CHAR(200) NOT NULL ENCODE lzo,
+	event_time TIMESTAMP NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_analyze
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	database CHAR(30) NOT NULL ENCODE lzo,
+	table_id INTEGER NOT NULL ENCODE lzo,
+	status CHAR(15) NOT NULL ENCODE lzo,
+	rows DOUBLE PRECISION NOT NULL ENCODE none,
+	modified_rows DOUBLE PRECISION NOT NULL ENCODE none,
+	threshold_percent DOUBLE PRECISION NOT NULL ENCODE none,
+	is_auto CHAR(1) NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	prevtime TIMESTAMP NOT NULL ENCODE lzo,
+	num_predicate_cols INTEGER NOT NULL ENCODE lzo,
+	num_new_predicate_cols INTEGER NOT NULL ENCODE lzo,
+	is_background CHAR(1) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_auto_maintenance_worker
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	mode CHAR(15) NOT NULL ENCODE lzo,
+	db_id INTEGER NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	table_id INTEGER NOT NULL ENCODE lzo,
+	eventtime TIMESTAMP NOT NULL ENCODE lzo,
+	pause_count INTEGER NOT NULL ENCODE lzo,
+	tables_skipped INTEGER NOT NULL ENCODE lzo,
+	status CHAR(16) NOT NULL ENCODE lzo,
+	error_message CHAR(200) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_awsclient_error
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	http_method CHAR(64) NOT NULL ENCODE lzo,
+	endpoint CHAR(128) NOT NULL ENCODE lzo,
+	error CHAR(1024) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_background_monitor
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	status CHAR(100) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_backtrace
+(
+	now TIMESTAMP NOT NULL ENCODE lzo,
+	since TIMESTAMP NOT NULL ENCODE lzo,
+	name CHAR(80) NOT NULL ENCODE lzo,
+	count INTEGER NOT NULL ENCODE lzo,
+	hex_addresses CHAR(128) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_backup
+(
+	db_name CHAR(50) NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	repository_name CHAR(32) NOT NULL ENCODE lzo,
+	backup_name CHAR(256) NOT NULL ENCODE lzo,
+	backup_type CHAR(12) NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	succeeded INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_backup_compute
+(
+	currenttime TIMESTAMP NOT NULL ENCODE lzo,
+	node_num INTEGER NOT NULL ENCODE lzo,
+	state CHAR(256) NOT NULL ENCODE lzo,
+	backup_id CHAR(256) NOT NULL ENCODE lzo,
+	sb_version BIGINT NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	num_blocks BIGINT NOT NULL ENCODE lzo,
+	superblock_size BIGINT NOT NULL ENCODE lzo,
+	permanent_blocks BIGINT NOT NULL ENCODE lzo,
+	blocks_to_upload BIGINT NOT NULL ENCODE lzo,
+	blocks_uploaded BIGINT NOT NULL ENCODE lzo,
+	num_failures BIGINT NOT NULL ENCODE lzo,
+	num_modified_superblock_segments BIGINT NOT NULL ENCODE lzo,
+	total_num_superblock_segments BIGINT NOT NULL ENCODE lzo,
+	time_spent_stage1 BIGINT NOT NULL ENCODE lzo,
+	time_spent_read_sb_header BIGINT NOT NULL ENCODE lzo,
+	time_spent_copy_segments BIGINT NOT NULL ENCODE lzo,
+	time_spent_stage2 BIGINT NOT NULL ENCODE lzo,
+	time_spent_set_in_s3_bits BIGINT NOT NULL ENCODE lzo,
+	inc_no_backup BIGINT NOT NULL ENCODE lzo,
+	nobackup_blocks BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_backup_leader
+(
+	currenttime TIMESTAMP NOT NULL ENCODE lzo,
+	backup_id CHAR(256) NOT NULL ENCODE lzo,
+	sb_version BIGINT NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	in_progress INTEGER NOT NULL ENCODE lzo,
+	error_code INTEGER NOT NULL ENCODE lzo,
+	error_msg CHAR(256) NOT NULL ENCODE lzo,
+	enc_key_hash_base64 CHAR(44) NOT NULL ENCODE lzo,
+	tlr_metadata_successful INTEGER NOT NULL ENCODE lzo,
+	tlr_metadata_time BIGINT NOT NULL ENCODE lzo,
+	tlr_metadata_error_msg CHAR(256) NOT NULL ENCODE lzo,
+	partial INTEGER NOT NULL ENCODE lzo,
+	backup_superblock_format INTEGER NOT NULL ENCODE lzo,
+	time_wait_commit_lock BIGINT NOT NULL ENCODE lzo,
+	time_hold_commit_lock BIGINT NOT NULL ENCODE lzo,
+	time_spent_commit_transaction BIGINT NOT NULL ENCODE lzo,
+	inc_no_backup BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_bcast
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	packets INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_block_integrity_error
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	id CHAR(64) NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	disk_addr BIGINT NOT NULL ENCODE lzo,
+	raw_disk_addr BIGINT NOT NULL ENCODE lzo,
+	tbl BIGINT NOT NULL ENCODE lzo,
+	col BIGINT NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	remaining_reps INTEGER NOT NULL ENCODE lzo,
+	computed_crc INTEGER NOT NULL ENCODE lzo,
+	computed_crc_with_pincount INTEGER NOT NULL ENCODE lzo,
+	expected_crc INTEGER NOT NULL ENCODE lzo,
+	data_block_sb_pos INTEGER NOT NULL ENCODE lzo,
+	data_block_guid CHAR(64) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_block_io_metrics
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	start_time TIMESTAMP NOT NULL ENCODE lzo,
+	end_time TIMESTAMP NOT NULL ENCODE lzo,
+	fetch_in_memory_blocks BIGINT NOT NULL ENCODE lzo,
+	fetch_pending_io_blocks BIGINT NOT NULL ENCODE lzo,
+	fetch_primary_blocks BIGINT NOT NULL ENCODE lzo,
+	fetch_mirror_blocks BIGINT NOT NULL ENCODE lzo,
+	fetch_s3_blocks BIGINT NOT NULL ENCODE lzo,
+	primary_read_latency BIGINT NOT NULL ENCODE lzo,
+	mirror_read_latency BIGINT NOT NULL ENCODE lzo,
+	s3_read_latency BIGINT NOT NULL ENCODE lzo,
+	primary_write_latency BIGINT NOT NULL ENCODE lzo,
+	mirror_write_latency BIGINT NOT NULL ENCODE lzo,
+	rehydration_in_progress INTEGER NOT NULL ENCODE lzo,
+	block_rehydrated BIGINT NOT NULL ENCODE lzo,
+	block_need_rehydration BIGINT NOT NULL ENCODE lzo,
+	total_allocated_blocks BIGINT NOT NULL ENCODE lzo,
+	prefetch_primary_blocks BIGINT NOT NULL ENCODE lzo,
+	prefetch_mirror_blocks BIGINT NOT NULL ENCODE lzo,
+	prefetch_s3_blocks BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_block_pins
+(
+	logtime TIMESTAMP NOT NULL ENCODE lzo,
+	query BIGINT NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	blocknum INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_block_priority_based_rereplication
+(
+	logtime TIMESTAMP NOT NULL ENCODE lzo,
+	seqnum BIGINT NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	blocknum INTEGER NOT NULL ENCODE lzo,
+	backed_up INTEGER NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	state INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_blocklist
+(
+	logtime TIMESTAMP NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	blocknum INTEGER NOT NULL ENCODE lzo,
+	num_values INTEGER NOT NULL ENCODE lzo,
+	extended_limits INTEGER NOT NULL ENCODE lzo,
+	minvalue BIGINT NOT NULL ENCODE lzo,
+	maxvalue BIGINT NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	pinned INTEGER NOT NULL ENCODE lzo,
+	on_disk INTEGER NOT NULL ENCODE lzo,
+	backed_up INTEGER NOT NULL ENCODE lzo,
+	modified INTEGER NOT NULL ENCODE lzo,
+	hdr_modified INTEGER NOT NULL ENCODE lzo,
+	unsorted INTEGER NOT NULL ENCODE lzo,
+	tombstone INTEGER NOT NULL ENCODE lzo,
+	preferred_diskno INTEGER NOT NULL ENCODE lzo,
+	temporary INTEGER NOT NULL ENCODE lzo,
+	newblock INTEGER NOT NULL ENCODE lzo,
+	num_readers INTEGER NOT NULL ENCODE lzo,
+	id CHAR(64) NOT NULL ENCODE lzo,
+	flags INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_bootstrap
+(
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	process CHAR(12) NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	file CHAR(20) NOT NULL ENCODE lzo,
+	linenum INTEGER NOT NULL ENCODE lzo,
+	msg CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_cache_policy_stats
+(
+	node_num INTEGER NOT NULL ENCODE lzo,
+	promote_untracked_to_cold_untouch BIGINT NOT NULL ENCODE lzo,
+	promote_cold_untouch_to_cold_touch BIGINT NOT NULL ENCODE lzo,
+	promote_cold_touch_to_hot_untouch BIGINT NOT NULL ENCODE lzo,
+	promote_hot_untouch_to_hot_touch BIGINT NOT NULL ENCODE lzo,
+	reaccess_hot_touch BIGINT NOT NULL ENCODE lzo,
+	demote_hot_touch_to_hot_untouch BIGINT NOT NULL ENCODE lzo,
+	demote_hot_untouch_to_cold_touch BIGINT NOT NULL ENCODE lzo,
+	demote_cold_touch_to_cold_untouch BIGINT NOT NULL ENCODE lzo,
+	demote_cold_untouch_to_untracked BIGINT NOT NULL ENCODE lzo,
+	cold_blocks BIGINT NOT NULL ENCODE lzo,
+	hot_blocks BIGINT NOT NULL ENCODE lzo,
+	blocks_in_cache BIGINT NOT NULL ENCODE lzo,
+	start_time TIMESTAMP NOT NULL ENCODE lzo,
+	end_time TIMESTAMP NOT NULL ENCODE lzo,
+	capacity BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_clear_reps
+(
+	call_time TIMESTAMP NOT NULL ENCODE lzo,
+	line_num INTEGER NOT NULL ENCODE lzo,
+	sb_pos BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_client_write_timings
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	instance INTEGER NOT NULL ENCODE lzo,
+	write_size BIGINT NOT NULL ENCODE lzo,
+	request_write BIGINT NOT NULL ENCODE lzo,
+	round_trip BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_column_errors
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	expected_table_id INTEGER NOT NULL ENCODE lzo,
+	expected_column_id INTEGER NOT NULL ENCODE lzo,
+	actual_table_id INTEGER NOT NULL ENCODE lzo,
+	actual_column_id INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_column_stats
+(
+	tbl INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	total_count BIGINT NOT NULL ENCODE lzo,
+	total_runtime BIGINT NOT NULL ENCODE lzo,
+	stale_count BIGINT NOT NULL ENCODE lzo,
+	stale_runtime BIGINT NOT NULL ENCODE lzo,
+	missing_count BIGINT NOT NULL ENCODE lzo,
+	missing_runtime BIGINT NOT NULL ENCODE lzo,
+	report_time TIMESTAMP NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_comm_capture
+(
+	host_ip CHAR(15) NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	src_mac CHAR(18) NOT NULL ENCODE lzo,
+	src_ip CHAR(15) NOT NULL ENCODE lzo,
+	src_port INTEGER NOT NULL ENCODE lzo,
+	dst_mac CHAR(18) NOT NULL ENCODE lzo,
+	dst_ip CHAR(15) NOT NULL ENCODE lzo,
+	dst_port INTEGER NOT NULL ENCODE lzo,
+	ip_id INTEGER NOT NULL ENCODE lzo,
+	ip_len INTEGER NOT NULL ENCODE lzo,
+	ip_frags INTEGER NOT NULL ENCODE lzo,
+	ip_frag_offset INTEGER NOT NULL ENCODE lzo,
+	cmd_code INTEGER NOT NULL ENCODE lzo,
+	seqnum BIGINT NOT NULL ENCODE lzo,
+	channel INTEGER NOT NULL ENCODE lzo,
+	src_slice INTEGER NOT NULL ENCODE lzo,
+	dst_slice INTEGER NOT NULL ENCODE lzo,
+	len INTEGER NOT NULL ENCODE lzo,
+	is_bcast INTEGER NOT NULL ENCODE lzo,
+	ack_reply INTEGER NOT NULL ENCODE lzo,
+	ack_xon INTEGER NOT NULL ENCODE lzo,
+	sync_msg INTEGER NOT NULL ENCODE lzo,
+	fragment INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_comm_diag
+(
+	now TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	is_source INTEGER NOT NULL ENCODE lzo,
+	packet_count INTEGER NOT NULL ENCODE lzo,
+	duration_ms INTEGER NOT NULL ENCODE lzo,
+	bandwidth DOUBLE PRECISION NOT NULL ENCODE none,
+	config CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_comm_diag_errors
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	component CHAR(10) NOT NULL ENCODE lzo,
+	node_index INTEGER NOT NULL ENCODE lzo,
+	switch_index INTEGER NOT NULL ENCODE lzo,
+	ip_addr CHAR(16) NOT NULL ENCODE lzo,
+	diagnostic_state CHAR(32) NOT NULL ENCODE lzo,
+	enabled_switch_vec CHAR(9) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_comm_excess
+(
+	process CHAR(12) NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	cmd_code INTEGER NOT NULL ENCODE lzo,
+	seqnum BIGINT NOT NULL ENCODE lzo,
+	channel INTEGER NOT NULL ENCODE lzo,
+	src_slice INTEGER NOT NULL ENCODE lzo,
+	dst_slice INTEGER NOT NULL ENCODE lzo,
+	len INTEGER NOT NULL ENCODE lzo,
+	is_bcast INTEGER NOT NULL ENCODE lzo,
+	ack_reply INTEGER NOT NULL ENCODE lzo,
+	ack_xon INTEGER NOT NULL ENCODE lzo,
+	sync_msg INTEGER NOT NULL ENCODE lzo,
+	fragment INTEGER NOT NULL ENCODE lzo,
+	comment CHAR(80) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_comm_integrity_error
+(
+	process CHAR(12) NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	sender_ip CHAR(16) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_comm_pkt_latency
+(
+	now TIMESTAMP NOT NULL ENCODE lzo,
+	since TIMESTAMP NOT NULL ENCODE lzo,
+	channel_type INTEGER NOT NULL ENCODE lzo,
+	src_node INTEGER NOT NULL ENCODE lzo,
+	dest_node INTEGER NOT NULL ENCODE lzo,
+	mean DOUBLE PRECISION NOT NULL ENCODE none,
+	stdev DOUBLE PRECISION NOT NULL ENCODE none,
+	min DOUBLE PRECISION NOT NULL ENCODE none,
+	max DOUBLE PRECISION NOT NULL ENCODE none,
+	total INTEGER NOT NULL ENCODE lzo,
+	ten_us INTEGER NOT NULL ENCODE lzo,
+	hundred_us INTEGER NOT NULL ENCODE lzo,
+	one_ms INTEGER NOT NULL ENCODE lzo,
+	ten_ms INTEGER NOT NULL ENCODE lzo,
+	hundred_ms INTEGER NOT NULL ENCODE lzo,
+	one_s INTEGER NOT NULL ENCODE lzo,
+	ten_s INTEGER NOT NULL ENCODE lzo,
+	inf INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_comm_pkt_oob_count
+(
+	now TIMESTAMP NOT NULL ENCODE lzo,
+	since TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	is_raidp INTEGER NOT NULL ENCODE lzo,
+	bad_guid INTEGER NOT NULL ENCODE lzo,
+	no_channel INTEGER NOT NULL ENCODE lzo,
+	bad_src INTEGER NOT NULL ENCODE lzo,
+	bad_dst INTEGER NOT NULL ENCODE lzo,
+	bad_cmd INTEGER NOT NULL ENCODE lzo,
+	bad_crc INTEGER NOT NULL ENCODE lzo,
+	excess_ack INTEGER NOT NULL ENCODE lzo,
+	low_seqnum INTEGER NOT NULL ENCODE lzo,
+	high_seqnum INTEGER NOT NULL ENCODE lzo,
+	early_xon INTEGER NOT NULL ENCODE lzo,
+	lost_packet INTEGER NOT NULL ENCODE lzo,
+	reorder_packet INTEGER NOT NULL ENCODE lzo,
+	likely_lost_ack INTEGER NOT NULL ENCODE lzo,
+	extreme_delay INTEGER NOT NULL ENCODE lzo,
+	in_rob INTEGER NOT NULL ENCODE lzo,
+	excess_fast_rexmit INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_comm_pkt_sent_count
+(
+	now TIMESTAMP NOT NULL ENCODE lzo,
+	since TIMESTAMP NOT NULL ENCODE lzo,
+	src_node INTEGER NOT NULL ENCODE lzo,
+	dest_node INTEGER NOT NULL ENCODE lzo,
+	is_raidp INTEGER NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	rexmit INTEGER NOT NULL ENCODE lzo,
+	xon INTEGER NOT NULL ENCODE lzo,
+	reply INTEGER NOT NULL ENCODE lzo,
+	ack INTEGER NOT NULL ENCODE lzo,
+	packet INTEGER NOT NULL ENCODE lzo,
+	fast_rexmit INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_comm_rexmit
+(
+	process CHAR(12) NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	cmd_code INTEGER NOT NULL ENCODE lzo,
+	seqnum INTEGER NOT NULL ENCODE lzo,
+	channel INTEGER NOT NULL ENCODE lzo,
+	src_slice INTEGER NOT NULL ENCODE lzo,
+	dst_slice INTEGER NOT NULL ENCODE lzo,
+	len INTEGER NOT NULL ENCODE lzo,
+	is_bcast INTEGER NOT NULL ENCODE lzo,
+	ack_reply INTEGER NOT NULL ENCODE lzo,
+	ack_xon INTEGER NOT NULL ENCODE lzo,
+	sync_msg INTEGER NOT NULL ENCODE lzo,
+	fragment INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_command_result
+(
+	commandtime TIMESTAMP NOT NULL ENCODE lzo,
+	command CHAR(48) NOT NULL ENCODE lzo,
+	args CHAR(512) NOT NULL ENCODE lzo,
+	resultcode INTEGER NOT NULL ENCODE lzo,
+	errormsg CHAR(512) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_command_start
+(
+	commandtime TIMESTAMP NOT NULL ENCODE lzo,
+	command CHAR(48) NOT NULL ENCODE lzo,
+	args CHAR(512) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_commit_checkpoint
+(
+	xid BIGINT NOT NULL ENCODE lzo,
+	start_acquire_checkpoint_lock TIMESTAMP NOT NULL ENCODE lzo,
+	start_acquire_checkpoint_start_lock TIMESTAMP NOT NULL ENCODE lzo,
+	start_checkpoint_work TIMESTAMP NOT NULL ENCODE lzo,
+	start_create_control_file TIMESTAMP NOT NULL ENCODE lzo,
+	end_create_control_file TIMESTAMP NOT NULL ENCODE lzo,
+	end_checkpoint TIMESTAMP NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_commit_internal_stats
+(
+	xid BIGINT NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	prefetchesskipped BIGINT NOT NULL ENCODE lzo,
+	numreadsprocessed BIGINT NOT NULL ENCODE lzo,
+	numacksprocessed BIGINT NOT NULL ENCODE lzo,
+	tablebasedtosseligible INTEGER NOT NULL ENCODE lzo,
+	lastackwaittime DOUBLE PRECISION NOT NULL ENCODE none,
+	processtime DOUBLE PRECISION NOT NULL ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_commit_regions
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	commit_time TIMESTAMP NOT NULL ENCODE lzo,
+	sb_ver BIGINT NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	region_begin BIGINT NOT NULL ENCODE lzo,
+	region_end BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_commit_stats
+(
+	xid BIGINT NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	startqueue TIMESTAMP NOT NULL ENCODE lzo,
+	startwork TIMESTAMP NOT NULL ENCODE lzo,
+	endflush TIMESTAMP NOT NULL ENCODE lzo,
+	endstage TIMESTAMP NOT NULL ENCODE lzo,
+	endlocal TIMESTAMP NOT NULL ENCODE lzo,
+	startglobal TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	queuelen BIGINT NOT NULL ENCODE lzo,
+	permblocks BIGINT NOT NULL ENCODE lzo,
+	newblocks BIGINT NOT NULL ENCODE lzo,
+	dirtyblocks BIGINT NOT NULL ENCODE lzo,
+	tombstonedblocks BIGINT NOT NULL ENCODE lzo,
+	tossedblocks BIGINT NOT NULL ENCODE lzo,
+	headers BIGINT NOT NULL ENCODE lzo,
+	numxids INTEGER NOT NULL ENCODE lzo,
+	oldestxid BIGINT NOT NULL ENCODE lzo,
+	extwritelatency BIGINT NOT NULL ENCODE lzo,
+	metadatawritten INTEGER NOT NULL ENCODE lzo,
+	batched_by BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_compile_info
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	locus INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	path CHAR(255) NOT NULL ENCODE lzo,
+	compile INTEGER NOT NULL ENCODE lzo,
+	complevel INTEGER NOT NULL ENCODE lzo,
+	cachehit INTEGER NOT NULL ENCODE lzo,
+	tokwaittime BIGINT NOT NULL ENCODE lzo,
+	compilestarttime TIMESTAMP NOT NULL ENCODE lzo,
+	compileendtime TIMESTAMP NOT NULL ENCODE lzo,
+	compilelocktime BIGINT NOT NULL ENCODE lzo,
+	compilememory BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_complyze
+(
+	measuretime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	encoding INTEGER NOT NULL ENCODE lzo,
+	size BIGINT NOT NULL ENCODE lzo,
+	tbl_name CHAR(256) NOT NULL ENCODE lzo,
+	col_name CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_config
+(
+	name CHAR(50) NOT NULL ENCODE lzo,
+	value CHAR(200) NOT NULL ENCODE lzo,
+	category CHAR(60) NOT NULL ENCODE lzo,
+	advanced INTEGER NOT NULL ENCODE lzo,
+	helpfile CHAR(200) NOT NULL ENCODE lzo,
+	updater CHAR(50) NOT NULL ENCODE lzo,
+	chooser CHAR(50) NOT NULL ENCODE lzo,
+	restart INTEGER NOT NULL ENCODE lzo,
+	summary CHAR(300) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_config_chooser
+(
+	name CHAR(50) NOT NULL ENCODE lzo,
+	value CHAR(200) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_config_history
+(
+	changed TIMESTAMP NOT NULL ENCODE lzo,
+	filename CHAR(200) NOT NULL ENCODE lzo,
+	reason CHAR(200) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_connection_log
+(
+	event CHAR(50) NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	remotehost CHAR(32) NOT NULL ENCODE lzo,
+	remoteport CHAR(32) NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	dbname CHAR(50) NOT NULL ENCODE lzo,
+	username CHAR(50) NOT NULL ENCODE lzo,
+	authmethod CHAR(32) NOT NULL ENCODE lzo,
+	duration BIGINT NOT NULL ENCODE lzo,
+	sslversion CHAR(50) NOT NULL ENCODE lzo,
+	sslcipher CHAR(128) NOT NULL ENCODE lzo,
+	mtu INTEGER NOT NULL ENCODE lzo,
+	sslcompression CHAR(64) NOT NULL ENCODE lzo,
+	sslexpansion CHAR(64) NOT NULL ENCODE lzo,
+	iamauthguid CHAR(36) NOT NULL ENCODE lzo,
+	application_name CHAR(250) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_consistency
+(
+	time TIMESTAMP NOT NULL ENCODE lzo,
+	type CHAR(1) NOT NULL ENCODE lzo,
+	message CHAR(512) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_core_stat
+(
+	currenttime TIMESTAMP NOT NULL ENCODE lzo,
+	sampletime TIMESTAMP NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	core INTEGER NOT NULL ENCODE lzo,
+	elapsed BIGINT NOT NULL ENCODE lzo,
+	utime BIGINT NOT NULL ENCODE lzo,
+	stime BIGINT NOT NULL ENCODE lzo,
+	ntime BIGINT NOT NULL ENCODE lzo,
+	idle BIGINT NOT NULL ENCODE lzo,
+	iowait BIGINT NOT NULL ENCODE lzo,
+	irq BIGINT NOT NULL ENCODE lzo,
+	softirq BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_cqilog
+(
+	logtime TIMESTAMP NOT NULL ENCODE lzo,
+	action CHAR(256) NOT NULL ENCODE lzo,
+	reason CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_create_replication
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	id CHAR(64) NOT NULL ENCODE lzo,
+	flags INTEGER NOT NULL ENCODE lzo,
+	new_node INTEGER NOT NULL ENCODE lzo,
+	new_diskno INTEGER NOT NULL ENCODE lzo,
+	new_address BIGINT NOT NULL ENCODE lzo,
+	crc INTEGER NOT NULL ENCODE lzo,
+	reason CHAR(24) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_ddltext
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	label CHAR(30) NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	sequence INTEGER NOT NULL ENCODE lzo,
+	text CHAR(200) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_delete
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_dirty_headers
+(
+	commit_time TIMESTAMP NOT NULL ENCODE lzo,
+	sb_ver BIGINT NOT NULL ENCODE lzo,
+	sb_pos BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_disk_cache_stats
+(
+	logtime TIMESTAMP NOT NULL ENCODE lzo,
+	adds INTEGER NOT NULL ENCODE lzo,
+	new_blocks INTEGER NOT NULL ENCODE lzo,
+	dbr_blocks INTEGER NOT NULL ENCODE lzo,
+	pins INTEGER NOT NULL ENCODE lzo,
+	faults INTEGER NOT NULL ENCODE lzo,
+	throttles INTEGER NOT NULL ENCODE lzo,
+	scan_starts INTEGER NOT NULL ENCODE lzo,
+	cache_size INTEGER NOT NULL ENCODE lzo,
+	lru_size INTEGER NOT NULL ENCODE lzo,
+	throttle INTEGER NOT NULL ENCODE lzo,
+	ra_points DOUBLE PRECISION NOT NULL ENCODE none,
+	scans_running INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_disk_cache_write
+(
+	blocks_pushed INTEGER NOT NULL ENCODE lzo,
+	blocks_instant_pushed INTEGER NOT NULL ENCODE lzo,
+	avg_lru_size_before_push INTEGER NOT NULL ENCODE lzo,
+	push_attempts INTEGER NOT NULL ENCODE lzo,
+	pending_writes_push INTEGER NOT NULL ENCODE lzo,
+	pending_reads_push INTEGER NOT NULL ENCODE lzo,
+	blocks_written_back INTEGER NOT NULL ENCODE lzo,
+	writeback_preempts INTEGER NOT NULL ENCODE lzo,
+	avg_lru_size_before_writeback INTEGER NOT NULL ENCODE lzo,
+	writeback_attempts INTEGER NOT NULL ENCODE lzo,
+	pending_writes_writeback INTEGER NOT NULL ENCODE lzo,
+	pending_reads_writeback INTEGER NOT NULL ENCODE lzo,
+	avg_push_time_microsec BIGINT NOT NULL ENCODE lzo,
+	avg_writeback_time_microsec BIGINT NOT NULL ENCODE lzo,
+	sample_start_time TIMESTAMP NOT NULL ENCODE lzo,
+	sample_end_time TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_disk_extent_splits
+(
+	split_time TIMESTAMP NOT NULL ENCODE lzo,
+	owner INTEGER NOT NULL ENCODE lzo,
+	host INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	addr INTEGER NOT NULL ENCODE lzo,
+	start INTEGER NOT NULL ENCODE lzo,
+	size_before INTEGER NOT NULL ENCODE lzo,
+	size_after INTEGER NOT NULL ENCODE lzo,
+	new_start INTEGER NOT NULL ENCODE lzo,
+	new_size INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_disk_failures
+(
+	event_time TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	host INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	event CHAR(20) NOT NULL ENCODE lzo,
+	err_code INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_disk_full_diag
+(
+	currenttime BIGINT NOT NULL ENCODE lzo,
+	node_num BIGINT NOT NULL ENCODE lzo,
+	query_id BIGINT NOT NULL ENCODE lzo,
+	temp_blocks BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_disk_speeds
+(
+	measurement_time TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	mbps INTEGER NOT NULL ENCODE lzo,
+	failed INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_disk_topology
+(
+	t TIMESTAMP NOT NULL ENCODE lzo,
+	node CHAR(28) NOT NULL ENCODE lzo,
+	host CHAR(28) NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	mirror INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_dist
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	packets INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_dropped_replication
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	address BIGINT NOT NULL ENCODE lzo,
+	invalid INTEGER NOT NULL ENCODE lzo,
+	failed INTEGER NOT NULL ENCODE lzo,
+	reps_remaining INTEGER NOT NULL ENCODE lzo,
+	reason CHAR(24) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_error
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	process CHAR(12) NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	errcode INTEGER NOT NULL ENCODE lzo,
+	file CHAR(90) NOT NULL ENCODE lzo,
+	linenum INTEGER NOT NULL ENCODE lzo,
+	context CHAR(100) NOT NULL ENCODE lzo,
+	error CHAR(512) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_event_trace
+(
+	event INTEGER NOT NULL ENCODE lzo,
+	eventtime TIMESTAMP NOT NULL ENCODE lzo,
+	sliceid INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	file CHAR(80) NOT NULL ENCODE lzo,
+	linenum INTEGER NOT NULL ENCODE lzo,
+	message CHAR(400) NOT NULL ENCODE lzo,
+	event_name CHAR(128) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_exec_state
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	currenttime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	label CHAR(256) NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo,
+	num_parts INTEGER NOT NULL ENCODE lzo,
+	is_rrscan CHAR(1) NOT NULL ENCODE lzo,
+	is_delayed_scan CHAR(1) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_explain
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	nodeid INTEGER NOT NULL ENCODE lzo,
+	parentid INTEGER NOT NULL ENCODE lzo,
+	plannode CHAR(400) NOT NULL ENCODE lzo,
+	info CHAR(400) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_external_catalog_calls
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	uuid CHAR(36) NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	eventtime TIMESTAMP NOT NULL ENCODE lzo,
+	call INTEGER NOT NULL ENCODE lzo,
+	objects INTEGER NOT NULL ENCODE lzo,
+	duration BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_fabric_stats
+(
+	slice INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	segnum INTEGER NOT NULL ENCODE lzo,
+	dst INTEGER NOT NULL ENCODE lzo,
+	nullbytes INTEGER NOT NULL ENCODE lzo,
+	zerobytes INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_fetchers
+(
+	query INTEGER NOT NULL ENCODE lzo,
+	seg INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	fetcher_id INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	pins INTEGER NOT NULL ENCODE lzo,
+	faults INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_file_scan
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	name CHAR(90) NOT NULL ENCODE lzo,
+	lines BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	loadtime BIGINT NOT NULL ENCODE lzo,
+	curtime TIMESTAMP NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_freed_disk_addrs
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	context CHAR(64) NOT NULL ENCODE lzo,
+	owner INTEGER NOT NULL ENCODE lzo,
+	host INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	disk_addr INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_hash
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	slots INTEGER NOT NULL ENCODE lzo,
+	occupied INTEGER NOT NULL ENCODE lzo,
+	maxlength INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo,
+	num_parts INTEGER NOT NULL ENCODE lzo,
+	est_rows BIGINT NOT NULL ENCODE lzo,
+	num_blocks_permitted INTEGER NOT NULL ENCODE lzo,
+	resizes INTEGER NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_hash_partitions
+(
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	part_num INTEGER NOT NULL ENCODE lzo,
+	num_blocks INTEGER NOT NULL ENCODE lzo,
+	mem_resident INTEGER NOT NULL ENCODE lzo,
+	card BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_hashjoin
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	num_parts INTEGER NOT NULL ENCODE lzo,
+	join_type INTEGER NOT NULL ENCODE lzo,
+	hash_looped CHAR(1) NOT NULL ENCODE lzo,
+	switched_parts CHAR(1) NOT NULL ENCODE lzo,
+	used_prefetching CHAR(1) NOT NULL ENCODE lzo,
+	hash_segment INTEGER NOT NULL ENCODE lzo,
+	hash_step INTEGER NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_hashjoin_partitions
+(
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	part_num INTEGER NOT NULL ENCODE lzo,
+	num_blocks INTEGER NOT NULL ENCODE lzo,
+	hash_loops INTEGER NOT NULL ENCODE lzo,
+	switched_parts CHAR(1) NOT NULL ENCODE lzo,
+	input_card BIGINT NOT NULL ENCODE lzo,
+	output_card BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_hdr_integrity_error
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	node_num INTEGER NOT NULL ENCODE lzo,
+	sb_ver BIGINT NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	hdr_dump CHAR(209) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_incremental_resize_state
+(
+	resizeid CHAR(128) NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	resizephase CHAR(32) NOT NULL ENCODE lzo,
+	resizeplanstate CHAR(32) NOT NULL ENCODE lzo,
+	nodenum INTEGER NOT NULL ENCODE lzo,
+	globalslicenum INTEGER NOT NULL ENCODE lzo,
+	localslicenum INTEGER NOT NULL ENCODE lzo,
+	datablocks INTEGER NOT NULL ENCODE lzo,
+	metadatablocks INTEGER NOT NULL ENCODE lzo,
+	distallblocks INTEGER NOT NULL ENCODE lzo,
+	metachainblocks INTEGER NOT NULL ENCODE lzo,
+	blockchainmetachainblocks INTEGER NOT NULL ENCODE lzo,
+	leadersnapshotblocks INTEGER NOT NULL ENCODE lzo,
+	pgwalblocks INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	distallrows BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_inflight
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	logtime TIMESTAMP NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	label CHAR(30) NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	text CHAR(100) NOT NULL ENCODE lzo,
+	suspended INTEGER NOT NULL ENCODE lzo,
+	insert_pristine INTEGER NOT NULL ENCODE lzo,
+	working_mem BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_insert
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_internal_query_details
+(
+	query INTEGER NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	initial_query_time TIMESTAMP NOT NULL ENCODE lzo,
+	seldispatch_status INTEGER NOT NULL ENCODE lzo,
+	query_cmd_type INTEGER NOT NULL ENCODE lzo,
+	user_temp_tables_accessed INTEGER NOT NULL ENCODE lzo,
+	volt_temp_tables_accessed INTEGER NOT NULL ENCODE lzo,
+	spectrum_tables_accessed INTEGER NOT NULL ENCODE lzo,
+	user_perm_tables_accessed INTEGER NOT NULL ENCODE lzo,
+	system_tables_accessed INTEGER NOT NULL ENCODE lzo,
+	query_target_table_type INTEGER NOT NULL ENCODE lzo,
+	memory_demanding_info BIGINT NOT NULL ENCODE lzo,
+	nobackup_tables_accessed INTEGER NOT NULL ENCODE lzo,
+	zindex_tables_accessed INTEGER NOT NULL ENCODE lzo,
+	pg_tables_accessed INTEGER NOT NULL ENCODE lzo,
+	dirty_tables_read INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_invalid_replication
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	node0 INTEGER NOT NULL ENCODE lzo,
+	diskno0 INTEGER NOT NULL ENCODE lzo,
+	node1 INTEGER NOT NULL ENCODE lzo,
+	diskno1 INTEGER NOT NULL ENCODE lzo,
+	node2 INTEGER NOT NULL ENCODE lzo,
+	diskno2 INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_invariant
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	process CHAR(32) NOT NULL ENCODE lzo,
+	now TIMESTAMP NOT NULL ENCODE lzo,
+	name CHAR(80) NOT NULL ENCODE lzo,
+	message CHAR(512) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_io_error
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	type CHAR(10) NOT NULL ENCODE lzo,
+	io_offset BIGINT NOT NULL ENCODE lzo,
+	nbytes BIGINT NOT NULL ENCODE lzo,
+	result BIGINT NOT NULL ENCODE lzo,
+	sys_errno INTEGER NOT NULL ENCODE lzo,
+	error_string CHAR(32) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_io_iscsi_monitor
+(
+	event_time TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	type CHAR(16) NOT NULL ENCODE lzo,
+	event CHAR(200) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_io_perf
+(
+	ip CHAR(15) NOT NULL ENCODE lzo,
+	file_size BIGINT NOT NULL ENCODE lzo,
+	block_size BIGINT NOT NULL ENCODE lzo,
+	num_disks INTEGER NOT NULL ENCODE lzo,
+	bytes_per_microsec DOUBLE PRECISION NOT NULL ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_io_stat
+(
+	currenttime TIMESTAMP NOT NULL ENCODE lzo,
+	sampletime TIMESTAMP NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	reads BIGINT NOT NULL ENCODE lzo,
+	writes BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_leader_control
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	msg CHAR(200) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_leader_snapshot
+(
+	currenttime TIMESTAMP NOT NULL ENCODE lzo,
+	num_snapshot_blocks INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_limit
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	hit_limit CHAR(1) NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_load_commits
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	name CHAR(256) NOT NULL ENCODE lzo,
+	filename CHAR(256) NOT NULL ENCODE lzo,
+	byte_offset INTEGER NOT NULL ENCODE lzo,
+	lines_scanned INTEGER NOT NULL ENCODE lzo,
+	errors INTEGER NOT NULL ENCODE lzo,
+	status INTEGER NOT NULL ENCODE lzo,
+	curtime TIMESTAMP NOT NULL ENCODE lzo,
+	file_format CHAR(16) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_load_error_info
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	session INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	line_number BIGINT NOT NULL ENCODE lzo,
+	field INTEGER NOT NULL ENCODE lzo,
+	value CHAR(100) NOT NULL ENCODE lzo,
+	is_null CHAR(1) NOT NULL ENCODE lzo,
+	type CHAR(10) NOT NULL ENCODE lzo,
+	tmod CHAR(10) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_load_errors
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	session INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	filename CHAR(256) NOT NULL ENCODE lzo,
+	line_number BIGINT NOT NULL ENCODE lzo,
+	colname CHAR(127) NOT NULL ENCODE lzo,
+	type CHAR(10) NOT NULL ENCODE lzo,
+	col_length CHAR(10) NOT NULL ENCODE lzo,
+	position INTEGER NOT NULL ENCODE lzo,
+	raw_line CHAR(1024) NOT NULL ENCODE lzo,
+	raw_field_value CHAR(1024) NOT NULL ENCODE lzo,
+	err_code INTEGER NOT NULL ENCODE lzo,
+	err_reason CHAR(100) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_load_trace
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	name CHAR(256) NOT NULL ENCODE lzo,
+	bytes_scanned BIGINT NOT NULL ENCODE lzo,
+	message CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_loaderror_detail
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	session INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	filename CHAR(256) NOT NULL ENCODE lzo,
+	line_number BIGINT NOT NULL ENCODE lzo,
+	field INTEGER NOT NULL ENCODE lzo,
+	colname CHAR(1024) NOT NULL ENCODE lzo,
+	value CHAR(1024) NOT NULL ENCODE lzo,
+	is_null INTEGER NOT NULL ENCODE lzo,
+	type CHAR(10) NOT NULL ENCODE lzo,
+	col_length CHAR(10) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_mark_partitions
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	action CHAR(7) NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_mem_alloc_history
+(
+	process CHAR(12) NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	alloc INTEGER NOT NULL ENCODE lzo,
+	address BIGINT NOT NULL ENCODE lzo,
+	size INTEGER NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_mem_block_details
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	type CHAR(15) NOT NULL ENCODE lzo,
+	uid INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	process CHAR(30) NOT NULL ENCODE lzo,
+	qid INTEGER NOT NULL ENCODE lzo,
+	requested BIGINT NOT NULL ENCODE lzo,
+	roundedsize BIGINT NOT NULL ENCODE lzo,
+	page BIGINT NOT NULL ENCODE lzo,
+	buddy_page BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_mem_freelist
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	uid INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	requested BIGINT NOT NULL ENCODE lzo,
+	roundedsize BIGINT NOT NULL ENCODE lzo,
+	page BIGINT NOT NULL ENCODE lzo,
+	leaked INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_mem_leaks
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	uid INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	requested BIGINT NOT NULL ENCODE lzo,
+	allocated BIGINT NOT NULL ENCODE lzo,
+	page BIGINT NOT NULL ENCODE lzo,
+	leaked INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_memefficiency
+(
+	recordtime BIGINT NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	memrequested BIGINT NOT NULL ENCODE lzo,
+	memtotal BIGINT NOT NULL ENCODE lzo,
+	overhead BIGINT NOT NULL ENCODE lzo,
+	wastage DOUBLE PRECISION NOT NULL ENCODE none,
+	counter BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_memhisto
+(
+	recordtime BIGINT NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	two INTEGER NOT NULL ENCODE lzo,
+	four INTEGER NOT NULL ENCODE lzo,
+	eight INTEGER NOT NULL ENCODE lzo,
+	sixteen INTEGER NOT NULL ENCODE lzo,
+	thirtytwo INTEGER NOT NULL ENCODE lzo,
+	sixtyfour INTEGER NOT NULL ENCODE lzo,
+	onetwentyeight INTEGER NOT NULL ENCODE lzo,
+	twofiftysix INTEGER NOT NULL ENCODE lzo,
+	fivetwelve INTEGER NOT NULL ENCODE lzo,
+	onekb INTEGER NOT NULL ENCODE lzo,
+	twokb INTEGER NOT NULL ENCODE lzo,
+	fourkb INTEGER NOT NULL ENCODE lzo,
+	eightkb INTEGER NOT NULL ENCODE lzo,
+	sixteenkb INTEGER NOT NULL ENCODE lzo,
+	thirtytwokb INTEGER NOT NULL ENCODE lzo,
+	sixtyfourkb INTEGER NOT NULL ENCODE lzo,
+	onetwentyeightkb INTEGER NOT NULL ENCODE lzo,
+	twofiftysixkb INTEGER NOT NULL ENCODE lzo,
+	fivetwelvekb INTEGER NOT NULL ENCODE lzo,
+	onemb INTEGER NOT NULL ENCODE lzo,
+	twomb INTEGER NOT NULL ENCODE lzo,
+	fourmb INTEGER NOT NULL ENCODE lzo,
+	eightmb INTEGER NOT NULL ENCODE lzo,
+	sixteenmb INTEGER NOT NULL ENCODE lzo,
+	thirtytwomb INTEGER NOT NULL ENCODE lzo,
+	sixtyfourmb INTEGER NOT NULL ENCODE lzo,
+	onetwentyeightmb INTEGER NOT NULL ENCODE lzo,
+	twofiftysixmb INTEGER NOT NULL ENCODE lzo,
+	fivetwelvemb INTEGER NOT NULL ENCODE lzo,
+	onegb INTEGER NOT NULL ENCODE lzo,
+	twogb INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_merge
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_mergejoin
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_metadata_step
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_minmax_errors
+(
+	logtime TIMESTAMP NOT NULL ENCODE lzo,
+	query BIGINT NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	blocknum INTEGER NOT NULL ENCODE lzo,
+	error_msg CHAR(512) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_misc_sys_stat
+(
+	currenttime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	bs_queue_cap BIGINT NOT NULL ENCODE lzo,
+	free_bs_workers BIGINT NOT NULL ENCODE lzo,
+	reg_queue_cap BIGINT NOT NULL ENCODE lzo,
+	free_reg_workers BIGINT NOT NULL ENCODE lzo,
+	free_shared_mem_mb BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_monitoring_logs_internal
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	thread CHAR(25) NOT NULL ENCODE lzo,
+	tid INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	file CHAR(30) NOT NULL ENCODE lzo,
+	linenum INTEGER NOT NULL ENCODE lzo,
+	message CHAR(500) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_mutex_contention
+(
+	process CHAR(12) NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	attempts INTEGER NOT NULL ENCODE lzo,
+	waitpid INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_nestloop
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_net_stat
+(
+	currenttime TIMESTAMP NOT NULL ENCODE lzo,
+	sampletime TIMESTAMP NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	iface CHAR(20) NOT NULL ENCODE lzo,
+	rxbytes BIGINT NOT NULL ENCODE lzo,
+	rxpackets BIGINT NOT NULL ENCODE lzo,
+	rxerrors BIGINT NOT NULL ENCODE lzo,
+	rxdrops BIGINT NOT NULL ENCODE lzo,
+	rxfifo BIGINT NOT NULL ENCODE lzo,
+	rxframe BIGINT NOT NULL ENCODE lzo,
+	rxcompressed BIGINT NOT NULL ENCODE lzo,
+	rxmulticast BIGINT NOT NULL ENCODE lzo,
+	txbytes BIGINT NOT NULL ENCODE lzo,
+	txpackets BIGINT NOT NULL ENCODE lzo,
+	txerrors BIGINT NOT NULL ENCODE lzo,
+	txdrops BIGINT NOT NULL ENCODE lzo,
+	txfifo BIGINT NOT NULL ENCODE lzo,
+	txcollisions BIGINT NOT NULL ENCODE lzo,
+	txcarrier BIGINT NOT NULL ENCODE lzo,
+	txcompressed BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_netmon_ip
+(
+	tn INTEGER NOT NULL ENCODE lzo,
+	sn INTEGER NOT NULL ENCODE lzo,
+	ts TIMESTAMP NOT NULL ENCODE lzo,
+	ip CHAR(15) NOT NULL ENCODE lzo,
+	din INTEGER NOT NULL ENCODE lzo,
+	ihe INTEGER NOT NULL ENCODE lzo,
+	iar INTEGER NOT NULL ENCODE lzo,
+	unk INTEGER NOT NULL ENCODE lzo,
+	idsc INTEGER NOT NULL ENCODE lzo,
+	idlv INTEGER NOT NULL ENCODE lzo,
+	outr INTEGER NOT NULL ENCODE lzo,
+	odsc INTEGER NOT NULL ENCODE lzo,
+	onor INTEGER NOT NULL ENCODE lzo,
+	rf INTEGER NOT NULL ENCODE lzo,
+	ff INTEGER NOT NULL ENCODE lzo,
+	smpl_t INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_netmon_mac
+(
+	tn INTEGER NOT NULL ENCODE lzo,
+	sn INTEGER NOT NULL ENCODE lzo,
+	ts TIMESTAMP NOT NULL ENCODE lzo,
+	inter CHAR(15) NOT NULL ENCODE lzo,
+	ip CHAR(15) NOT NULL ENCODE lzo,
+	pin INTEGER NOT NULL ENCODE lzo,
+	bin INTEGER NOT NULL ENCODE lzo,
+	bout INTEGER NOT NULL ENCODE lzo,
+	pout INTEGER NOT NULL ENCODE lzo,
+	unk INTEGER NOT NULL ENCODE lzo,
+	norcvbuf INTEGER NOT NULL ENCODE lzo,
+	noxmtbuf INTEGER NOT NULL ENCODE lzo,
+	out_errs INTEGER NOT NULL ENCODE lzo,
+	in_errs INTEGER NOT NULL ENCODE lzo,
+	out_drops INTEGER NOT NULL ENCODE lzo,
+	in_drops INTEGER NOT NULL ENCODE lzo,
+	out_colls INTEGER NOT NULL ENCODE lzo,
+	rbytes_rate INTEGER NOT NULL ENCODE lzo,
+	obytes_rate INTEGER NOT NULL ENCODE lzo,
+	smpl_t INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_node_failovers
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	failed_node CHAR(16) NOT NULL ENCODE lzo,
+	standby_node CHAR(16) NOT NULL ENCODE lzo,
+	stopped_veritas INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_nullyze
+(
+	measuretime TIMESTAMP NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	nullcount BIGINT NOT NULL ENCODE lzo,
+	tbl_name CHAR(30) NOT NULL ENCODE lzo,
+	col_name CHAR(30) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_parse
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_perf_histograms
+(
+	now TIMESTAMP NOT NULL ENCODE lzo,
+	since TIMESTAMP NOT NULL ENCODE lzo,
+	name CHAR(64) NOT NULL ENCODE lzo,
+	mean DOUBLE PRECISION NOT NULL ENCODE none,
+	stdev DOUBLE PRECISION NOT NULL ENCODE none,
+	ten_us INTEGER NOT NULL ENCODE lzo,
+	hundred_us INTEGER NOT NULL ENCODE lzo,
+	one_ms INTEGER NOT NULL ENCODE lzo,
+	ten_ms INTEGER NOT NULL ENCODE lzo,
+	hundred_ms INTEGER NOT NULL ENCODE lzo,
+	one_s INTEGER NOT NULL ENCODE lzo,
+	ten_s INTEGER NOT NULL ENCODE lzo,
+	inf INTEGER NOT NULL ENCODE lzo,
+	min DOUBLE PRECISION NOT NULL ENCODE none,
+	max DOUBLE PRECISION NOT NULL ENCODE none,
+	total INTEGER NOT NULL ENCODE lzo,
+	sum DOUBLE PRECISION NOT NULL ENCODE none,
+	node INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_pinned_blocks
+(
+	error_time TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_plan_explain
+(
+	query BIGINT NOT NULL ENCODE lzo,
+	nid INTEGER NOT NULL ENCODE lzo,
+	level INTEGER NOT NULL ENCODE lzo,
+	blockid INTEGER NOT NULL ENCODE lzo,
+	block_nid INTEGER NOT NULL ENCODE lzo,
+	opname CHAR(25) NOT NULL ENCODE lzo,
+	estimate_rows DOUBLE PRECISION NOT NULL ENCODE none,
+	estimate_width INTEGER NOT NULL ENCODE lzo,
+	total_cost DOUBLE PRECISION NOT NULL ENCODE none,
+	startup_cost DOUBLE PRECISION NOT NULL ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_plan_explain_props
+(
+	query BIGINT NOT NULL ENCODE lzo,
+	nodeid INTEGER NOT NULL ENCODE lzo,
+	propid INTEGER NOT NULL ENCODE lzo,
+	lineno INTEGER NOT NULL ENCODE lzo,
+	detail CHAR(200) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_plan_explain_tree
+(
+	query BIGINT NOT NULL ENCODE lzo,
+	nodeid INTEGER NOT NULL ENCODE lzo,
+	parentid INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_plan_info
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	nodeid INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	locus INTEGER NOT NULL ENCODE lzo,
+	plannode INTEGER NOT NULL ENCODE lzo,
+	startupcost DOUBLE PRECISION NOT NULL ENCODE none,
+	totalcost DOUBLE PRECISION NOT NULL ENCODE none,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_plan_perf
+(
+	query BIGINT NOT NULL ENCODE lzo,
+	sequence INTEGER NOT NULL ENCODE lzo,
+	component CHAR(50) NOT NULL ENCODE lzo,
+	count INTEGER NOT NULL ENCODE lzo,
+	udc INTEGER NOT NULL ENCODE lzo,
+	total_time DOUBLE PRECISION NOT NULL ENCODE none,
+	max_time DOUBLE PRECISION NOT NULL ENCODE none,
+	min_time DOUBLE PRECISION NOT NULL ENCODE none,
+	avg_time DOUBLE PRECISION NOT NULL ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_plan_qid_map
+(
+	query INTEGER NOT NULL ENCODE lzo,
+	plan_qid BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_plan_querytext
+(
+	query BIGINT NOT NULL ENCODE lzo,
+	sequence INTEGER NOT NULL ENCODE lzo,
+	text CHAR(200) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_plan_rule_stats
+(
+	query BIGINT NOT NULL ENCODE lzo,
+	sequence INTEGER NOT NULL ENCODE lzo,
+	optimizer CHAR(15) NOT NULL ENCODE lzo,
+	rule CHAR(15) NOT NULL ENCODE lzo,
+	match_count INTEGER NOT NULL ENCODE lzo,
+	applicable_count INTEGER NOT NULL ENCODE lzo,
+	apply_count INTEGER NOT NULL ENCODE lzo,
+	trasnformed_count INTEGER NOT NULL ENCODE lzo,
+	applicable_total_time DOUBLE PRECISION NOT NULL ENCODE none,
+	applicable_max_time DOUBLE PRECISION NOT NULL ENCODE none,
+	applicable_min_time DOUBLE PRECISION NOT NULL ENCODE none,
+	applicable_avg_time DOUBLE PRECISION NOT NULL ENCODE none,
+	apply_total_time DOUBLE PRECISION NOT NULL ENCODE none,
+	apply_max_time DOUBLE PRECISION NOT NULL ENCODE none,
+	apply_min_time DOUBLE PRECISION NOT NULL ENCODE none,
+	apply_avg_time DOUBLE PRECISION NOT NULL ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_plan_state
+(
+	query BIGINT NOT NULL ENCODE lzo,
+	component CHAR(32) NOT NULL ENCODE lzo,
+	state CHAR(15) NOT NULL ENCODE lzo,
+	detail CHAR(100) NOT NULL ENCODE lzo,
+	label CHAR(30) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_prefetch_stats
+(
+	eventtime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	tableid BIGINT NOT NULL ENCODE lzo,
+	columnid BIGINT NOT NULL ENCODE lzo,
+	numprefetches BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_print
+(
+	process CHAR(12) NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	message CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_proc_stat
+(
+	pid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	utime BIGINT NOT NULL ENCODE lzo,
+	stime BIGINT NOT NULL ENCODE lzo,
+	processor INTEGER NOT NULL ENCODE lzo,
+	minflt BIGINT NOT NULL ENCODE lzo,
+	maxmemory BIGINT NOT NULL ENCODE lzo,
+	daemonmemory BIGINT NOT NULL ENCODE lzo,
+	block_reads INTEGER NOT NULL ENCODE lzo,
+	block_faults INTEGER NOT NULL ENCODE lzo,
+	total_block_fetchtime BIGINT NOT NULL ENCODE lzo,
+	max_block_fetchtime BIGINT NOT NULL ENCODE lzo,
+	transblock_reads INTEGER NOT NULL ENCODE lzo,
+	transblock_faults INTEGER NOT NULL ENCODE lzo,
+	total_transblock_fetchtime BIGINT NOT NULL ENCODE lzo,
+	max_transblock_fetchtime BIGINT NOT NULL ENCODE lzo,
+	blocks_used BIGINT NOT NULL ENCODE lzo,
+	comm_us BIGINT NOT NULL ENCODE lzo,
+	lock_us BIGINT NOT NULL ENCODE lzo,
+	ipc_us BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_project
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_query
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	label CHAR(30) NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	database CHAR(32) NOT NULL ENCODE lzo,
+	querytxt CHAR(4000) NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	aborted INTEGER NOT NULL ENCODE lzo,
+	insert_pristine INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_query_block_stats
+(
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	block_reads INTEGER NOT NULL ENCODE lzo,
+	block_faults INTEGER NOT NULL ENCODE lzo,
+	total_block_fetchtime BIGINT NOT NULL ENCODE lzo,
+	max_block_fetchtime BIGINT NOT NULL ENCODE lzo,
+	transblock_reads INTEGER NOT NULL ENCODE lzo,
+	transblock_faults INTEGER NOT NULL ENCODE lzo,
+	total_transblock_fetchtime BIGINT NOT NULL ENCODE lzo,
+	max_transblock_fetchtime BIGINT NOT NULL ENCODE lzo,
+	blocks_used BIGINT NOT NULL ENCODE lzo,
+	block_reads_already_in_s3 INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_query_mem_leaks
+(
+	qid INTEGER NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	pname CHAR(15) NOT NULL ENCODE lzo,
+	size BIGINT NOT NULL ENCODE lzo,
+	rounded BIGINT NOT NULL ENCODE lzo,
+	allocated BIGINT NOT NULL ENCODE lzo,
+	hexa CHAR(65) NOT NULL ENCODE lzo,
+	ascii CHAR(32) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_query_mem_stats
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	max_mem_count BIGINT NOT NULL ENCODE lzo,
+	max_mem_size BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_query_mem_stats_by_type
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	type CHAR(25) NOT NULL ENCODE lzo,
+	allocated_count BIGINT NOT NULL ENCODE lzo,
+	freed_count BIGINT NOT NULL ENCODE lzo,
+	max_mem_count BIGINT NOT NULL ENCODE lzo,
+	allocated_size BIGINT NOT NULL ENCODE lzo,
+	freed_size BIGINT NOT NULL ENCODE lzo,
+	max_mem_size BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_query_metrics
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	service_class INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step_type INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	slices INTEGER NOT NULL ENCODE lzo,
+	max_rows BIGINT NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	max_cpu_time BIGINT NOT NULL ENCODE lzo,
+	cpu_time BIGINT NOT NULL ENCODE lzo,
+	max_blocks_read INTEGER NOT NULL ENCODE lzo,
+	blocks_read BIGINT NOT NULL ENCODE lzo,
+	max_run_time BIGINT NOT NULL ENCODE lzo,
+	run_time BIGINT NOT NULL ENCODE lzo,
+	max_blocks_to_disk BIGINT NOT NULL ENCODE lzo,
+	blocks_to_disk BIGINT NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	max_query_scan_size BIGINT NOT NULL ENCODE lzo,
+	query_scan_size BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_querytext
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	sequence INTEGER NOT NULL ENCODE lzo,
+	text CHAR(200) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_redshift_proxy_log
+(
+	time TIMESTAMP NOT NULL ENCODE lzo,
+	client_endpoint CHAR(64) NOT NULL ENCODE lzo,
+	event CHAR(255) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_rehydration_metrics
+(
+	start_time TIMESTAMP NOT NULL ENCODE lzo,
+	end_time TIMESTAMP NOT NULL ENCODE lzo,
+	rehydrated_blocks BIGINT NOT NULL ENCODE lzo,
+	primary_reads BIGINT NOT NULL ENCODE lzo,
+	primary_read_latency INTEGER NOT NULL ENCODE lzo,
+	mirror_reads BIGINT NOT NULL ENCODE lzo,
+	mirror_read_latency INTEGER NOT NULL ENCODE lzo,
+	s3_reads BIGINT NOT NULL ENCODE lzo,
+	s3_read_latency INTEGER NOT NULL ENCODE lzo,
+	primary_writes BIGINT NOT NULL ENCODE lzo,
+	primary_write_latency INTEGER NOT NULL ENCODE lzo,
+	mirror_writes BIGINT NOT NULL ENCODE lzo,
+	mirror_write_latency INTEGER NOT NULL ENCODE lzo,
+	in_progress INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_replacements
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	session INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	filename CHAR(256) NOT NULL ENCODE lzo,
+	line_number BIGINT NOT NULL ENCODE lzo,
+	colname CHAR(127) NOT NULL ENCODE lzo,
+	raw_line CHAR(1024) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_rereplication
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	id CHAR(64) NOT NULL ENCODE lzo,
+	flags INTEGER NOT NULL ENCODE lzo,
+	new_node INTEGER NOT NULL ENCODE lzo,
+	new_diskno INTEGER NOT NULL ENCODE lzo,
+	new_address BIGINT NOT NULL ENCODE lzo,
+	context CHAR(24) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_res_leaks
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	mark INTEGER NOT NULL ENCODE lzo,
+	restype CHAR(30) NOT NULL ENCODE lzo,
+	leakinfo CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_restarted_sessions
+(
+	currenttime TIMESTAMP NOT NULL ENCODE lzo,
+	dbname CHAR(50) NOT NULL ENCODE lzo,
+	newpid INTEGER NOT NULL ENCODE lzo,
+	oldpid INTEGER NOT NULL ENCODE lzo,
+	username CHAR(50) NOT NULL ENCODE lzo,
+	remotehost CHAR(32) NOT NULL ENCODE lzo,
+	remoteport CHAR(32) NOT NULL ENCODE lzo,
+	parkedtime TIMESTAMP NOT NULL ENCODE lzo,
+	session_vars CHAR(2000) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_restarted_sessions_internal
+(
+	currenttime TIMESTAMP NOT NULL ENCODE lzo,
+	is_reforkable CHAR(10) NOT NULL ENCODE lzo,
+	temp_tbl_created CHAR(10) NOT NULL ENCODE lzo,
+	named_prep_stmt_ct INTEGER NOT NULL ENCODE lzo,
+	unnamed_stmt_ct INTEGER NOT NULL ENCODE lzo,
+	in_xact_blk CHAR(10) NOT NULL ENCODE lzo,
+	is_read_only CHAR(10) NOT NULL ENCODE lzo,
+	is_single_stmt_query CHAR(10) NOT NULL ENCODE lzo,
+	conn_state CHAR(100) NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	in_authentication CHAR(10) NOT NULL ENCODE lzo,
+	is_bootstrap CHAR(10) NOT NULL ENCODE lzo,
+	is_restarted_session CHAR(10) NOT NULL ENCODE lzo,
+	is_extended_protocol CHAR(10) NOT NULL ENCODE lzo,
+	is_idle_connection CHAR(10) NOT NULL ENCODE lzo,
+	current_executing_command CHAR(10) NOT NULL ENCODE lzo,
+	is_ssl_compressed CHAR(10) NOT NULL ENCODE lzo,
+	is_protocol_v3 CHAR(10) NOT NULL ENCODE lzo,
+	are_commands_repeated CHAR(10) NOT NULL ENCODE lzo,
+	unsupported_command_sequence CHAR(10) NOT NULL ENCODE lzo,
+	can_reissue_query CHAR(10) NOT NULL ENCODE lzo,
+	parked_state_in_proxy CHAR(10) NOT NULL ENCODE lzo,
+	session_size BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_restore
+(
+	db_name CHAR(50) NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	seq INTEGER NOT NULL ENCODE lzo,
+	backup_name CHAR(256) NOT NULL ENCODE lzo,
+	backup_label CHAR(64) NOT NULL ENCODE lzo,
+	source_cluster_name CHAR(32) NOT NULL ENCODE lzo,
+	source_db_name CHAR(50) NOT NULL ENCODE lzo,
+	source_backup_starttime TIMESTAMP NOT NULL ENCODE lzo,
+	backup_type CHAR(12) NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	succeeded INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_result_cache_history
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	cache_hit_query INTEGER NOT NULL ENCODE lzo,
+	source_query INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_result_cache_stats
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	num_entries INTEGER NOT NULL ENCODE lzo,
+	num_valid_entries INTEGER NOT NULL ENCODE lzo,
+	lookup_count BIGINT NOT NULL ENCODE lzo,
+	hit_count BIGINT NOT NULL ENCODE lzo,
+	populate_count BIGINT NOT NULL ENCODE lzo,
+	evict_count BIGINT NOT NULL ENCODE lzo,
+	invalidate_count BIGINT NOT NULL ENCODE lzo,
+	mem_usage BIGINT NOT NULL ENCODE lzo,
+	match_count BIGINT NOT NULL ENCODE lzo,
+	telemetry CHAR(500) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_return
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	packets INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_rlf_scan
+(
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	section INTEGER NOT NULL ENCODE lzo,
+	total_time BIGINT NOT NULL ENCODE lzo,
+	min_time BIGINT NOT NULL ENCODE lzo,
+	max_time BIGINT NOT NULL ENCODE lzo,
+	windows_processed BIGINT NOT NULL ENCODE lzo,
+	blocks_opened BIGINT NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	materialized_columns CHAR(300) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_rpc
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	requests BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_s3client
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	http_method CHAR(64) NOT NULL ENCODE lzo,
+	bucket CHAR(64) NOT NULL ENCODE lzo,
+	key CHAR(256) NOT NULL ENCODE lzo,
+	transfer_size BIGINT NOT NULL ENCODE lzo,
+	data_size BIGINT NOT NULL ENCODE lzo,
+	start_time BIGINT NOT NULL ENCODE lzo,
+	end_time BIGINT NOT NULL ENCODE lzo,
+	transfer_time BIGINT NOT NULL ENCODE lzo,
+	compression_time BIGINT NOT NULL ENCODE lzo,
+	connect_time BIGINT NOT NULL ENCODE lzo,
+	app_connect_time BIGINT NOT NULL ENCODE lzo,
+	retries INTEGER NOT NULL ENCODE lzo,
+	request_id CHAR(32) NOT NULL ENCODE lzo,
+	extended_request_id CHAR(128) NOT NULL ENCODE lzo,
+	ip_address CHAR(64) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_s3client_error
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	sliceid INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	http_method CHAR(64) NOT NULL ENCODE lzo,
+	bucket CHAR(64) NOT NULL ENCODE lzo,
+	key CHAR(256) NOT NULL ENCODE lzo,
+	error CHAR(1024) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_s3client_trace
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	http_method CHAR(64) NOT NULL ENCODE lzo,
+	bucket CHAR(64) NOT NULL ENCODE lzo,
+	key CHAR(256) NOT NULL ENCODE lzo,
+	message CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_s3list
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	uuid CHAR(36) NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	eventtime TIMESTAMP NOT NULL ENCODE lzo,
+	bucket CHAR(256) NOT NULL ENCODE lzo,
+	prefix CHAR(256) NOT NULL ENCODE lzo,
+	recursive CHAR(1) NOT NULL ENCODE lzo,
+	retrieved_files INTEGER NOT NULL ENCODE lzo,
+	max_file_size BIGINT NOT NULL ENCODE lzo,
+	avg_file_size DOUBLE PRECISION NOT NULL ENCODE none,
+	duration BIGINT NOT NULL ENCODE lzo,
+	generated_splits INTEGER NOT NULL ENCODE lzo,
+	avg_split_length DOUBLE PRECISION NOT NULL ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_s3log
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	is_internal INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	uuid CHAR(36) NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	eventtime TIMESTAMP NOT NULL ENCODE lzo,
+	message CHAR(512) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_s3partition_elimination
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	uuid CHAR(36) NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	total_partitions INTEGER NOT NULL ENCODE lzo,
+	qualified_partitions INTEGER NOT NULL ENCODE lzo,
+	assignment CHAR(1) NOT NULL ENCODE lzo,
+	duration BIGINT NOT NULL ENCODE lzo,
+	assigned_partitions INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_s3pushdown
+(
+	query INTEGER NOT NULL ENCODE lzo,
+	object_type CHAR(24) NOT NULL ENCODE lzo,
+	oid INTEGER NOT NULL ENCODE lzo,
+	argument_type CHAR(32) NOT NULL ENCODE lzo,
+	return_type CHAR(16) NOT NULL ENCODE lzo,
+	is_supported CHAR(1) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_s3query
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	uuid CHAR(36) NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	external_table_name CHAR(136) NOT NULL ENCODE lzo,
+	is_partitioned CHAR(1) NOT NULL ENCODE lzo,
+	is_rrscan CHAR(1) NOT NULL ENCODE lzo,
+	s3_scanned_rows BIGINT NOT NULL ENCODE lzo,
+	s3_scanned_bytes BIGINT NOT NULL ENCODE lzo,
+	s3query_returned_rows BIGINT NOT NULL ENCODE lzo,
+	s3query_returned_bytes BIGINT NOT NULL ENCODE lzo,
+	files INTEGER NOT NULL ENCODE lzo,
+	total_retries INTEGER NOT NULL ENCODE lzo,
+	max_retries INTEGER NOT NULL ENCODE lzo,
+	max_request_duration BIGINT NOT NULL ENCODE lzo,
+	avg_request_duration BIGINT NOT NULL ENCODE lzo,
+	max_request_parallelism INTEGER NOT NULL ENCODE lzo,
+	max_allowed_parallelism INTEGER NOT NULL ENCODE lzo,
+	avg_request_parallelism DOUBLE PRECISION NOT NULL ENCODE none,
+	splits INTEGER NOT NULL ENCODE lzo,
+	total_split_size BIGINT NOT NULL ENCODE lzo,
+	max_split_size BIGINT NOT NULL ENCODE lzo,
+	request_fingerprint BIGINT NOT NULL ENCODE lzo,
+	file_format CHAR(16) NOT NULL ENCODE lzo,
+	cache_hits INTEGER NOT NULL ENCODE lzo,
+	is_copy INTEGER NOT NULL ENCODE lzo,
+	is_nested CHAR(1) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_s3query_billing_trace
+(
+	eventtime TIMESTAMP NOT NULL ENCODE lzo,
+	requestid CHAR(40) NOT NULL ENCODE lzo,
+	errtype CHAR(64) NOT NULL ENCODE lzo,
+	errmsg CHAR(400) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_s3requests
+(
+	query INTEGER NOT NULL ENCODE lzo,
+	uuid CHAR(36) NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	eventtime TIMESTAMP NOT NULL ENCODE lzo,
+	duration BIGINT NOT NULL ENCODE lzo,
+	retry_count INTEGER NOT NULL ENCODE lzo,
+	returned_rows BIGINT NOT NULL ENCODE lzo,
+	fetched INTEGER NOT NULL ENCODE lzo,
+	file_size BIGINT NOT NULL ENCODE lzo,
+	start_offset BIGINT NOT NULL ENCODE lzo,
+	length BIGINT NOT NULL ENCODE lzo,
+	file_name CHAR(512) NOT NULL ENCODE lzo,
+	last_timeout BIGINT NOT NULL ENCODE lzo,
+	failed INTEGER NOT NULL ENCODE lzo,
+	etag CHAR(512) NOT NULL ENCODE lzo,
+	num_splits INTEGER NOT NULL ENCODE lzo,
+	cache_status INTEGER NOT NULL ENCODE lzo,
+	returned_bytes BIGINT NOT NULL ENCODE lzo,
+	s3_scanned_rows BIGINT NOT NULL ENCODE lzo,
+	s3_scanned_bytes BIGINT NOT NULL ENCODE lzo,
+	location CHAR(128) NOT NULL ENCODE lzo,
+	latency_caching_batches BIGINT NOT NULL ENCODE lzo,
+	latency_caching_manifest BIGINT NOT NULL ENCODE lzo,
+	row_groups BIGINT NOT NULL ENCODE lzo,
+	skipped_row_groups BIGINT NOT NULL ENCODE lzo,
+	skipped_rows BIGINT NOT NULL ENCODE lzo,
+	expected_duration BIGINT NOT NULL ENCODE lzo,
+	read_count BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_s3retries
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	uuid CHAR(36) NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	eventtime TIMESTAMP NOT NULL ENCODE lzo,
+	retries INTEGER NOT NULL ENCODE lzo,
+	successful_fetches INTEGER NOT NULL ENCODE lzo,
+	file_size BIGINT NOT NULL ENCODE lzo,
+	start_offset BIGINT NOT NULL ENCODE lzo,
+	length BIGINT NOT NULL ENCODE lzo,
+	location CHAR(256) NOT NULL ENCODE lzo,
+	message CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_save
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_scan
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	fetches BIGINT NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	is_rrscan CHAR(1) NOT NULL ENCODE lzo,
+	is_delayed_scan CHAR(1) NOT NULL ENCODE lzo,
+	rows_pre_filter BIGINT NOT NULL ENCODE lzo,
+	rows_pre_user_filter BIGINT NOT NULL ENCODE lzo,
+	perm_table_name CHAR(136) NOT NULL ENCODE lzo,
+	is_rlf_scan CHAR(1) NOT NULL ENCODE lzo,
+	is_rlf_scan_reason INTEGER NOT NULL ENCODE lzo,
+	num_em_blocks INTEGER NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_seg_completed_notify
+(
+	query INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	scheduled TIMESTAMP NOT NULL ENCODE lzo,
+	completed TIMESTAMP NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_segment_ends_cleanly
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	dispatched TIMESTAMP NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	seg INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_segment_starts
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	seg INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_sem_pool
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	semid INTEGER NOT NULL ENCODE lzo,
+	semnum INTEGER NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_sem_stat
+(
+	currenttime TIMESTAMP NOT NULL ENCODE lzo,
+	sampletime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	count BIGINT NOT NULL ENCODE lzo,
+	waittime BIGINT NOT NULL ENCODE lzo,
+	longest BIGINT NOT NULL ENCODE lzo,
+	mutex_requests BIGINT NOT NULL ENCODE lzo,
+	name CHAR(25) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_sem_usage
+(
+	currenttime TIMESTAMP NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	last INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	count BIGINT NOT NULL ENCODE lzo,
+	waittime BIGINT NOT NULL ENCODE lzo,
+	longest BIGINT NOT NULL ENCODE lzo,
+	mutex_requests BIGINT NOT NULL ENCODE lzo,
+	name CHAR(25) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_server_write_timings
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	instance INTEGER NOT NULL ENCODE lzo,
+	write_size BIGINT NOT NULL ENCODE lzo,
+	wait_for_data BIGINT NOT NULL ENCODE lzo,
+	collect_data BIGINT NOT NULL ENCODE lzo,
+	iolocal BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_sessions
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	process INTEGER NOT NULL ENCODE lzo,
+	user_name CHAR(50) NOT NULL ENCODE lzo,
+	db_name CHAR(50) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_small_table_commit
+(
+	xid BIGINT NOT NULL ENCODE lzo,
+	record_time TIMESTAMP NOT NULL ENCODE lzo,
+	status INTEGER NOT NULL ENCODE lzo,
+	lock_duration BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_small_table_convert_event
+(
+	xid BIGINT NOT NULL ENCODE lzo,
+	query BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	start_time TIMESTAMP NOT NULL ENCODE lzo,
+	end_time TIMESTAMP NOT NULL ENCODE lzo,
+	command CHAR(128) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_smfaults
+(
+	seq INTEGER NOT NULL ENCODE lzo,
+	run INTEGER NOT NULL ENCODE lzo,
+	mon_type CHAR(128) NOT NULL ENCODE lzo,
+	mon_name CHAR(128) NOT NULL ENCODE lzo,
+	severity INTEGER NOT NULL ENCODE lzo,
+	resolution_dbup CHAR(128) NOT NULL ENCODE lzo,
+	resolution_dbdown CHAR(128) NOT NULL ENCODE lzo,
+	code INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	observer CHAR(15) NOT NULL ENCODE lzo,
+	culprit CHAR(15) NOT NULL ENCODE lzo,
+	msg CHAR(256) NOT NULL ENCODE lzo,
+	xml_extra CHAR(2048) NOT NULL ENCODE lzo,
+	has_measure_val INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_smfaults_cleared
+(
+	seq INTEGER NOT NULL ENCODE lzo,
+	run INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	msg CHAR(256) NOT NULL ENCODE lzo,
+	resolution CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_smfaults_mval
+(
+	seq INTEGER NOT NULL ENCODE lzo,
+	run INTEGER NOT NULL ENCODE lzo,
+	thresh BIGINT NOT NULL ENCODE lzo,
+	value BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_smfaults_overflow
+(
+	parent_seq INTEGER NOT NULL ENCODE lzo,
+	parent_run INTEGER NOT NULL ENCODE lzo,
+	seq INTEGER NOT NULL ENCODE lzo,
+	run INTEGER NOT NULL ENCODE lzo,
+	mon_type CHAR(128) NOT NULL ENCODE lzo,
+	mon_name CHAR(128) NOT NULL ENCODE lzo,
+	severity INTEGER NOT NULL ENCODE lzo,
+	resolution_dbup CHAR(128) NOT NULL ENCODE lzo,
+	resolution_dbdown CHAR(128) NOT NULL ENCODE lzo,
+	code INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	observer CHAR(15) NOT NULL ENCODE lzo,
+	culprit CHAR(15) NOT NULL ENCODE lzo,
+	msg CHAR(256) NOT NULL ENCODE lzo,
+	xml_extra CHAR(2048) NOT NULL ENCODE lzo,
+	has_measure_val INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_smlog
+(
+	seq INTEGER NOT NULL ENCODE lzo,
+	ip CHAR(15) NOT NULL ENCODE lzo,
+	process CHAR(15) NOT NULL ENCODE lzo,
+	level INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	file CHAR(64) NOT NULL ENCODE lzo,
+	linenum INTEGER NOT NULL ENCODE lzo,
+	sys_errno INTEGER NOT NULL ENCODE lzo,
+	errno_str CHAR(64) NOT NULL ENCODE lzo,
+	msg CHAR(256) NOT NULL ENCODE lzo,
+	stack CHAR(512) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_snapshotbackup
+(
+	snapshotname CHAR(20) NOT NULL ENCODE lzo,
+	xid INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	status CHAR(15) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_sort
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo,
+	checksum BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_sorted_checker
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	qid BIGINT NOT NULL ENCODE lzo,
+	relid BIGINT NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	total_rows BIGINT NOT NULL ENCODE lzo,
+	expected_sorted BIGINT NOT NULL ENCODE lzo,
+	checked_rows BIGINT NOT NULL ENCODE lzo,
+	ooo_rows BIGINT NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	status INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_sorted_checker_leader
+(
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	qid BIGINT NOT NULL ENCODE lzo,
+	dbname CHAR(128) NOT NULL ENCODE lzo,
+	schema CHAR(128) NOT NULL ENCODE lzo,
+	tablename CHAR(128) NOT NULL ENCODE lzo,
+	relid BIGINT NOT NULL ENCODE lzo,
+	colid BIGINT NOT NULL ENCODE lzo,
+	datatype INTEGER NOT NULL ENCODE lzo,
+	compression INTEGER NOT NULL ENCODE lzo,
+	sorted_corrupt INTEGER NOT NULL ENCODE lzo,
+	num_incorrect_sorted_rows BIGINT NOT NULL ENCODE lzo,
+	fixer INTEGER NOT NULL ENCODE lzo,
+	version INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_spectrum_cache_error
+(
+	query INTEGER NOT NULL ENCODE lzo,
+	cache_key CHAR(200) NOT NULL ENCODE lzo,
+	eventtime TIMESTAMP NOT NULL ENCODE lzo,
+	error_id INTEGER NOT NULL ENCODE lzo,
+	error_details CHAR(350) NOT NULL ENCODE lzo,
+	system_error INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_sshclient_error
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	sliceid INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	ssh_username CHAR(1024) NOT NULL ENCODE lzo,
+	endpoint CHAR(1024) NOT NULL ENCODE lzo,
+	command CHAR(4096) NOT NULL ENCODE lzo,
+	error CHAR(1024) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_stack_trace
+(
+	node CHAR(16) NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	process CHAR(20) NOT NULL ENCODE lzo,
+	frame INTEGER NOT NULL ENCODE lzo,
+	address CHAR(20) NOT NULL ENCODE lzo,
+	instruction CHAR(100) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_step_parse
+(
+	slice INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	segnum INTEGER NOT NULL ENCODE lzo,
+	linenum INTEGER NOT NULL ENCODE lzo,
+	field INTEGER NOT NULL ENCODE lzo,
+	data CHAR(90) NOT NULL ENCODE lzo,
+	filename CHAR(90) NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_steps
+(
+	query INTEGER NOT NULL ENCODE lzo,
+	nodeid INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_stream_segs
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	stream INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_superblock_integrity_error
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	raw_disk_addr BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_superblock_vacuum
+(
+	leaderstarttime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	nodestarttime TIMESTAMP NOT NULL ENCODE lzo,
+	nodeendtime TIMESTAMP NOT NULL ENCODE lzo,
+	commitstarttime TIMESTAMP NOT NULL ENCODE lzo,
+	commitendtime TIMESTAMP NOT NULL ENCODE lzo,
+	success INTEGER NOT NULL ENCODE lzo,
+	permbefore BIGINT NOT NULL ENCODE lzo,
+	tempbefore BIGINT NOT NULL ENCODE lzo,
+	leadersnapshotbefore BIGINT NOT NULL ENCODE lzo,
+	pgwalbefore BIGINT NOT NULL ENCODE lzo,
+	metadatabefore BIGINT NOT NULL ENCODE lzo,
+	freebefore BIGINT NOT NULL ENCODE lzo,
+	allocatedbefore BIGINT NOT NULL ENCODE lzo,
+	permafter BIGINT NOT NULL ENCODE lzo,
+	tempafter BIGINT NOT NULL ENCODE lzo,
+	leadersnapshotafter BIGINT NOT NULL ENCODE lzo,
+	pgwalafter BIGINT NOT NULL ENCODE lzo,
+	metadataafter BIGINT NOT NULL ENCODE lzo,
+	freeafter BIGINT NOT NULL ENCODE lzo,
+	allocatedafter BIGINT NOT NULL ENCODE lzo,
+	freelistbefore BIGINT NOT NULL ENCODE lzo,
+	freelistafter BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_swap
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	event CHAR(10) NOT NULL ENCODE lzo,
+	address INTEGER NOT NULL ENCODE lzo,
+	content CHAR(24) NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	size INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_tr_conflict
+(
+	xact_id BIGINT NOT NULL ENCODE lzo,
+	process_id BIGINT NOT NULL ENCODE lzo,
+	xact_start_ts TIMESTAMP NOT NULL ENCODE lzo,
+	abort_time TIMESTAMP NOT NULL ENCODE lzo,
+	table_id BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_udf
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	udfid INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_udf_compile_error
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	error CHAR(4096) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_udf_log
+(
+	query BIGINT NOT NULL ENCODE lzo,
+	message CHAR(4096) NOT NULL ENCODE lzo,
+	created TIMESTAMP NOT NULL ENCODE lzo,
+	filename CHAR(256) NOT NULL ENCODE lzo,
+	funcname CHAR(256) NOT NULL ENCODE lzo,
+	level_name CHAR(64) NOT NULL ENCODE lzo,
+	level_number INTEGER NOT NULL ENCODE lzo,
+	lineno INTEGER NOT NULL ENCODE lzo,
+	module CHAR(256) NOT NULL ENCODE lzo,
+	msecs DOUBLE PRECISION NOT NULL ENCODE none,
+	name CHAR(256) NOT NULL ENCODE lzo,
+	path_name CHAR(256) NOT NULL ENCODE lzo,
+	process BIGINT NOT NULL ENCODE lzo,
+	process_name CHAR(256) NOT NULL ENCODE lzo,
+	relative_created DOUBLE PRECISION NOT NULL ENCODE none,
+	thread BIGINT NOT NULL ENCODE lzo,
+	thread_name CHAR(256) NOT NULL ENCODE lzo,
+	traceback CHAR(4096) NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	seq INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_udf_trace
+(
+	component CHAR(128) NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	udfid INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	sequence INTEGER NOT NULL ENCODE lzo,
+	message CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_undo_transactions
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	table_id INTEGER NOT NULL ENCODE lzo,
+	tables_done INTEGER NOT NULL ENCODE lzo,
+	tables_total INTEGER NOT NULL ENCODE lzo,
+	table_name CHAR(137) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_undone
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	xact_id BIGINT NOT NULL ENCODE lzo,
+	xact_id_undone BIGINT NOT NULL ENCODE lzo,
+	undo_start_ts TIMESTAMP NOT NULL ENCODE lzo,
+	undo_end_ts TIMESTAMP NOT NULL ENCODE lzo,
+	table_id BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_unique
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	type CHAR(6) NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	slots INTEGER NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo,
+	max_buffers_used BIGINT NOT NULL ENCODE lzo,
+	resizes INTEGER NOT NULL ENCODE lzo,
+	occupied INTEGER NOT NULL ENCODE lzo,
+	flushable INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_unload_log
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	path CHAR(1280) NOT NULL ENCODE lzo,
+	start_time TIMESTAMP NOT NULL ENCODE lzo,
+	end_time TIMESTAMP NOT NULL ENCODE lzo,
+	line_count BIGINT NOT NULL ENCODE lzo,
+	transfer_size BIGINT NOT NULL ENCODE lzo,
+	file_format CHAR(10) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_userlog
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	username CHAR(50) NOT NULL ENCODE lzo,
+	oldusername CHAR(50) NOT NULL ENCODE lzo,
+	action CHAR(10) NOT NULL ENCODE lzo,
+	usecreatedb INTEGER NOT NULL ENCODE lzo,
+	usesuper INTEGER NOT NULL ENCODE lzo,
+	usecatupd INTEGER NOT NULL ENCODE lzo,
+	valuntil TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_utilitytext
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	label CHAR(30) NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	sequence INTEGER NOT NULL ENCODE lzo,
+	text CHAR(200) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_vacuum
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	table_id INTEGER NOT NULL ENCODE lzo,
+	status CHAR(30) NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	sortedrows BIGINT NOT NULL ENCODE lzo,
+	blocks INTEGER NOT NULL ENCODE lzo,
+	max_merge_partitions INTEGER NOT NULL ENCODE lzo,
+	eventtime TIMESTAMP NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_vacuum_detail
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	part INTEGER NOT NULL ENCODE lzo,
+	start_row BIGINT NOT NULL ENCODE lzo,
+	end_row BIGINT NOT NULL ENCODE lzo,
+	num_new_rows BIGINT NOT NULL ENCODE lzo,
+	num_blocks_replaced BIGINT NOT NULL ENCODE lzo,
+	total_block_io_estimate BIGINT NOT NULL ENCODE lzo,
+	window_num INTEGER NOT NULL ENCODE lzo,
+	num_deleted_rows BIGINT NOT NULL ENCODE lzo,
+	compact INTEGER NOT NULL ENCODE lzo,
+	num_new_blocks BIGINT NOT NULL ENCODE lzo,
+	empty_space_size BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_version
+(
+	bootstrap_time TIMESTAMP NOT NULL ENCODE lzo,
+	db_version CHAR(50) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_warning
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	process CHAR(12) NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	file CHAR(20) NOT NULL ENCODE lzo,
+	linenum INTEGER NOT NULL ENCODE lzo,
+	bug_desc CHAR(512) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_window
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_wlm_error
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	error_string CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_wlm_query
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	task INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	service_class INTEGER NOT NULL ENCODE lzo,
+	slot_count INTEGER NOT NULL ENCODE lzo,
+	service_class_start_time TIMESTAMP NOT NULL ENCODE lzo,
+	queue_start_time TIMESTAMP NOT NULL ENCODE lzo,
+	queue_end_time TIMESTAMP NOT NULL ENCODE lzo,
+	total_queue_time BIGINT NOT NULL ENCODE lzo,
+	exec_start_time TIMESTAMP NOT NULL ENCODE lzo,
+	exec_end_time TIMESTAMP NOT NULL ENCODE lzo,
+	total_exec_time BIGINT NOT NULL ENCODE lzo,
+	service_class_end_time TIMESTAMP NOT NULL ENCODE lzo,
+	final_state CHAR(16) NOT NULL ENCODE lzo,
+	est_peak_mem BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_wlm_rule_action
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	service_class INTEGER NOT NULL ENCODE lzo,
+	rule CHAR(256) NOT NULL ENCODE lzo,
+	action CHAR(256) NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_wlm_trace
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	component CHAR(64) NOT NULL ENCODE lzo,
+	event CHAR(128) NOT NULL ENCODE lzo,
+	detail CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stl_wlm_trace_query_state
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	task INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	service_class INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	old_state CHAR(16) NOT NULL ENCODE lzo,
+	new_state CHAR(16) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_active_cursors
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	name CHAR(256) NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	row_count BIGINT NOT NULL ENCODE lzo,
+	byte_count BIGINT NOT NULL ENCODE lzo,
+	fetched_rows BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_aio_reads
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	allocated_now INTEGER NOT NULL ENCODE lzo,
+	allocated_high_water INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_aio_writes
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	allocated_now INTEGER NOT NULL ENCODE lzo,
+	allocated_high_water INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_allocator
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	num_allocated INTEGER NOT NULL ENCODE lzo,
+	user_allocated BIGINT NOT NULL ENCODE lzo,
+	size_allocated BIGINT NOT NULL ENCODE lzo,
+	max_num_allocated INTEGER NOT NULL ENCODE lzo,
+	max_user_allocated BIGINT NOT NULL ENCODE lzo,
+	max_size_allocated BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_available_backups
+(
+	repository_name CHAR(32) NOT NULL ENCODE lzo,
+	instance_name CHAR(32) NOT NULL ENCODE lzo,
+	db_name CHAR(50) NOT NULL ENCODE lzo,
+	backup_name CHAR(256) NOT NULL ENCODE lzo,
+	backup_label CHAR(64) NOT NULL ENCODE lzo,
+	backup_type CHAR(12) NOT NULL ENCODE lzo,
+	parent_backup_name CHAR(256) NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	start_xid BIGINT NOT NULL ENCODE lzo,
+	end_xid BIGINT NOT NULL ENCODE lzo,
+	blocks BIGINT NOT NULL ENCODE lzo,
+	comment CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_backup_state
+(
+	db_name CHAR(50) NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	repository_name CHAR(32) NOT NULL ENCODE lzo,
+	backup_name CHAR(256) NOT NULL ENCODE lzo,
+	backup_type CHAR(12) NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	num_tables INTEGER NOT NULL ENCODE lzo,
+	num_tables_complete INTEGER NOT NULL ENCODE lzo,
+	est_pct_complete INTEGER NOT NULL ENCODE lzo,
+	est_time_complete TIMESTAMP NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_block_limits_metadata
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	index INTEGER NOT NULL ENCODE lzo,
+	allocated INTEGER NOT NULL ENCODE lzo,
+	minvalue CHAR(16) NOT NULL ENCODE lzo,
+	maxvalue CHAR(16) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_block_lru
+(
+	slice INTEGER NOT NULL ENCODE lzo,
+	lru INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	blocknum INTEGER NOT NULL ENCODE lzo,
+	disk_pos INTEGER NOT NULL ENCODE lzo,
+	num_values INTEGER NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	pinned INTEGER NOT NULL ENCODE lzo,
+	modified INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_block_reps
+(
+	blkid CHAR(64) NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	blknum BIGINT NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	host_node INTEGER NOT NULL ENCODE lzo,
+	local INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	in_s3 INTEGER NOT NULL ENCODE lzo,
+	reps INTEGER NOT NULL ENCODE lzo,
+	invalid INTEGER NOT NULL ENCODE lzo,
+	failed INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_blocklist
+(
+	slice INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	blocknum INTEGER NOT NULL ENCODE lzo,
+	num_values INTEGER NOT NULL ENCODE lzo,
+	extended_limits INTEGER NOT NULL ENCODE lzo,
+	minvalue BIGINT NOT NULL ENCODE lzo,
+	maxvalue BIGINT NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	pinned INTEGER NOT NULL ENCODE lzo,
+	on_disk INTEGER NOT NULL ENCODE lzo,
+	backed_up INTEGER NOT NULL ENCODE lzo,
+	modified INTEGER NOT NULL ENCODE lzo,
+	hdr_modified INTEGER NOT NULL ENCODE lzo,
+	unsorted INTEGER NOT NULL ENCODE lzo,
+	tombstone INTEGER NOT NULL ENCODE lzo,
+	preferred_diskno INTEGER NOT NULL ENCODE lzo,
+	temporary INTEGER NOT NULL ENCODE lzo,
+	newblock INTEGER NOT NULL ENCODE lzo,
+	num_readers INTEGER NOT NULL ENCODE lzo,
+	id CHAR(64) NOT NULL ENCODE lzo,
+	flags INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_cache_policy_stats
+(
+	node_num INTEGER NOT NULL ENCODE lzo,
+	name CHAR(64) NOT NULL ENCODE lzo,
+	value BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_channel_reservation
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	channel INTEGER NOT NULL ENCODE lzo,
+	reserved INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_channel_sink
+(
+	channel INTEGER NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	dst_slice INTEGER NOT NULL ENCODE lzo,
+	numcloses INTEGER NOT NULL ENCODE lzo,
+	queued INTEGER NOT NULL ENCODE lzo,
+	src_slice INTEGER NOT NULL ENCODE lzo,
+	seqnum BIGINT NOT NULL ENCODE lzo,
+	rwin INTEGER NOT NULL ENCODE lzo,
+	xoff INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_channel_source
+(
+	channel INTEGER NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	src_slice INTEGER NOT NULL ENCODE lzo,
+	bcast INTEGER NOT NULL ENCODE lzo,
+	dst_slice INTEGER NOT NULL ENCODE lzo,
+	seqnum BIGINT NOT NULL ENCODE lzo,
+	rwin INTEGER NOT NULL ENCODE lzo,
+	unacked INTEGER NOT NULL ENCODE lzo,
+	max_acked_seqnum BIGINT NOT NULL ENCODE lzo,
+	queued INTEGER NOT NULL ENCODE lzo,
+	slice_proxy BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_channel_usage
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	channel INTEGER NOT NULL ENCODE lzo,
+	address INTEGER NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	issource INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_code_pool
+(
+	code_id INTEGER NOT NULL ENCODE lzo,
+	use_count INTEGER NOT NULL ENCODE lzo,
+	use_total INTEGER NOT NULL ENCODE lzo,
+	position INTEGER NOT NULL ENCODE lzo,
+	chain INTEGER NOT NULL ENCODE lzo,
+	path CHAR(255) NOT NULL ENCODE lzo,
+	src_buf_size BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_comm_diag_ping_stats
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	ip_addr CHAR(16) NOT NULL ENCODE lzo,
+	status CHAR(5) NOT NULL ENCODE lzo,
+	elapsed_time_us INTEGER NOT NULL ENCODE lzo,
+	expected_seq BIGINT NOT NULL ENCODE lzo,
+	recd_seq BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_comm_slice
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	unacked INTEGER NOT NULL ENCODE lzo,
+	sendwin INTEGER NOT NULL ENCODE lzo,
+	total_unacked INTEGER NOT NULL ENCODE lzo,
+	regulator BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_compression
+(
+	slice INTEGER NOT NULL ENCODE lzo,
+	id INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	encoding INTEGER NOT NULL ENCODE lzo,
+	size BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_configuration
+(
+	name CHAR(64) NOT NULL ENCODE lzo,
+	value CHAR(512) NOT NULL ENCODE lzo,
+	category CHAR(24) NOT NULL ENCODE lzo,
+	short_desc CHAR(128) NOT NULL ENCODE lzo,
+	extra_desc CHAR(256) NOT NULL ENCODE lzo,
+	context CHAR(12) NOT NULL ENCODE lzo,
+	vartype CHAR(16) NOT NULL ENCODE lzo,
+	source CHAR(24) NOT NULL ENCODE lzo,
+	min_val CHAR(24) NOT NULL ENCODE lzo,
+	max_val CHAR(24) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_core_stat
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	core INTEGER NOT NULL ENCODE lzo,
+	elapsed INTEGER NOT NULL ENCODE lzo,
+	utime BIGINT NOT NULL ENCODE lzo,
+	stime BIGINT NOT NULL ENCODE lzo,
+	ntime BIGINT NOT NULL ENCODE lzo,
+	idle BIGINT NOT NULL ENCODE lzo,
+	iowait BIGINT NOT NULL ENCODE lzo,
+	irq BIGINT NOT NULL ENCODE lzo,
+	softirq BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_cursor_configuration
+(
+	current_cursor_count INTEGER NOT NULL ENCODE lzo,
+	max_diskspace_usable INTEGER NOT NULL ENCODE lzo,
+	current_diskspace_used INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_disk_addresses
+(
+	slice INTEGER NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	disk_address BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_disk_extents
+(
+	owner INTEGER NOT NULL ENCODE lzo,
+	host INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	start_addr BIGINT NOT NULL ENCODE lzo,
+	end_addr BIGINT NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	num_allocated INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_disk_map
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	id INTEGER NOT NULL ENCODE lzo,
+	disk INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_exec_state
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	currenttime TIMESTAMP NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	bytes BIGINT NOT NULL ENCODE lzo,
+	label CHAR(256) NOT NULL ENCODE lzo,
+	is_diskbased CHAR(1) NOT NULL ENCODE lzo,
+	workmem BIGINT NOT NULL ENCODE lzo,
+	num_parts INTEGER NOT NULL ENCODE lzo,
+	is_rrscan CHAR(1) NOT NULL ENCODE lzo,
+	is_delayed_scan CHAR(1) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_external_columns
+(
+	esoid INTEGER NOT NULL ENCODE lzo,
+	schemaname CHAR(128) NOT NULL ENCODE lzo,
+	tablename CHAR(128) NOT NULL ENCODE lzo,
+	columnname CHAR(128) NOT NULL ENCODE lzo,
+	external_type CHAR(128) NOT NULL ENCODE lzo,
+	columnnum INTEGER NOT NULL ENCODE lzo,
+	part_key INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_external_databases
+(
+	eskind INTEGER NOT NULL ENCODE lzo,
+	esoptions CHAR(128) NOT NULL ENCODE lzo,
+	databasename CHAR(128) NOT NULL ENCODE lzo,
+	location CHAR(128) NOT NULL ENCODE lzo,
+	parameters CHAR(128) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_external_partitions
+(
+	esoid INTEGER NOT NULL ENCODE lzo,
+	schemaname CHAR(128) NOT NULL ENCODE lzo,
+	tablename CHAR(128) NOT NULL ENCODE lzo,
+	values CHAR(512) NOT NULL ENCODE lzo,
+	location CHAR(128) NOT NULL ENCODE lzo,
+	input_format CHAR(128) NOT NULL ENCODE lzo,
+	output_format CHAR(128) NOT NULL ENCODE lzo,
+	serialization_lib CHAR(128) NOT NULL ENCODE lzo,
+	serde_parameters CHAR(128) NOT NULL ENCODE lzo,
+	compressed INTEGER NOT NULL ENCODE lzo,
+	parameters CHAR(128) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_external_tables
+(
+	esoid INTEGER NOT NULL ENCODE lzo,
+	schemaname CHAR(128) NOT NULL ENCODE lzo,
+	tablename CHAR(128) NOT NULL ENCODE lzo,
+	location CHAR(128) NOT NULL ENCODE lzo,
+	input_format CHAR(128) NOT NULL ENCODE lzo,
+	output_format CHAR(128) NOT NULL ENCODE lzo,
+	serialization_lib CHAR(128) NOT NULL ENCODE lzo,
+	serde_parameters CHAR(128) NOT NULL ENCODE lzo,
+	compressed INTEGER NOT NULL ENCODE lzo,
+	parameters CHAR(128) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_fdisk_stats
+(
+	node_num INTEGER NOT NULL ENCODE lzo,
+	name CHAR(32) NOT NULL ENCODE lzo,
+	value BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_fragmentation
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	disk INTEGER NOT NULL ENCODE lzo,
+	frag_pct DOUBLE PRECISION NOT NULL ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_gui_status
+(
+	start_time TIMESTAMP NOT NULL ENCODE lzo,
+	num_nodes INTEGER NOT NULL ENCODE lzo,
+	num_sessions INTEGER NOT NULL ENCODE lzo,
+	total_queries INTEGER NOT NULL ENCODE lzo,
+	recent_queries INTEGER NOT NULL ENCODE lzo,
+	load_time TIMESTAMP NOT NULL ENCODE lzo,
+	system_status CHAR(30) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_identity_highwater
+(
+	tbl INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	highwater BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_inflight
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	label CHAR(30) NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	text CHAR(100) NOT NULL ENCODE lzo,
+	suspended INTEGER NOT NULL ENCODE lzo,
+	insert_pristine INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_interleaved_counts
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	index INTEGER NOT NULL ENCODE lzo,
+	active INTEGER NOT NULL ENCODE lzo,
+	compressed_val INTEGER NOT NULL ENCODE lzo,
+	count BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_invalid_replication
+(
+	slice INTEGER NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	node0 INTEGER NOT NULL ENCODE lzo,
+	diskno0 INTEGER NOT NULL ENCODE lzo,
+	node1 INTEGER NOT NULL ENCODE lzo,
+	diskno1 INTEGER NOT NULL ENCODE lzo,
+	node2 INTEGER NOT NULL ENCODE lzo,
+	diskno2 INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_invisible_xact
+(
+	xid BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_io_local_pending
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	pending INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_io_local_pending_time
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	pending_time INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_io_local_times
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	is_write INTEGER NOT NULL ENCODE lzo,
+	os_sum BIGINT NOT NULL ENCODE lzo,
+	submit_sum BIGINT NOT NULL ENCODE lzo,
+	num_io BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_io_raidp_client_pending
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	instance INTEGER NOT NULL ENCODE lzo,
+	pending INTEGER NOT NULL ENCODE lzo,
+	awaiting_write_auth INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_io_raidp_server_pending
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	instance INTEGER NOT NULL ENCODE lzo,
+	started_tasks INTEGER NOT NULL ENCODE lzo,
+	postponed_tasks INTEGER NOT NULL ENCODE lzo,
+	awaiting_bytes INTEGER NOT NULL ENCODE lzo,
+	submitted_io INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_io_readahead
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	scanner INTEGER NOT NULL ENCODE lzo,
+	fraction DOUBLE PRECISION NOT NULL ENCODE none,
+	numblocks INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_io_stat
+(
+	owner INTEGER NOT NULL ENCODE lzo,
+	host INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	table_id INTEGER NOT NULL ENCODE lzo,
+	is_write INTEGER NOT NULL ENCODE lzo,
+	io_size INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_ip
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	ip CHAR(15) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_load_state
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	session INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	bytes_to_load BIGINT NOT NULL ENCODE lzo,
+	bytes_loaded BIGINT NOT NULL ENCODE lzo,
+	bytes_to_load_compressed BIGINT NOT NULL ENCODE lzo,
+	bytes_loaded_compressed BIGINT NOT NULL ENCODE lzo,
+	lines BIGINT NOT NULL ENCODE lzo,
+	num_files INTEGER NOT NULL ENCODE lzo,
+	num_files_complete INTEGER NOT NULL ENCODE lzo,
+	current_file CHAR(256) NOT NULL ENCODE lzo,
+	pct_complete INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_local_block_cache_state
+(
+	slice INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	blocknum INTEGER NOT NULL ENCODE lzo,
+	backup_state INTEGER NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo,
+	state INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_locks
+(
+	table_id BIGINT NOT NULL ENCODE lzo,
+	last_commit TIMESTAMP NOT NULL ENCODE lzo,
+	last_update TIMESTAMP NOT NULL ENCODE lzo,
+	lock_owner BIGINT NOT NULL ENCODE lzo,
+	lock_owner_pid BIGINT NOT NULL ENCODE lzo,
+	lock_owner_start_ts TIMESTAMP NOT NULL ENCODE lzo,
+	lock_owner_end_ts TIMESTAMP NOT NULL ENCODE lzo,
+	lock_status CHAR(22) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_mem_alloc_history
+(
+	process CHAR(12) NOT NULL ENCODE lzo,
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	alloc INTEGER NOT NULL ENCODE lzo,
+	address BIGINT NOT NULL ENCODE lzo,
+	size INTEGER NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_mem_fragmentation
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	allocator CHAR(16) NOT NULL ENCODE lzo,
+	available BIGINT NOT NULL ENCODE lzo,
+	fragmentation DOUBLE PRECISION NOT NULL ENCODE none,
+	blocks_4k BIGINT NOT NULL ENCODE lzo,
+	blocks_8k BIGINT NOT NULL ENCODE lzo,
+	blocks_16k BIGINT NOT NULL ENCODE lzo,
+	blocks_32k BIGINT NOT NULL ENCODE lzo,
+	blocks_64k BIGINT NOT NULL ENCODE lzo,
+	blocks_128k BIGINT NOT NULL ENCODE lzo,
+	blocks_256k BIGINT NOT NULL ENCODE lzo,
+	blocks_512k BIGINT NOT NULL ENCODE lzo,
+	blocks_1m BIGINT NOT NULL ENCODE lzo,
+	blocks_2m BIGINT NOT NULL ENCODE lzo,
+	blocks_4m BIGINT NOT NULL ENCODE lzo,
+	blocks_8m BIGINT NOT NULL ENCODE lzo,
+	blocks_16m BIGINT NOT NULL ENCODE lzo,
+	blocks_32m BIGINT NOT NULL ENCODE lzo,
+	blocks_64m BIGINT NOT NULL ENCODE lzo,
+	blocks_128m BIGINT NOT NULL ENCODE lzo,
+	blocks_256m BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_mem_freelist
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	uid INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	requested BIGINT NOT NULL ENCODE lzo,
+	roundedsize BIGINT NOT NULL ENCODE lzo,
+	page BIGINT NOT NULL ENCODE lzo,
+	leaked INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_mem_freelist_len
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	allocated BIGINT NOT NULL ENCODE lzo,
+	buffercount INTEGER NOT NULL ENCODE lzo,
+	pagecount INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_mem_leaks
+(
+	recordtime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	uid INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	requested BIGINT NOT NULL ENCODE lzo,
+	allocated BIGINT NOT NULL ENCODE lzo,
+	page BIGINT NOT NULL ENCODE lzo,
+	leaked INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_net_stat
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	iface CHAR(20) NOT NULL ENCODE lzo,
+	rxbytes BIGINT NOT NULL ENCODE lzo,
+	rxpackets BIGINT NOT NULL ENCODE lzo,
+	rxerrors BIGINT NOT NULL ENCODE lzo,
+	rxdrops BIGINT NOT NULL ENCODE lzo,
+	rxfifo BIGINT NOT NULL ENCODE lzo,
+	rxframe BIGINT NOT NULL ENCODE lzo,
+	rxcompressed BIGINT NOT NULL ENCODE lzo,
+	rxmulticast BIGINT NOT NULL ENCODE lzo,
+	txbytes BIGINT NOT NULL ENCODE lzo,
+	txpackets BIGINT NOT NULL ENCODE lzo,
+	txerrors BIGINT NOT NULL ENCODE lzo,
+	txdrops BIGINT NOT NULL ENCODE lzo,
+	txfifo BIGINT NOT NULL ENCODE lzo,
+	txcollisions BIGINT NOT NULL ENCODE lzo,
+	txcarrier BIGINT NOT NULL ENCODE lzo,
+	txcompressed BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_networks
+(
+	ip CHAR(15) NOT NULL ENCODE lzo,
+	network CHAR(32) NOT NULL ENCODE lzo,
+	state CHAR(4) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_nodes
+(
+	ip CHAR(15) NOT NULL ENCODE lzo,
+	duty CHAR(16) NOT NULL ENCODE lzo,
+	is_pingable CHAR(1) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_partitions
+(
+	owner INTEGER NOT NULL ENCODE lzo,
+	host INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	part_begin BIGINT NOT NULL ENCODE lzo,
+	part_end BIGINT NOT NULL ENCODE lzo,
+	used INTEGER NOT NULL ENCODE lzo,
+	tossed INTEGER NOT NULL ENCODE lzo,
+	capacity INTEGER NOT NULL ENCODE lzo,
+	reads BIGINT NOT NULL ENCODE lzo,
+	writes BIGINT NOT NULL ENCODE lzo,
+	seek_forward INTEGER NOT NULL ENCODE lzo,
+	seek_back INTEGER NOT NULL ENCODE lzo,
+	is_san INTEGER NOT NULL ENCODE lzo,
+	failed INTEGER NOT NULL ENCODE lzo,
+	mbps INTEGER NOT NULL ENCODE lzo,
+	mount CHAR(256) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_pg_wal_length
+(
+	num_blocks INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_proc_stat
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo,
+	elapsed INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	tasknum INTEGER NOT NULL ENCODE lzo,
+	utime BIGINT NOT NULL ENCODE lzo,
+	stime BIGINT NOT NULL ENCODE lzo,
+	memory BIGINT NOT NULL ENCODE lzo,
+	name CHAR(50) NOT NULL ENCODE lzo,
+	state CHAR(1) NOT NULL ENCODE lzo,
+	ppid INTEGER NOT NULL ENCODE lzo,
+	pgrp INTEGER NOT NULL ENCODE lzo,
+	session INTEGER NOT NULL ENCODE lzo,
+	tty_nr INTEGER NOT NULL ENCODE lzo,
+	tpgid INTEGER NOT NULL ENCODE lzo,
+	flags BIGINT NOT NULL ENCODE lzo,
+	minflt BIGINT NOT NULL ENCODE lzo,
+	cminflt BIGINT NOT NULL ENCODE lzo,
+	majflt BIGINT NOT NULL ENCODE lzo,
+	cmajflt BIGINT NOT NULL ENCODE lzo,
+	cutime BIGINT NOT NULL ENCODE lzo,
+	cstime BIGINT NOT NULL ENCODE lzo,
+	priority BIGINT NOT NULL ENCODE lzo,
+	nice BIGINT NOT NULL ENCODE lzo,
+	ignore0 BIGINT NOT NULL ENCODE lzo,
+	itrealvalue BIGINT NOT NULL ENCODE lzo,
+	starttime BIGINT NOT NULL ENCODE lzo,
+	vsize BIGINT NOT NULL ENCODE lzo,
+	rss BIGINT NOT NULL ENCODE lzo,
+	rlim BIGINT NOT NULL ENCODE lzo,
+	startcode BIGINT NOT NULL ENCODE lzo,
+	endcode BIGINT NOT NULL ENCODE lzo,
+	startstack BIGINT NOT NULL ENCODE lzo,
+	kstkesp BIGINT NOT NULL ENCODE lzo,
+	kstkeip BIGINT NOT NULL ENCODE lzo,
+	signal BIGINT NOT NULL ENCODE lzo,
+	blocked BIGINT NOT NULL ENCODE lzo,
+	sigignore BIGINT NOT NULL ENCODE lzo,
+	sigcatch BIGINT NOT NULL ENCODE lzo,
+	wchan BIGINT NOT NULL ENCODE lzo,
+	nswap BIGINT NOT NULL ENCODE lzo,
+	cnswap BIGINT NOT NULL ENCODE lzo,
+	exit_signal INTEGER NOT NULL ENCODE lzo,
+	processor INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_profiler
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	context CHAR(512) NOT NULL ENCODE lzo,
+	elapsed_time BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_query_mem_leaks
+(
+	isquery CHAR(1) NOT NULL ENCODE lzo,
+	id INTEGER NOT NULL ENCODE lzo,
+	pname CHAR(15) NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	type INTEGER NOT NULL ENCODE lzo,
+	rounded BIGINT NOT NULL ENCODE lzo,
+	itemcount BIGINT NOT NULL ENCODE lzo,
+	totalrequested BIGINT NOT NULL ENCODE lzo,
+	totalrounded BIGINT NOT NULL ENCODE lzo,
+	totalconsumed BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_query_metrics
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	service_class INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	segment INTEGER NOT NULL ENCODE lzo,
+	step_type INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	slices INTEGER NOT NULL ENCODE lzo,
+	max_rows BIGINT NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	max_cpu_time BIGINT NOT NULL ENCODE lzo,
+	cpu_time BIGINT NOT NULL ENCODE lzo,
+	max_blocks_read INTEGER NOT NULL ENCODE lzo,
+	blocks_read BIGINT NOT NULL ENCODE lzo,
+	max_run_time BIGINT NOT NULL ENCODE lzo,
+	run_time BIGINT NOT NULL ENCODE lzo,
+	max_blocks_to_disk BIGINT NOT NULL ENCODE lzo,
+	blocks_to_disk BIGINT NOT NULL ENCODE lzo,
+	step INTEGER NOT NULL ENCODE lzo,
+	max_query_scan_size BIGINT NOT NULL ENCODE lzo,
+	query_scan_size BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_query_stats
+(
+	node_num BIGINT NOT NULL ENCODE lzo,
+	query_id BIGINT NOT NULL ENCODE lzo,
+	temp_blocks BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_recent_io
+(
+	slice INTEGER NOT NULL ENCODE lzo,
+	tbl INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	is_write INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	prefetched INTEGER NOT NULL ENCODE lzo,
+	node_num INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo,
+	io_size INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_recents
+(
+	userid INTEGER NOT NULL ENCODE lzo,
+	status CHAR(20) NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	duration BIGINT NOT NULL ENCODE lzo,
+	user_name CHAR(50) NOT NULL ENCODE lzo,
+	db_name CHAR(50) NOT NULL ENCODE lzo,
+	query CHAR(600) NOT NULL ENCODE lzo,
+	pid INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_resize_library_import
+(
+	library_name CHAR(128) NOT NULL ENCODE lzo,
+	owner_name CHAR(128) NOT NULL ENCODE lzo,
+	language_name CHAR(128) NOT NULL ENCODE lzo,
+	is_imported INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_resize_state
+(
+	status CHAR(20) NOT NULL ENCODE lzo,
+	origin CHAR(24) NOT NULL ENCODE lzo,
+	snapshot_copied INTEGER NOT NULL ENCODE lzo,
+	rebuild_xid INTEGER NOT NULL ENCODE lzo,
+	schema_imported INTEGER NOT NULL ENCODE lzo,
+	metadata_imported INTEGER NOT NULL ENCODE lzo,
+	total_tables INTEGER NOT NULL ENCODE lzo,
+	tables_imported INTEGER NOT NULL ENCODE lzo,
+	total_libraries INTEGER NOT NULL ENCODE lzo,
+	libraries_imported INTEGER NOT NULL ENCODE lzo,
+	retries_left INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	failure_reason CHAR(256) NOT NULL ENCODE lzo,
+	src_instance_type CHAR(20) NOT NULL ENCODE lzo,
+	dst_instance_type CHAR(20) NOT NULL ENCODE lzo,
+	src_node_cnt INTEGER NOT NULL ENCODE lzo,
+	dst_node_cnt INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_resize_table_import
+(
+	table_name CHAR(128) NOT NULL ENCODE lzo,
+	db_name CHAR(128) NOT NULL ENCODE lzo,
+	schema_name CHAR(128) NOT NULL ENCODE lzo,
+	is_imported INTEGER NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	endtime TIMESTAMP NOT NULL ENCODE lzo,
+	row_count BIGINT NOT NULL ENCODE lzo,
+	src_blk_cnt BIGINT NOT NULL ENCODE lzo,
+	tgt_blk_cnt BIGINT NOT NULL ENCODE lzo,
+	dist_style INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_restore_state
+(
+	db_name CHAR(50) NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo,
+	seq INTEGER NOT NULL ENCODE lzo,
+	repository_name CHAR(32) NOT NULL ENCODE lzo,
+	backup_name CHAR(256) NOT NULL ENCODE lzo,
+	backup_type CHAR(12) NOT NULL ENCODE lzo,
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	num_tables INTEGER NOT NULL ENCODE lzo,
+	num_tables_complete INTEGER NOT NULL ENCODE lzo,
+	est_pct_complete INTEGER NOT NULL ENCODE lzo,
+	est_time_complete TIMESTAMP NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_restore_table_state
+(
+	table_id INTEGER NOT NULL ENCODE lzo,
+	node INTEGER NOT NULL ENCODE lzo,
+	total_blocks BIGINT NOT NULL ENCODE lzo,
+	blocks_restored BIGINT NOT NULL ENCODE lzo,
+	in_progress INTEGER NOT NULL ENCODE lzo,
+	allow_snapshot_delete INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_result_cache
+(
+	cache_id INTEGER NOT NULL ENCODE lzo,
+	source_query INTEGER NOT NULL ENCODE lzo,
+	invalidated_by BIGINT NOT NULL ENCODE lzo,
+	result_size_rows BIGINT NOT NULL ENCODE lzo,
+	result_size_bytes BIGINT NOT NULL ENCODE lzo,
+	hit_count BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_sem_usage
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	count BIGINT NOT NULL ENCODE lzo,
+	waiting_time BIGINT NOT NULL ENCODE lzo,
+	longest BIGINT NOT NULL ENCODE lzo,
+	longest_timestamp TIMESTAMP NOT NULL ENCODE lzo,
+	mutex_requests BIGINT NOT NULL ENCODE lzo,
+	name CHAR(25) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_sessions
+(
+	starttime TIMESTAMP NOT NULL ENCODE lzo,
+	process INTEGER NOT NULL ENCODE lzo,
+	user_name CHAR(50) NOT NULL ENCODE lzo,
+	db_name CHAR(50) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_shmmem_stats
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	type CHAR(25) NOT NULL ENCODE lzo,
+	allocated BIGINT NOT NULL ENCODE lzo,
+	freed BIGINT NOT NULL ENCODE lzo,
+	highmark BIGINT NOT NULL ENCODE lzo,
+	allocated_size BIGINT NOT NULL ENCODE lzo,
+	freed_size BIGINT NOT NULL ENCODE lzo,
+	highmark_size BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_slices
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	slice INTEGER NOT NULL ENCODE lzo,
+	localslice INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_spectrum_cache_state
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	cache_disabled INTEGER NOT NULL ENCODE lzo,
+	valid_encryption_key INTEGER NOT NULL ENCODE lzo,
+	ddb_table CHAR(100) NOT NULL ENCODE lzo,
+	s3_bucket CHAR(100) NOT NULL ENCODE lzo,
+	tokens_available INTEGER NOT NULL ENCODE lzo,
+	max_tokens INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_startup_recovery_state
+(
+	db_id INTEGER NOT NULL ENCODE lzo,
+	table_id INTEGER NOT NULL ENCODE lzo,
+	table_name CHAR(137) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_superblock
+(
+	node INTEGER NOT NULL ENCODE lzo,
+	fs_version BIGINT NOT NULL ENCODE lzo,
+	sb_version BIGINT NOT NULL ENCODE lzo,
+	defrag_version BIGINT NOT NULL ENCODE lzo,
+	num_blocks INTEGER NOT NULL ENCODE lzo,
+	high_qid BIGINT NOT NULL ENCODE lzo,
+	crc INTEGER NOT NULL ENCODE lzo,
+	flags INTEGER NOT NULL ENCODE lzo,
+	num_uncommitted BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_superblock_locations
+(
+	owner INTEGER NOT NULL ENCODE lzo,
+	host INTEGER NOT NULL ENCODE lzo,
+	diskno INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_tbl_perm
+(
+	slice INTEGER NOT NULL ENCODE lzo,
+	id INTEGER NOT NULL ENCODE lzo,
+	name CHAR(72) NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	sorted_rows BIGINT NOT NULL ENCODE lzo,
+	temp INTEGER NOT NULL ENCODE lzo,
+	db_id INTEGER NOT NULL ENCODE lzo,
+	insert_pristine INTEGER NOT NULL ENCODE lzo,
+	delete_pristine INTEGER NOT NULL ENCODE lzo,
+	backup INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_tbl_perm_property
+(
+	slice INTEGER NOT NULL ENCODE lzo,
+	db_id INTEGER NOT NULL ENCODE lzo,
+	namespace_id INTEGER NOT NULL ENCODE lzo,
+	id INTEGER NOT NULL ENCODE lzo,
+	name CHAR(72) NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	sorted_rows BIGINT NOT NULL ENCODE lzo,
+	temp INTEGER NOT NULL ENCODE lzo,
+	insert_pristine INTEGER NOT NULL ENCODE lzo,
+	delete_pristine INTEGER NOT NULL ENCODE lzo,
+	backup INTEGER NOT NULL ENCODE lzo,
+	dist INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_tbl_trans
+(
+	slice INTEGER NOT NULL ENCODE lzo,
+	id INTEGER NOT NULL ENCODE lzo,
+	rows BIGINT NOT NULL ENCODE lzo,
+	size BIGINT NOT NULL ENCODE lzo,
+	query_id BIGINT NOT NULL ENCODE lzo,
+	ref_cnt INTEGER NOT NULL ENCODE lzo,
+	from_suspended INTEGER NOT NULL ENCODE lzo,
+	prep_swap INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_transactions
+(
+	xid BIGINT NOT NULL ENCODE lzo,
+	pid BIGINT NOT NULL ENCODE lzo,
+	start_ts TIMESTAMP NOT NULL ENCODE lzo,
+	end_ts TIMESTAMP NOT NULL ENCODE lzo,
+	w_table_id INTEGER NOT NULL ENCODE lzo,
+	rtl_count INTEGER NOT NULL ENCODE lzo,
+	wtl_count INTEGER NOT NULL ENCODE lzo,
+	skip_lock INTEGER NOT NULL ENCODE lzo,
+	ended INTEGER NOT NULL ENCODE lzo,
+	in_rollback INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_underrepped_blocks
+(
+	slice INTEGER NOT NULL ENCODE lzo,
+	sb_pos INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_vacuum_state
+(
+	slice BIGINT NOT NULL ENCODE lzo,
+	table_id BIGINT NOT NULL ENCODE lzo,
+	seq BIGINT NOT NULL ENCODE lzo,
+	operation BIGINT NOT NULL ENCODE lzo,
+	merge_start INTEGER NOT NULL ENCODE lzo,
+	merge_end INTEGER NOT NULL ENCODE lzo,
+	part INTEGER NOT NULL ENCODE lzo,
+	part_rows BIGINT NOT NULL ENCODE lzo,
+	part_rows_processed BIGINT NOT NULL ENCODE lzo,
+	unsorted_rows BIGINT NOT NULL ENCODE lzo,
+	total_rows BIGINT NOT NULL ENCODE lzo,
+	last_processed_row BIGINT NOT NULL ENCODE lzo,
+	deleted_rows BIGINT NOT NULL ENCODE lzo,
+	inserted_rows BIGINT NOT NULL ENCODE lzo,
+	start_time TIMESTAMP NOT NULL ENCODE lzo,
+	end_time TIMESTAMP NOT NULL ENCODE lzo,
+	xid BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_wlm_classification_config
+(
+	id INTEGER NOT NULL ENCODE lzo,
+	condition CHAR(128) NOT NULL ENCODE lzo,
+	action_seq INTEGER NOT NULL ENCODE lzo,
+	action CHAR(64) NOT NULL ENCODE lzo,
+	action_service_class INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_wlm_config
+(
+	name CHAR(64) NOT NULL ENCODE lzo,
+	value CHAR(128) NOT NULL ENCODE lzo,
+	command CHAR(128) NOT NULL ENCODE lzo,
+	comment CHAR(128) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_wlm_config_internal
+(
+	name CHAR(64) NOT NULL ENCODE lzo,
+	value CHAR(128) NOT NULL ENCODE lzo,
+	command CHAR(128) NOT NULL ENCODE lzo,
+	comment CHAR(128) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_wlm_qmr_config
+(
+	service_class INTEGER NOT NULL ENCODE lzo,
+	rule_name CHAR(256) NOT NULL ENCODE lzo,
+	action CHAR(256) NOT NULL ENCODE lzo,
+	metric_name CHAR(256) NOT NULL ENCODE lzo,
+	metric_operator CHAR(2) NOT NULL ENCODE lzo,
+	metric_value DOUBLE PRECISION NOT NULL ENCODE none
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_wlm_query_queue_state
+(
+	service_class INTEGER NOT NULL ENCODE lzo,
+	position INTEGER NOT NULL ENCODE lzo,
+	task INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slot_count INTEGER NOT NULL ENCODE lzo,
+	start_time TIMESTAMP NOT NULL ENCODE lzo,
+	queue_time BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_wlm_query_state
+(
+	xid BIGINT NOT NULL ENCODE lzo,
+	task INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	service_class INTEGER NOT NULL ENCODE lzo,
+	slot_count INTEGER NOT NULL ENCODE lzo,
+	wlm_start_time TIMESTAMP NOT NULL ENCODE lzo,
+	state CHAR(16) NOT NULL ENCODE lzo,
+	queue_time BIGINT NOT NULL ENCODE lzo,
+	exec_time BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_wlm_query_task_state
+(
+	service_class INTEGER NOT NULL ENCODE lzo,
+	task INTEGER NOT NULL ENCODE lzo,
+	query INTEGER NOT NULL ENCODE lzo,
+	slot_count INTEGER NOT NULL ENCODE lzo,
+	start_time TIMESTAMP NOT NULL ENCODE lzo,
+	exec_time BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_wlm_service_class_config
+(
+	service_class INTEGER NOT NULL ENCODE lzo,
+	queueing_strategy CHAR(32) NOT NULL ENCODE lzo,
+	num_query_tasks INTEGER NOT NULL ENCODE lzo,
+	target_num_query_tasks INTEGER NOT NULL ENCODE lzo,
+	evictable CHAR(8) NOT NULL ENCODE lzo,
+	eviction_threshold BIGINT NOT NULL ENCODE lzo,
+	query_working_mem INTEGER NOT NULL ENCODE lzo,
+	target_query_working_mem INTEGER NOT NULL ENCODE lzo,
+	min_step_mem INTEGER NOT NULL ENCODE lzo,
+	name CHAR(64) NOT NULL ENCODE lzo,
+	max_execution_time INTEGER NOT NULL ENCODE lzo,
+	user_group_wild_card CHAR(8) NOT NULL ENCODE lzo,
+	query_group_wild_card CHAR(8) NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_wlm_service_class_state
+(
+	service_class INTEGER NOT NULL ENCODE lzo,
+	num_queued_queries INTEGER NOT NULL ENCODE lzo,
+	num_executing_queries INTEGER NOT NULL ENCODE lzo,
+	num_serviced_queries INTEGER NOT NULL ENCODE lzo,
+	num_executed_queries INTEGER NOT NULL ENCODE lzo,
+	num_evicted_queries INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.stv_xact
+(
+	xid BIGINT NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE pg_catalog.systable_globaldict
+(
+	basetable_id INTEGER NOT NULL ENCODE lzo,
+	col INTEGER NOT NULL ENCODE lzo,
+	gdict_tbl_id INTEGER NOT NULL ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
