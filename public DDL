@@ -1,0 +1,135 @@
+CREATE TABLE public.combinedorderlineitems
+(
+	combinedliid VARCHAR(90) NOT NULL ENCODE lzo,
+	internalliid VARCHAR(10) ENCODE lzo,
+	externalliid VARCHAR(50) ENCODE lzo,
+	externalliidsource VARCHAR(30) ENCODE lzo,
+	combinedoid VARCHAR(90) ENCODE lzo,
+	internaloid VARCHAR(10) ENCODE lzo,
+	externaloid VARCHAR(50) ENCODE lzo,
+	externaloidsource VARCHAR(30) ENCODE lzo,
+	sku VARCHAR(30) ENCODE lzo,
+	quantity INTEGER ENCODE lzo,
+	unitprice NUMERIC(6, 2) ENCODE lzo,
+	unitcogs NUMERIC(6, 2) ENCODE lzo,
+	lastupdatedate TIMESTAMP ENCODE lzo,
+	shipped BOOLEAN ENCODE none,
+	shipdatetime TIMESTAMP ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+ALTER TABLE public.combinedorderlineitems
+ADD CONSTRAINT combinedorderlineitems_pkey
+PRIMARY KEY (combinedliid);
+
+
+
+CREATE TABLE public.combinedorders
+(
+	combinedoid VARCHAR(90) NOT NULL ENCODE lzo,
+	internaloid VARCHAR(10) ENCODE lzo,
+	externaloid VARCHAR(50) ENCODE lzo,
+	externaloidsource VARCHAR(30) ENCODE lzo,
+	internalparentoid VARCHAR(10) ENCODE lzo,
+	orderdate TIMESTAMP ENCODE lzo,
+	channel VARCHAR(20) ENCODE lzo,
+	subchannel VARCHAR(20) ENCODE lzo,
+	ordertype VARCHAR(50) ENCODE lzo,
+	ordersubtype VARCHAR(50) ENCODE lzo,
+	retailer VARCHAR(50) ENCODE lzo,
+	vendornumber VARCHAR(4) ENCODE lzo,
+	storenumber VARCHAR(4) ENCODE lzo,
+	lineitemtotal NUMERIC(12, 2) ENCODE lzo,
+	taxtotal NUMERIC(12, 2) ENCODE lzo,
+	discounttotal NUMERIC(12, 2) ENCODE lzo,
+	shippingtotal NUMERIC(12, 2) ENCODE lzo,
+	feetotal NUMERIC(12, 2) ENCODE lzo,
+	shippingtype VARCHAR(50) ENCODE lzo,
+	shippingaddresstype VARCHAR(50) ENCODE lzo,
+	shippingfirstname VARCHAR(100) ENCODE lzo,
+	shippinglastname VARCHAR(100) ENCODE lzo,
+	shippingcompany VARCHAR(50) ENCODE lzo,
+	shippingaddress VARCHAR(200) ENCODE lzo,
+	shippingaddress2 VARCHAR(200) ENCODE lzo,
+	shippingcity VARCHAR(100) ENCODE lzo,
+	shippingstate VARCHAR(100) ENCODE lzo,
+	shippingzipcode VARCHAR(50) ENCODE lzo,
+	shippingcountry VARCHAR(50) ENCODE lzo,
+	shippingphone VARCHAR(50) ENCODE lzo,
+	shippingfax VARCHAR(50) ENCODE lzo,
+	cashier VARCHAR(50) ENCODE lzo,
+	register VARCHAR(20) ENCODE lzo,
+	email VARCHAR(100) ENCODE lzo,
+	paymentmethod VARCHAR(50) ENCODE lzo,
+	cardtype VARCHAR(50) ENCODE lzo,
+	lat VARCHAR(50) ENCODE lzo,
+	lon VARCHAR(50) ENCODE lzo,
+	dma VARCHAR(100) ENCODE lzo,
+	county VARCHAR(100) ENCODE lzo,
+	cbsa VARCHAR(100) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+ALTER TABLE public.combinedorders
+ADD CONSTRAINT combinedorders_pkey
+PRIMARY KEY (combinedoid);
+
+
+
+CREATE TABLE public.combinedproducts
+(
+	sku VARCHAR(100) ENCODE lzo,
+	mastersku VARCHAR(100) ENCODE lzo,
+	amazonasin VARCHAR(100) ENCODE lzo,
+	amazonsku VARCHAR(100) ENCODE lzo,
+	upccode VARCHAR(19) ENCODE lzo,
+	barcode VARCHAR(15) ENCODE lzo,
+	category VARCHAR(50) ENCODE lzo,
+	type VARCHAR(50) ENCODE lzo,
+	subtype VARCHAR(50) ENCODE lzo,
+	variantdescription VARCHAR(512) ENCODE lzo,
+	design VARCHAR(100) ENCODE lzo,
+	pattern VARCHAR(100) ENCODE lzo,
+	material VARCHAR(100) ENCODE lzo,
+	colorfamily VARCHAR(100) ENCODE text255,
+	primarycolor VARCHAR(100) ENCODE text255,
+	secondarycolors VARCHAR(500) ENCODE lzo,
+	width NUMERIC(6, 2) ENCODE lzo,
+	length NUMERIC(6, 2) ENCODE lzo,
+	collection VARCHAR(256) ENCODE lzo,
+	seasoncode VARCHAR(10) ENCODE lzo,
+	releasedate DATE ENCODE lzo,
+	price NUMERIC(6, 2) ENCODE lzo,
+	newgisticsstock INTEGER ENCODE lzo,
+	newgisticsstockchange TIMESTAMP ENCODE lzo,
+	onttb BOOLEAN,
+	isactive BOOLEAN,
+	datemodified TIMESTAMP ENCODE lzo,
+	catalog VARCHAR(256) ENCODE lzo,
+	leadtimedays INTEGER ENCODE lzo,
+	suppliercode VARCHAR(100) ENCODE lzo,
+	supplier VARCHAR(256) ENCODE lzo,
+	moq INTEGER ENCODE lzo,
+	dateadded TIMESTAMP ENCODE lzo,
+	fabriccare VARCHAR(100) ENCODE lzo,
+	fit VARCHAR(100) ENCODE lzo,
+	occasion VARCHAR(200) ENCODE lzo,
+	wearwith VARCHAR(200) ENCODE lzo,
+	scale VARCHAR(200) ENCODE lzo,
+	collarstyle VARCHAR(100) ENCODE lzo,
+	cuffstyle VARCHAR(100) ENCODE lzo,
+	bowtiestyle VARCHAR(200) ENCODE lzo,
+	shirtlength VARCHAR(100) ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
+CREATE TABLE public.ngsinventory
+(
+	sku VARCHAR(100) NOT NULL ENCODE lzo,
+	newgisticstock INTEGER ENCODE lzo,
+	datetime TIMESTAMP ENCODE lzo
+)
+DISTSTYLE EVEN;
+
+
